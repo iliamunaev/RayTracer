@@ -17,10 +17,10 @@ jobs:
       - name: Install build dependencies
         run: sudo apt-get update && sudo apt-get install -y build-essential
 
-      - name: Install OpenGL and X11 dependencies
+      - name: Install OpenGL, X11, and GLFW dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install -y libgl1-mesa-dev xorg-dev
+          sudo apt-get install -y libgl1-mesa-dev xorg-dev libglfw3-dev
 
       - name: Build project
         run: make
