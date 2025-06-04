@@ -14,9 +14,12 @@ HEADERS := -Iinclude -Ilib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := lib/MLX42/build/libmlx42.a -ldl -lglfw
 
-SRCS    := $(shell find ./src -name "*.c")
+SRCS    :=	src/minirt.c \
+			src/utils/utils.c
+
+
 OBJ_DIR := obj
-OBJS    := $(SRCS:./src/%.c=$(OBJ_DIR)/%.o)
+OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 # ------------------------------ Colors -------------------------------------- #
 RESET   := \033[0m
@@ -28,7 +31,7 @@ RED     := \033[31m
 all: libmlx $(NAME)
 	@echo "$(GREEN)Program $(NAME) compiled successfully!$(RESET)"
 
-# Download and build MLX42
+# Build MLX42
 libmlx:
 	@echo "$(BLUE)[LIBMLX] Building MLX42 library...$(RESET)"
 	cmake $(LIBMLX) -B $(LIBMLX)/build
@@ -40,9 +43,11 @@ $(NAME): $(OBJS)
 	$(CC) $(OBJS) $(LIBS) -o $(NAME)
 
 # Rule to compile .c files into .o and store them in obj/
-$(OBJ_DIR)/%.o: ./src/%.c | $(OBJ_DIR)
+$(OBJ_DIR)/%.o: %.c
+	@mkdir -p $(dir $@)
 	@echo "$(BLUE)Compiling: $(notdir $<)...$(RESET)"
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
+
 
 # Create obj directory if it doesn't exist
 $(OBJ_DIR):
