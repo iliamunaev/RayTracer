@@ -30,11 +30,6 @@ all: libmlx $(NAME)
 
 # Download and build MLX42
 libmlx:
-	@echo "$(BLUE)[LIBMLX] Checking for MLX42 library...$(RESET)"
-	@if [ ! -d "$(LIBMLX)" ]; then \
-		echo "$(RED)MLX42 not found! Downloading...$(RESET)"; \
-		git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX); \
-	fi
 	@echo "$(BLUE)[LIBMLX] Building MLX42 library...$(RESET)"
 	cmake $(LIBMLX) -B $(LIBMLX)/build
 	make -C $(LIBMLX)/build -j4
