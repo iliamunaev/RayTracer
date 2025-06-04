@@ -5,14 +5,14 @@ NAME    := miniRT
 CC      := cc
 CFLAGS  := -Wextra -Wall -Werror 
 
-LIBMLX  := ./libs/MLX42
+LIBMLX  := ./lib/MLX42
 
 
-HEADERS := -Iinclude -Ilibs/MLX42/include -I../include
+HEADERS := -Iinclude -Ilib/MLX42/include -I../include
 
 # lglfw: OpenGL graphics library
 # ldl: Dynamic linking library for runtime symbol resolution
-LIBS    := libs/MLX42/build/libmlx42.a -ldl -lglfw
+LIBS    := lib/MLX42/build/libmlx42.a -ldl -lglfw
 
 SRCS    := $(shell find ./src -name "*.c")
 OBJ_DIR := obj
