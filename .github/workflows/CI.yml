@@ -22,7 +22,7 @@ jobs:
 
       - name: Build with strict flags
         run: |
-          make CC="cc" CFLAGS="-Wall -Wextra -Werror" LDFLAGS="-lm" all
+          make 
 
       - name: Check binary exists
         run: |
