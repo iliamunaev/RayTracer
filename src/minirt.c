@@ -1,14 +1,5 @@
 #include "minirt.h"
 
-// int main()
-// {
-
-    
-//     printf("Hello world\n");
-
-//     return 0;
-// }
-
 int	main(int argc, char **argv)
 {
 
@@ -16,7 +7,7 @@ int	main(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    // t_rt rt;
+    t_rt rt;
 
     /* validation stage */
 
@@ -24,20 +15,20 @@ int	main(int argc, char **argv)
 	// 	return (EXIT_FAILURE);
 
 
-    mlx_t* mlx = mlx_init(256, 256, "Test", true);
-    if (!mlx)
+    rt.mlx = mlx_init(256, 256, "Test", true);
+    if (!rt.mlx)
         exit(EXIT_FAILURE);
 
-    mlx_image_t* img = mlx_new_image(mlx, 128, 128);
+    rt.scene = mlx_new_image(rt.mlx, 128, 128);
 
     // Set the channels of each pixel in our image to the maximum byte value of 255. 
-    ft_memset(img->pixels, 255, img->width * img->height * BPP);
+    ft_memset(rt.scene->pixels, 255, rt.scene->width * rt.scene->height * BPP);
 
-    mlx_image_to_window(mlx, img, 0, 0);
+    mlx_image_to_window(rt.mlx, rt.scene, 0, 0);
 
     // Run the main loop and terminate on quit.  
-    mlx_loop(mlx);
-    mlx_terminate(mlx);
+    mlx_loop(rt.mlx);
+    mlx_terminate(rt.mlx);
 
 
     /* cleanup stage*/

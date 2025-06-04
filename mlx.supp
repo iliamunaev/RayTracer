@@ -1,0 +1,36 @@
+# Suppress memory leaks in MLX42/GLFW/OpenGL/X11
+
+{
+   MLX42_GLFW_X11_leak
+   Memcheck:Leak
+   fun:malloc
+   obj:/lib*/libmlx42*.so*
+}
+
+{
+   MLX42_GLFW_leak
+   Memcheck:Leak
+   fun:malloc
+   obj:/lib*/libglfw*.so*
+}
+
+{
+   MLX42_GL_leak
+   Memcheck:Leak
+   fun:malloc
+   obj:/lib*/libGL*.so*
+}
+
+{
+   MLX42_X11_leak
+   Memcheck:Leak
+   fun:malloc
+   obj:/lib*/libX11.so*
+}
+
+{
+   MLX42_X11_addr
+   Memcheck:Addr8
+   fun:strncmp
+   obj:/lib*/libX11.so*
+}
