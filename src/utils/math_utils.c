@@ -81,3 +81,10 @@ float   dot_product(const t_tuple a, const t_tuple b)
     product = a.x * b.x + a.y * b.y + a.z * b.z;
     return (product);
 }
+
+void cross_product(t_tuple *product, const t_tuple a, const t_tuple b)
+{
+    product->x = a.y * b.z - a.z * b.y; 
+    product->y = a.z * b.x - a.x * b.z; 
+    product->z = a.x * b.y - a.y * b.x;
+}
