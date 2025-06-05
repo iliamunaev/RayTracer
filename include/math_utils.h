@@ -19,5 +19,8 @@ void add_tuples(t_tuple *c, const t_tuple a, const t_tuple b);
 void sub_tuples(t_tuple *c, const t_tuple a, const t_tuple b);
 void negate_tuple(t_tuple *tuple);
 void mult_tuple(t_tuple *tuple, float scalar);
+float    magnitude_vector(const t_tuple vector);
+void    normalize_vector(t_tuple *vector);
+float   dot_product(const t_tuple a, const t_tuple b);
 
 # endif // MATH_UTILS_H

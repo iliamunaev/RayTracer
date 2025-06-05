@@ -55,3 +55,29 @@ void dev_tuple(t_tuple *tuple, float scalar)
     tuple->y /= scalar;
     tuple->z /= scalar;
 }
+
+float    magnitude_vector(const t_tuple vector)
+{
+    float magnitude;
+
+    magnitude = sqrt(pow(vector.x, 2) + pow(vector.y , 2) + pow(vector.z, 2));
+    return (magnitude);
+}
+
+void    normalize_vector(t_tuple *vector)
+{
+    float m;
+
+    m = magnitude_vector(*vector);
+    vector->x /= m;
+    vector->y /= m;
+    vector->z /= m;
+}
+
+float   dot_product(const t_tuple a, const t_tuple b)
+{
+    float   product;
+
+    product = a.x * b.x + a.y * b.y + a.z * b.z;
+    return (product);
+}
