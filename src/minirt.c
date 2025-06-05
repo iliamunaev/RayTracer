@@ -1,5 +1,6 @@
 #include "minirt.h"
 
+
 int	main(int argc, char **argv)
 {
 
@@ -7,15 +8,30 @@ int	main(int argc, char **argv)
     (void)argc;
     (void)argv;
 
-    t_rt rt;
+    //t_rt rt;
+    t_tuple vector;
+    t_tuple point;
 
+    create_vector(&vector, 1, 2, 3);
+    create_point(&point, 5, 6, 7);
+
+    printf("v x: %f\n", vector.x);
+    printf("v y: %f\n", vector.y);
+    printf("v z: %f\n", vector.z);
+    printf("v w: %i\n", vector.w);
+
+    printf("p x: %f\n", point.x);
+    printf("p y: %f\n", point.y);
+    printf("p z: %f\n", point.z);
+    printf("p w: %i\n", point.w);
+
+    
     /* validation stage */
 
 	// if (validation() == EXIT_FAILURE)
 	// 	return (EXIT_FAILURE);
 
-
-    rt.mlx = mlx_init(256, 256, "Test", true);
+   /*  rt.mlx = mlx_init(256, 256, "Test", true);
     if (!rt.mlx)
         exit(EXIT_FAILURE);
 
@@ -28,7 +44,7 @@ int	main(int argc, char **argv)
 
     // Run the main loop and terminate on quit.  
     mlx_loop(rt.mlx);
-    mlx_terminate(rt.mlx);
+    mlx_terminate(rt.mlx); */
 
 
     /* cleanup stage*/

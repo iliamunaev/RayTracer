@@ -26,3 +26,27 @@ void	*ft_memset(void *s, int c, size_t n)
 	}
 	return (s);
 }
+
+void create_vector(t_tuple *vector, float x, float y, float z)
+{
+    vector->w = 0;
+    vector->x = x;
+    vector->y = y;
+    vector->z = z;
+}
+
+void create_point(t_tuple *point, float x, float y, float z)
+{
+    point->w = 1;
+    point->x = x;
+    point->y = y;
+    point->z = z;
+}
+
+void err(char *msg)
+{
+	if (msg)
+		while(*msg)
+			write(2, msg++, 1);
+	write(2, "\n", 1);
+}
