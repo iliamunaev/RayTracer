@@ -48,3 +48,10 @@ void mult_tuple(t_tuple *tuple, float scalar)
     tuple->y *= scalar;
     tuple->z *= scalar;
 }
+
+void dev_tuple(t_tuple *tuple, float scalar)
+{
+    tuple->x /= scalar;
+    tuple->y /= scalar;
+    tuple->z /= scalar;
+}
