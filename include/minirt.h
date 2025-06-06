@@ -46,7 +46,10 @@ typedef struct s_tuple
 }   t_tuple;
 
 //COLORS
-void        create_color(t_tuple *color, float r, float g, float b, float a);
+void        create_color(t_tuple *color, float r, float g, float b);
 uint32_t    float_to_hex(const t_tuple color);
+void        sub_colors(t_tuple *c, const t_tuple a, const t_tuple b);
+void        add_colors(t_tuple *c, const t_tuple a, const t_tuple b);
+void        mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
 
 # endif // MINIRT_H

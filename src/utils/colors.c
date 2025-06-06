@@ -10,11 +10,11 @@ uint32_t float_to_hex(const t_tuple color)
     r = (uint8_t)(color.r * 255.0f);
     g = (uint8_t)(color.g * 255.0f);
     b = (uint8_t)(color.b * 255.0f);
-    a = (uint8_t)(color.a * 255.0f);
+    a = color.a;
     return ((r << 24) | (g << 16) | (b << 8) | (a));
 }
 
-void    create_color(t_tuple *color, float r, float g, float b, float a)
+void    create_color(t_tuple *color, float r, float g, float b)
 {
     // Clamping colors not needed yet
    /*  if (r < 0)
@@ -36,5 +36,5 @@ void    create_color(t_tuple *color, float r, float g, float b, float a)
     color->r = r;
     color->g = g;
     color->b = b;
-    color->a = a;
+    color->a = 255;
 }
