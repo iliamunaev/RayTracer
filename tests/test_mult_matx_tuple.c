@@ -32,6 +32,6 @@ int main()
 	printf("tupl x: %f\n", tuple.x);
 	printf("tupl y: %f\n", tuple.y);
 	printf("tupl z: %f\n", tuple.z);
-	printf("tupl w: %i\n", tuple.w);
+	printf("tupl w: %f\n", tuple.w);
 	return 0;
 }

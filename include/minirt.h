@@ -40,8 +40,8 @@ typedef struct s_tuple
     };
     union
     {
-        uint8_t w;
-        uint8_t a;
+        float w;
+        float a;
     };
 }   t_tuple;
 
@@ -52,3 +52,4 @@ void        sub_colors(t_tuple *c, const t_tuple a, const t_tuple b);
 void        add_colors(t_tuple *c, const t_tuple a, const t_tuple b);
 void        mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
 
+#endif // MINIRT_H
