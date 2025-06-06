@@ -12,11 +12,10 @@ HEADERS := -Iinclude -Ilib/MLX42/include -I../include
 
 # lglfw: OpenGL graphics library
 # ldl: Dynamic linking library for runtime symbol resolution
-LIBS    := lib/MLX42/build/libmlx42.a -ldl -lglfw
+LIBS    := lib/MLX42/build/libmlx42.a -ldl -lglfw -lm
 
 SRCS    :=	src/minirt.c \
-			src/utils/utils.c
-
+			src/utils/utils.c src/utils/color_utils.c src/utils/colors.c src/utils/math_utils.c \
 
 OBJ_DIR := obj
 OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
