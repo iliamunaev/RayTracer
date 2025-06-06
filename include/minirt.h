@@ -8,13 +8,12 @@
 # include <math.h>
 # include <stdbool.h>
 
-
 # include "math_utils.h"
 # include "utils.h"
+# include "matrix.h"
 
 
 #define BPP sizeof(int32_t)
-# define NUM_MAT_COLS 4
 
 typedef struct s_rt
 {
@@ -29,30 +28,6 @@ typedef struct s_tuple
 	float	z;
 	uint8_t	w;
 }	t_tuple;
-
-typedef struct s_row
-{
-	float	cols[NUM_MAT_COLS];
-}	t_row;
-
-typedef struct s_matrix
-{
-	t_row	rows[NUM_MAT_COLS];
-	uint8_t	size;
-}	t_matrix;
-
-
-// matrix
-void	create_matrix(t_matrix *matrix, uint8_t size);
-void	fillup_matrix(t_matrix *matrix, const float data[]);
-bool	are_matrices_equal(const t_matrix a, const t_matrix b);
-void	mult_matxs(t_matrix *a, const t_matrix b, const t_matrix c);
-void	mult_matx_tuple(t_tuple *tuple, const t_matrix m, const t_tuple t);
-
-
-// For testing
-// Delete on production
-void print_matrix(const t_matrix matrix);
 
 # endif // MINIRT_H
 
