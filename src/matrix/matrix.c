@@ -77,3 +77,25 @@ bool	are_matrices_equal(const t_matrix a, const t_matrix b)
 	}
 	return (true);
 }
+
+void	mult_matrices(t_matrix *a, const t_matrix b, const t_matrix c)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while(i < a->size)
+	{
+		j = 0;
+		while(j < a->size)
+		{
+			a->rows[i].cols[j] =
+						b.rows[i].cols[0] * c.rows[0].cols[j] +
+						b.rows[i].cols[1] * c.rows[1].cols[j] +
+						b.rows[i].cols[2] * c.rows[2].cols[j] +
+						b.rows[i].cols[3] * c.rows[3].cols[j];
+			j++;
+		}
+		i++;
+	}
+}

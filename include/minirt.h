@@ -46,7 +46,7 @@ typedef struct s_matrix
 void	create_matrix(t_matrix *matrix, uint8_t size);
 void	fillup_matrix(t_matrix *matrix, const float data[]);
 bool	are_matrices_equal(const t_matrix a, const t_matrix b);
-
+void	mult_matrices(t_matrix *a, const t_matrix b, const t_matrix c);
 
 // For testing
 // Delete on production

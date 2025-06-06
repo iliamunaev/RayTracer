@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-
 float   radians(float degrees)
 {
     return degrees * (M_PI / 180);
@@ -84,7 +83,7 @@ float   dot_product(const t_tuple a, const t_tuple b)
 
 void cross_product(t_tuple *product, const t_tuple a, const t_tuple b)
 {
-    product->x = a.y * b.z - a.z * b.y; 
-    product->y = a.z * b.x - a.x * b.z; 
+    product->x = a.y * b.z - a.z * b.y;
+    product->y = a.z * b.x - a.x * b.z;
     product->z = a.x * b.y - a.y * b.x;
 }
