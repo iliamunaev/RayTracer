@@ -47,6 +47,8 @@ void	create_matrix(t_matrix *matrix, uint8_t size);
 void	fillup_matrix(t_matrix *matrix, const float data[]);
 bool	are_matrices_equal(const t_matrix a, const t_matrix b);
 void	mult_matxs(t_matrix *a, const t_matrix b, const t_matrix c);
+void	mult_matx_tuple(t_tuple *tuple, const t_matrix m, const t_tuple t);
+
 
 // For testing
 // Delete on production
