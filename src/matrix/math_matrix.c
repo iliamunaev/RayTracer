@@ -39,3 +39,38 @@ void mult_matx_tuple(t_tuple *tuple, const t_matrix m, const t_tuple t)
 	tuple->w = dot_row_tuple(m.rows[3].cols, t);
 }
 
+
+static void	swap(float *a, float *b)
+{
+	float	tmp;
+
+	tmp = *a;
+	*a = *b;
+	*b = tmp;
+}
+/**
+ * @brief Transposes the matrix in place (swap rows with columns).
+ *
+ * Only the upper triangle is traversed to avoid double-swapping.
+ *
+ * @param matrix Pointer to the matrix to transpose.
+ */
+void	transpose_matrix(t_matrix *matrix)
+{
+	int		i;
+	int		j;
+	float	tmp;
+
+	i = 0;
+	while (i < matrix->size)
+	{
+		j = i + 1;
+		while (j < matrix->size)
+		{
+			swap(&matrix->rows[i].cols[j], &matrix->rows[j].cols[i]);
+			j++;
+		}
+		i++;
+	}
+}
+
