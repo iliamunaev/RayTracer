@@ -30,8 +30,8 @@ void sub_tuples(t_tuple *c, const t_tuple a, const t_tuple b)
     c->y = a.y - b.y;
     c->z = a.z - b.z;
     c->w = a.w - b.w;
-    if (c->w < 0)
-        err("Error: 'w' should not be less than 0. Tried to substract point from vector");
+    /* if (c->w < 0)
+        err("Error: 'w' should not be less than 0. Tried to substract point from vector"); */
 }
 
 void negate_tuple(t_tuple *tuple)
