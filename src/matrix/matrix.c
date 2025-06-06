@@ -78,7 +78,7 @@ bool	are_matrices_equal(const t_matrix a, const t_matrix b)
 	return (true);
 }
 
-void	mult_matrices(t_matrix *a, const t_matrix b, const t_matrix c)
+void	mult_matxs(t_matrix *a, const t_matrix b, const t_matrix c)
 {
 	int i;
 	int j;

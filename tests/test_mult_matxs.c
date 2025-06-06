@@ -38,7 +38,7 @@ int main()
 	printf("Matrix c:\n");
 	print_matrix(c);
 
-	mult_matrices(&a, b, c);
+	mult_matxs(&a, b, c);
 
 	printf("Result Matrix a:\n");
 	print_matrix(a);
