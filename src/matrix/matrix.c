@@ -28,3 +28,23 @@ void	fillup_matrix(t_matrix *matrix, const float data[])
 		x++;
 	}
 }
+
+bool	are_matrices_equal(const t_matrix a, const t_matrix b)
+{
+	int i;
+	int j;
+
+	i = 0;
+	while(i < a.size)
+	{
+		j = 0;
+		while (j < b.size)
+		{
+			if(!is_equal(a.rows[i].cols[j], b.rows[i].cols[j]))
+				return (false);
+			j++;
+		}
+		i++;
+	}
+	return (true);
+}
