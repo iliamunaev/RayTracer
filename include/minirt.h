@@ -23,11 +23,33 @@ typedef struct s_rt
 
 typedef struct s_tuple
 {
-    float   x;
-    float   y;
-    float   z;
-    uint8_t w;
+    union 
+    {
+        float   x;
+        float   r;
+    };
+    union 
+    {
+        float   y;
+        float   g;
+    };
+    union 
+    {
+        float   z;
+        float   b;
+    };
+    union 
+    {
+        uint8_t w;
+        uint8_t a;
+    };
 }   t_tuple;
 
+//COLORS
+void        create_color(t_tuple *color, float r, float g, float b);
+uint32_t    float_to_hex(const t_tuple color);
+void        sub_colors(t_tuple *c, const t_tuple a, const t_tuple b);
+void        add_colors(t_tuple *c, const t_tuple a, const t_tuple b);
+void        mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
 
 # endif // MINIRT_H
