@@ -1,10 +1,29 @@
 #include "minirt.h"
 
+/**
+ * @brief Initializes a matrix with a given number of active rows.
+ *
+ * This function sets the `size` field of the matrix, which determines how many
+ * rows will be used in operations like filling or comparison.
+ *
+ * @param matrix Pointer to the matrix to initialize.
+ * @param size Number of rows to mark as used (should not exceed NUM_MAT_COLS).
+ */
 void	create_matrix(t_matrix *matrix, uint8_t size)
 {
 	matrix->size = size;
 }
 
+/**
+ * @brief Fills the matrix with values from a flat array (row-major order).
+ *
+ * Assumes that the matrix has already been initialized using `create_matrix()`.
+ * Copies `matrix->size * NUM_MAT_COLS` elements from the input array into
+ * the matrix row by row.
+ *
+ * @param matrix Pointer to the matrix to fill.
+ * @param data Flat array of float values to populate the matrix.
+ */
 void	fillup_matrix(t_matrix *matrix, const float data[])
 {
 	uint8_t	x;
@@ -29,6 +48,16 @@ void	fillup_matrix(t_matrix *matrix, const float data[])
 	}
 }
 
+/**
+ * @brief Compares two matrices for equality.
+ *
+ * This function checks that both matrices have the same number of rows
+ * (`size`) and that each corresponding element is equal using `is_equal()`.
+ *
+ * @param a First matrix.
+ * @param b Second matrix.
+ * @return true if matrices are equal; false otherwise.
+ */
 bool	are_matrices_equal(const t_matrix a, const t_matrix b)
 {
 	int i;
