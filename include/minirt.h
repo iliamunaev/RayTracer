@@ -46,5 +46,10 @@ typedef struct s_matrix
 void	create_matrix(t_matrix *matrix, uint8_t size);
 void	fillup_matrix(t_matrix *matrix, const float data[]);
 
+
+// For testing
+// Delete on production
+void print_matrix(const t_matrix matrix);
+
 # endif // MINIRT_H
 
