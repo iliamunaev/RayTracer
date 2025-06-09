@@ -22,7 +22,7 @@ typedef struct s_matrix
 
 // matrix
 void	create_identity_matrix_4x4(t_matrix *matrix);
-void	create_identity_matrix_3x3(t_matrix *matrix);
+// void	create_identity_matrix_3x3(t_matrix *matrix);
 void	create_matrix_4x4(t_matrix *matrix, const float data[]);
 void	fillup_matrix(t_matrix *matrix, const float data[]);
 bool	are_matrices_equal(const t_matrix a, const t_matrix b);
