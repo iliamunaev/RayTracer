@@ -75,13 +75,13 @@ void	transpose_matrix(t_matrix *matrix)
 }
 
 
-float	matrix_determinant_2x2(t_matrix *m)
+float	matrix_determinant_2x2(const t_matrix m)
 {
 	float	a;
 	float	b;
 	
-	a = m->rows[0].cols[0] * m->rows[1].cols[1];
-	b = m->rows[0].cols[1] * m->rows[1].cols[0];
+	a = m.rows[0].cols[0] * m.rows[1].cols[1];
+	b = m.rows[0].cols[1] * m.rows[1].cols[0];
 	return(a - b);
 }
 
@@ -113,3 +113,94 @@ void create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, u
 		b++;
 	}
 }
+
+/* float	minor(const t_matrix matrix, uint8_t col, uint8_t row)
+{
+
+	float	minor;
+	t_matrix submatrix;
+
+	create_identity_matrix_3x3(&submatrix);
+
+	create_submatrix(matrix, &submatrix, col, row);
+
+	minor = matrix_determinant_2x2(submatrix);
+
+	return (minor);
+}	 */
+
+float minor(const t_matrix matrix, uint8_t col, uint8_t row)
+{
+	t_matrix submatrix;
+	uint8_t sub_i = 0;
+	uint8_t sub_j = 0;
+	uint8_t i;
+	uint8_t j;
+
+	submatrix.size = matrix.size - 1;
+
+	i = 0;
+	while (i < matrix.size)
+	{
+		if (i == row)
+		{
+			i++;
+			continue ;
+		}
+		sub_j = 0;
+		j = 0;
+		while (j < matrix.size)
+		{
+			if (j == col)
+			{
+				j++;
+				continue;
+			}
+			submatrix.rows[sub_i].cols[sub_j] = matrix.rows[i].cols[j];
+			sub_j++;
+			j++;
+		}
+		sub_i++;
+		i++;
+	}
+
+	return determinant(submatrix);
+}
+
+
+
+
+float determinant(const t_matrix m)
+{
+    float d = 0.0f;
+    float cof;
+    uint8_t col = 0;
+
+    if (m.size == 2)
+        return matrix_determinant_2x2(m);
+
+    while (col < m.size)
+    {
+        cof = cofactor(m, col, 0);  // Cofactor for element in row 0
+        d += m.rows[0].cols[col] * cof;
+        col++;
+    }
+
+    return d;
+}
+
+
+
+
+float	cofactor(const t_matrix matrix, uint8_t col, uint8_t row)
+{
+
+	float	m;
+	t_matrix submatrix;
+
+	m = minor(matrix, col, row);
+
+	if ((col + row) % 2 != 0 )
+		m = -m;
+	return (m);
+}	

@@ -23,17 +23,14 @@ int	main(void)
 
     // step 1
 
-    create_identity_matrix_3x3(&matrix);
+    create_identity_matrix_4x4(&matrix);
 
-    float data[3] = {
-        1, 2, 3
+    float data[4] = {
+        1, 2, 3, 4
     };
 
     fillup_matrix(&matrix, data);
-
     printf("Res\n");
-
-
     print_matrix(matrix);
 
     
@@ -41,14 +38,9 @@ int	main(void)
 
     printf("\n");
 
-    m = minor(matrix,1, 2);
+    float d = determinant(matrix);
 
-
-    printf("minor: %f\n", m);
-
-    m = cofactor(matrix, 1, 2);
-
-    printf("cofactor: %f\n", m);
+    printf("determinant: %f\n", d);
 
     return (0);
 }

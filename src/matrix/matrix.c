@@ -88,3 +88,26 @@ void	create_identity_matrix_4x4(t_matrix *matrix)
 		i++;
 	}
 }
+
+void	create_identity_matrix_3x3(t_matrix *matrix)
+{
+	int	i;
+	int	j;
+
+	matrix->size = 3;
+
+	i = 0;
+	while(i < matrix->size)
+	{
+		j = 0;
+		while(j < matrix->size)
+		{
+			if (i == j)
+				matrix->rows[i].cols[j] = 1;
+			else
+				matrix->rows[i].cols[j] = 0;
+			j++;
+		}
+		i++;
+	}
+}

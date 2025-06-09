@@ -22,6 +22,7 @@ typedef struct s_matrix
 
 // matrix
 void	create_identity_matrix_4x4(t_matrix *matrix);
+void	create_identity_matrix_3x3(t_matrix *matrix);
 void	fillup_matrix(t_matrix *matrix, const float data[]);
 bool	are_matrices_equal(const t_matrix a, const t_matrix b);
 
@@ -29,8 +30,11 @@ bool	are_matrices_equal(const t_matrix a, const t_matrix b);
 void	mult_matxs(t_matrix *a, const t_matrix b, const t_matrix c);
 void	mult_matx_tuple(t_tuple *tuple, const t_matrix m, const t_tuple t);
 void	transpose_matrix(t_matrix *matrix);
-float	matrix_determinant_2x2(t_matrix *m);
+float	matrix_determinant_2x2(t_matrix m);
 void create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, uint8_t row);
+float	minor(const t_matrix matrix, uint8_t col, uint8_t row);
+float	cofactor(const t_matrix matrix, uint8_t col, uint8_t row);
+float determinant(const t_matrix m);
 
 // For testing
 // Delete on production
