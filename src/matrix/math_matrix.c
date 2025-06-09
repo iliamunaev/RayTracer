@@ -14,6 +14,7 @@ void	mult_matxs(t_matrix *a, const t_matrix b, const t_matrix c)
 	int j;
 
 	i = 0;
+	a->size = b.size;
 	while (i < a->size)
 	{
 		j = 0;

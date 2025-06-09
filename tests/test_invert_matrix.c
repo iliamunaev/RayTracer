@@ -6,30 +6,52 @@
 int	main(void)
 {
     t_matrix inverted;
-    t_matrix matrix;
+    t_matrix m_a;
+    t_matrix m_b;
+    t_matrix m_c;
+    t_matrix result;
 
-        float data[16] = {
-        -5, 2, 6, -8,
-        1, -5, 1, 8,
-        7, 7, -6, -7,
-        1, -3, 7, 4
+
+    float data[16] = {
+        3, -9, 7, 3,
+        3, -8, 2, -9,
+        -4, 4, 4, 1,
+        -6, 5, -1, 1
+    };
+    float data_2[16] = {
+        8, 2, 2, 2,
+        3, -1, 7, 0,
+        7, 0, 5, 4,
+        6, -2, 0, 5
     };
 
 
 
 
 
-    create_matrix_4x4(&matrix, data);
+    create_matrix_4x4(&m_a, data);
     printf("Res\n");
-    print_matrix(matrix);
+    print_matrix(m_a);
 
-    
     printf("\n");
 
-    invert_matrix(&inverted, matrix);
+    create_matrix_4x4(&m_b, data_2);
+    printf("Res_2\n");
+    print_matrix(m_b);
 
-      print_matrix(inverted);
+    printf("\n");
 
+
+    mult_matxs(&m_c, m_a, m_b);
+
+
+    invert_matrix(&inverted, m_b);
+
+    mult_matxs(&result, m_c, inverted);
+
+
+    printf(" result = \n");
+    print_matrix(result);
 
     return (0);
 }

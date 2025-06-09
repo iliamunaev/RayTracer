@@ -34,7 +34,7 @@ bool	are_matrices_equal(const t_matrix a, const t_matrix b)
 }
 
 // data[16] has always 16 values
-void	fillup_matrix(t_matrix *matrix, const float data[])
+void	create_matrix_4x4(t_matrix *matrix, const float data[])
 {
 	uint8_t	x;
 	uint8_t	y;
@@ -43,6 +43,7 @@ void	fillup_matrix(t_matrix *matrix, const float data[])
 	x = 0;
 	i = 0;
 
+	matrix->size = 4;
 	while (x < matrix->size)
 	{
 		y = 0;
@@ -102,8 +103,8 @@ void	create_identity_matrix_4x4(t_matrix *matrix)
 // 	}
 // }
 
-void	create_matrix_4x4(t_matrix *matrix, const float data[])
-{
-	create_identity_matrix_4x4(matrix);
-	fillup_matrix(matrix, data);
-}
+// void	create_matrix_4x4(t_matrix *matrix, const float data[])
+// {
+// 	create_identity_matrix_4x4(matrix);
+// 	fillup_matrix(matrix, data);
+// }
