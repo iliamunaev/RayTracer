@@ -1,18 +1,5 @@
 #include "minirt.h"
 
-/**
- * @brief Initializes a matrix with a given number of active rows.
- *
- * This function sets the `size` field of the matrix, which determines how many
- * rows will be used in operations like filling or comparison.
- *
- * @param matrix Pointer to the matrix to initialize.
- * @param size Number of rows to mark as used (should not exceed NUM_MAT_COLS).
- */
-void	create_matrix(t_matrix *matrix, uint8_t size)
-{
-	matrix->size = size;
-}
 
 /**
  * @brief Fills the matrix with values from a flat array (row-major order).
@@ -29,9 +16,7 @@ void	fillup_matrix(t_matrix *matrix, const float data[])
 	uint8_t	x;
 	uint8_t	y;
 	uint8_t	i;
-	uint8_t size;
 
-	size = matrix->size;
 	i = 0;
 	x = 0;
 
@@ -40,9 +25,12 @@ void	fillup_matrix(t_matrix *matrix, const float data[])
 		y = 0;
 		while (y < matrix->size)
 		{
-			matrix->rows[x].cols[y] = data[i];
+			if (x == y)
+			{
+				matrix->rows[x].cols[y] = data[i];
+				i++;
+			}
 			y++;
-			i++;
 		}
 		x++;
 	}
@@ -78,11 +66,12 @@ bool	are_matrices_equal(const t_matrix a, const t_matrix b)
 	return (true);
 }
 
-void	create_identity_matrix(t_matrix *matrix)
+void	create_identity_matrix_4x4(t_matrix *matrix)
 {
 	int	i;
 	int	j;
-	create_matrix(matrix, 4);
+
+	matrix->size = 4;
 
 	i = 0;
 	while(i < matrix->size)

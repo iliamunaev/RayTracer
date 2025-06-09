@@ -22,14 +22,6 @@ int main()
         4, 4, 4, 4
     };
 
-	// float data1[16];
-	// float data2[16];
-
-	// for (int i = 0; i < 16; i++)
-	// {
-	// 	data1[i] = 1;
-	// 	data2[i] = 2;
-	// }
 	fillup_matrix(&b, data1);
 	fillup_matrix(&c, data2);
 

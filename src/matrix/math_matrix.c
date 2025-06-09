@@ -74,3 +74,42 @@ void	transpose_matrix(t_matrix *matrix)
 	}
 }
 
+
+float	matrix_determinant_2x2(t_matrix *m)
+{
+	float	a;
+	float	b;
+	
+	a = m->rows[0].cols[0] * m->rows[1].cols[1];
+	b = m->rows[0].cols[1] * m->rows[1].cols[0];
+	return(a - b);
+}
+
+void create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, uint8_t row)
+{
+	uint8_t	x;
+	uint8_t	y;
+	uint8_t	a;
+	uint8_t	b;
+
+	submatrix->size--;
+	y = 0;
+	b = 0;
+	while(y < matrix.size)
+	{
+		x = 0;
+		a = 0;
+		if (y == row)
+			y++;
+		while(x < matrix.size && y < matrix.size)
+		{
+			if(x == col)
+				x++;
+			submatrix->rows[a].cols[b] = matrix.rows[y].cols[x];
+			x++;
+			a++;
+		}
+		y++;
+		b++;
+	}
+}
