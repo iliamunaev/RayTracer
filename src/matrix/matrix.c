@@ -1,41 +1,33 @@
 #include "minirt.h"
 
-
-/**
- * @brief Fills the matrix with values from a flat array (row-major order).
- *
- * Assumes that the matrix has already been initialized using `create_matrix()`.
- * Copies `matrix->size * NUM_MAT_COLS` elements from the input array into
- * the matrix row by row.
- *
- * @param matrix Pointer to the matrix to fill.
- * @param data Flat array of float values to populate the matrix.
- */
+// data[16] has always 16 values
 void	fillup_matrix(t_matrix *matrix, const float data[])
 {
 	uint8_t	x;
 	uint8_t	y;
-	uint8_t	i;
+	int i;
 
-	i = 0;
 	x = 0;
+	i = 0;
 
 	while (x < matrix->size)
 	{
 		y = 0;
 		while (y < matrix->size)
 		{
-			if (x == y)
-			{
-				matrix->rows[x].cols[y] = data[i];
-				i++;
-			}
+			matrix->rows[x].cols[y] = data[i];
+			i++;
 			y++;
 		}
 		x++;
 	}
 }
 
+void	create_matrix_4x4(t_matrix *matrix, const float data[])
+{
+	create_identity_matrix_4x4(matrix);
+	fillup_matrix(matrix, data);
+}
 /**
  * @brief Compares two matrices for equality.
  *
@@ -111,3 +103,4 @@ void	create_identity_matrix_3x3(t_matrix *matrix)
 		i++;
 	}
 }
+

@@ -85,7 +85,7 @@ float	matrix_determinant_2x2(const t_matrix m)
 	return(a - b);
 }
 
-void create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, uint8_t row)
+void	create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, uint8_t row)
 {
 	uint8_t	x;
 	uint8_t	y;
@@ -114,31 +114,18 @@ void create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, u
 	}
 }
 
-/* float	minor(const t_matrix matrix, uint8_t col, uint8_t row)
+
+float	minor(const t_matrix matrix, uint8_t col, uint8_t row)
 {
+	t_matrix	submatrix;
+	uint8_t		sub_i;
+	uint8_t		sub_j;
+	uint8_t		i;
+	uint8_t		j;
 
-	float	minor;
-	t_matrix submatrix;
-
-	create_identity_matrix_3x3(&submatrix);
-
-	create_submatrix(matrix, &submatrix, col, row);
-
-	minor = matrix_determinant_2x2(submatrix);
-
-	return (minor);
-}	 */
-
-float minor(const t_matrix matrix, uint8_t col, uint8_t row)
-{
-	t_matrix submatrix;
-	uint8_t sub_i = 0;
-	uint8_t sub_j = 0;
-	uint8_t i;
-	uint8_t j;
-
+	sub_i = 0;
+	sub_j = 0;
 	submatrix.size = matrix.size - 1;
-
 	i = 0;
 	while (i < matrix.size)
 	{
@@ -163,30 +150,27 @@ float minor(const t_matrix matrix, uint8_t col, uint8_t row)
 		sub_i++;
 		i++;
 	}
-
-	return determinant(submatrix);
+	return (determinant(submatrix));
 }
 
-
-
-
-float determinant(const t_matrix m)
+float determinant(const t_matrix matrix)
 {
-    float d = 0.0f;
+    float det;
     float cof;
-    uint8_t col = 0;
+    uint8_t col;
 
-    if (m.size == 2)
-        return matrix_determinant_2x2(m);
+	det = 0.0f;
+	col = 0;
 
-    while (col < m.size)
+    if (matrix.size == 2)
+        return (matrix_determinant_2x2(matrix));
+    while (col < matrix.size)
     {
-        cof = cofactor(m, col, 0);  // Cofactor for element in row 0
-        d += m.rows[0].cols[col] * cof;
+        cof = cofactor(matrix, col, 0);
+        det += matrix.rows[0].cols[col] * cof;
         col++;
     }
-
-    return d;
+    return (det);
 }
 
 
@@ -204,3 +188,58 @@ float	cofactor(const t_matrix matrix, uint8_t col, uint8_t row)
 		m = -m;
 	return (m);
 }	
+
+bool	is_invertible(float det)
+{
+	return (fabs(det) > EPSILON);
+}
+
+void	dev_matrix_by_value(t_matrix *matrix, const float value)
+{
+	uint8_t	i;
+	uint8_t	j;
+
+	i = 0;
+	while (i < matrix->size)
+	{
+		j = 0;
+		while (j < matrix->size)
+		{
+			matrix->rows[i].cols[j] /= value;
+			j++;
+		}
+		i++;
+	}
+}
+
+void	invert_matrix(t_matrix *inverted, const t_matrix matrix)
+{
+	float	det;
+	float	data[16];
+	uint8_t	x;
+	uint8_t	y;
+	uint8_t	i;
+
+	det = determinant(matrix);
+	if (!is_invertible(det))
+	{
+		err("Error: matrix not invertible");
+		return ;
+	}
+	i = 0;
+	y = 0;
+	while(y < matrix.size)
+	{
+		x = 0;
+		while(x < matrix.size)
+		{
+			data[i] = cofactor(matrix, x, y);
+			i++;
+			x++;		
+		}
+		y++;
+	}
+	create_matrix_4x4(inverted, data);
+	transpose_matrix(inverted);
+	dev_matrix_by_value(inverted, det);
+}
