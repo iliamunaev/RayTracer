@@ -57,7 +57,11 @@ void invert_matrix(t_matrix *inverted, const t_matrix matrix)
 	dev_matrix_by_value(inverted, det);
 }
 
-// void	translate(t_matrix *matrix, const t_tuple coordinates)
-// {
-// 	create_matrix_4x4(coordinates)
-// }
+
+void	translate(t_matrix *matrix, t_tuple translation)
+{
+	create_identity_matrix_4x4(matrix);
+	matrix->rows[0].cols[3] = translation.x;
+	matrix->rows[1].cols[3] = translation.y;
+	matrix->rows[2].cols[3] = translation.z;
+}

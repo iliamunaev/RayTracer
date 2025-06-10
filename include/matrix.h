@@ -20,7 +20,7 @@ typedef struct s_matrix
 } t_matrix;
 
 // matrix.c
-// void	create_identity_matrix_4x4(t_matrix *matrix);
+void	create_identity_matrix_4x4(t_matrix *matrix);
 // void	create_identity_matrix_3x3(t_matrix *matrix);
 void create_matrix_4x4(t_matrix *matrix, const float data[]);
 void fillup_matrix(t_matrix *matrix, const float data[]);
@@ -39,6 +39,8 @@ float get_matrix_determinant(const t_matrix m);
 // matrix_manipulations.c
 void transpose_matrix(t_matrix *matrix);
 void invert_matrix(t_matrix *inverted, const t_matrix matrix);
+void	translate(t_matrix *matrix, t_tuple translation);
+
 
 // matrix_utils.c
 void swap_values(float *a, float *b);

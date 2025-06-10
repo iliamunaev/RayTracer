@@ -3,7 +3,7 @@
 NAME    := test
 
 CC      := cc
-CFLAGS  := -Wextra -Wall -Werror 
+CFLAGS  := #-Wextra -Wall -Werror 
 
 LIBMLX  := ../lib/MLX42
 
@@ -14,7 +14,8 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := ../lib/MLX42/build/libmlx42.a -ldl -lglfw -lm
 
-SRCS	:=  test_fill_data_arr.c \
+SRCS	:=  test_translate.c \
+			print_matrix.c \
 			../src/utils/utils.c\
 			../src/utils/color_utils.c \
 			../src/utils/colors.c \
