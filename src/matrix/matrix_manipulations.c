@@ -57,7 +57,6 @@ void invert_matrix(t_matrix *inverted, const t_matrix matrix)
 	dev_matrix_by_value(inverted, det);
 }
 
-
 void	translate(t_matrix *matrix, t_tuple translation)
 {
 	create_identity_matrix_4x4(matrix);
