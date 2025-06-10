@@ -9,18 +9,16 @@ int main()
 	create_matrix(&c, 4);
 
 	float data1[16] = {
-        1, 1, 1, 1,
-        2, 2, 2, 2,
-        3, 3, 3, 3,
-        4, 4, 4, 4
-    };
+		1, 1, 1, 1,
+		2, 2, 2, 2,
+		3, 3, 3, 3,
+		4, 4, 4, 4};
 
 	float data2[16] = {
-        1, 1, 1, 1,
-        2, 2, 2, 2,
-        3, 3, 3, 3,
-        4, 4, 4, 4
-    };
+		1, 1, 1, 1,
+		2, 2, 2, 2,
+		3, 3, 3, 3,
+		4, 4, 4, 4};
 
 	fillup_matrix(&b, data1);
 	fillup_matrix(&c, data2);
@@ -30,7 +28,7 @@ int main()
 	printf("Matrix c:\n");
 	print_matrix(c);
 
-	mult_matxs(&a, b, c);
+	mult_matrices(&a, b, c);
 
 	printf("Result Matrix a:\n");
 	print_matrix(a);

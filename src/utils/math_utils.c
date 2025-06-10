@@ -2,15 +2,12 @@
 
 float   radians(float degrees)
 {
-    return degrees * (M_PI / 180);
+    return (degrees * (M_PI / 180));
 }
 
-bool   is_equal(float a, float b) // tested
+bool    is_equal(float a, float b)
 {
-    if (fabsf(a - b) < EPSILON)
-        return (true);
-    else
-        return (false);
+    return (fabsf(a - b) < EPSILON);
 }
 
 void add_tuples(t_tuple *c, const t_tuple a, const t_tuple b)

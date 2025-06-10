@@ -1,49 +1,51 @@
 #ifndef MATRIX_H
-# define MATRIX_H
+#define MATRIX_H
 
-# include <stdbool.h>
-# include <stdint.h>
+#include <stdbool.h>
+#include <stdint.h>
 
-# define NUM_MAT_COLS 4
+#define NUM_MAT_COLS 4
 
 typedef struct s_tuple t_tuple;
 
 typedef struct s_row
 {
-	float	cols[NUM_MAT_COLS];
-}	t_row;
+	float cols[NUM_MAT_COLS];
+} t_row;
 
 typedef struct s_matrix
 {
-	t_row	rows[NUM_MAT_COLS];
-	uint8_t	size;
-}	t_matrix;
+	t_row rows[NUM_MAT_COLS];
+	uint8_t size;
+} t_matrix;
 
-
-// matrix
+// matrix.c
 // void	create_identity_matrix_4x4(t_matrix *matrix);
 // void	create_identity_matrix_3x3(t_matrix *matrix);
-void	create_matrix_4x4(t_matrix *matrix, const float data[]);
-void	fillup_matrix(t_matrix *matrix, const float data[]);
-bool	are_matrices_equal(const t_matrix a, const t_matrix b);
+void create_matrix_4x4(t_matrix *matrix, const float data[]);
+void fillup_matrix(t_matrix *matrix, const float data[]);
+bool are_matrices_equal(const t_matrix a, const t_matrix b);
 void create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, uint8_t row);
 
+// math_matrix.c
+void mult_matrices(t_matrix *a, const t_matrix b, const t_matrix c);
+void mult_matrix_by_tuple(t_tuple *tuple, const t_matrix m, const t_tuple t);
+void dev_matrix_by_value(t_matrix *matrix, const float value);
+float get_matrix_determinant_2x2(t_matrix m);
+float get_matrix_minor(const t_matrix matrix, uint8_t col, uint8_t row);
+float get_matrix_cofactor(const t_matrix matrix, uint8_t col, uint8_t row);
+float get_matrix_determinant(const t_matrix m);
 
-// math_matrix
-void	mult_matxs(t_matrix *a, const t_matrix b, const t_matrix c);
-void	mult_matx_tuple(t_tuple *tuple, const t_matrix m, const t_tuple t);
-void	transpose_matrix(t_matrix *matrix);
-float	matrix_determinant_2x2(t_matrix m);
-float	minor(const t_matrix matrix, uint8_t col, uint8_t row);
-float	cofactor(const t_matrix matrix, uint8_t col, uint8_t row);
-float determinant(const t_matrix m);
-void	invert_matrix(t_matrix *inverted, const t_matrix matrix);
-void	dev_matrix_by_value(t_matrix *matrix, const float value);
+// matrix_manipulations.c
+void transpose_matrix(t_matrix *matrix);
+void invert_matrix(t_matrix *inverted, const t_matrix matrix);
 
+// matrix_utils.c
+void swap_values(float *a, float *b);
+bool is_invertible(const float det);
 
 // For testing
 // Delete on production
 void print_matrix(const t_matrix matrix);
 
-# endif // MATRIX_H
-
+#endif // MATRIX_H

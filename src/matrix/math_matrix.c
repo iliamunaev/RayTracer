@@ -1,110 +1,75 @@
 #include "minirt.h"
+#include "matrix.h"
 
-static float	dot_row_col(const float row[NUM_MAT_COLS], const t_matrix m, int col)
+static float get_dot_product_row_col(const float row[NUM_MAT_COLS], const t_matrix matrix, int col)
 {
-	return (row[0] * m.rows[0].cols[col] +
-	       row[1] * m.rows[1].cols[col] +
-	       row[2] * m.rows[2].cols[col] +
-	       row[3] * m.rows[3].cols[col]);
+	return (row[0] * matrix.rows[0].cols[col] +
+			row[1] * matrix.rows[1].cols[col] +
+			row[2] * matrix.rows[2].cols[col] +
+			row[3] * matrix.rows[3].cols[col]);
 }
 
-void	mult_matxs(t_matrix *a, const t_matrix b, const t_matrix c)
+void mult_matrices(t_matrix *product_m, const t_matrix b, const t_matrix c)
 {
-	int	i;
+	int i;
 	int j;
 
 	i = 0;
-	a->size = b.size;
-	while (i < a->size)
+	product_m->size = b.size;
+	while (i < product_m->size)
 	{
 		j = 0;
-		while (j < a->size)
+		while (j < product_m->size)
 		{
-			a->rows[i].cols[j] = dot_row_col(b.rows[i].cols, c, j);
+			product_m->rows[i].cols[j] = get_dot_product_row_col(b.rows[i].cols, c, j);
 			j++;
 		}
 		i++;
 	}
 }
 
-static float	dot_row_tuple(const float row[NUM_MAT_COLS], const t_tuple t)
+static float get_dot_product_row_tuple(const float row[NUM_MAT_COLS], const t_tuple t)
 {
 	return (row[0] * t.x + row[1] * t.y + row[2] * t.z + row[3] * t.w);
 }
 
-void mult_matx_tuple(t_tuple *tuple, const t_matrix m, const t_tuple t)
+void mult_matrix_by_tuple(t_tuple *product, const t_matrix matrix, const t_tuple tuple)
 {
-	tuple->x = dot_row_tuple(m.rows[0].cols, t);
-	tuple->y = dot_row_tuple(m.rows[1].cols, t);
-	tuple->z = dot_row_tuple(m.rows[2].cols, t);
-	tuple->w = dot_row_tuple(m.rows[3].cols, t);
+	product->x = get_dot_product_row_tuple(matrix.rows[0].cols, tuple);
+	product->y = get_dot_product_row_tuple(matrix.rows[1].cols, tuple);
+	product->z = get_dot_product_row_tuple(matrix.rows[2].cols, tuple);
+	product->w = get_dot_product_row_tuple(matrix.rows[3].cols, tuple);
 }
 
-
-static void	swap(float *a, float *b)
+float get_matrix_determinant_2x2(const t_matrix matrix)
 {
-	float	tmp;
+	float a;
+	float b;
 
-	tmp = *a;
-	*a = *b;
-	*b = tmp;
-}
-/**
- * @brief Transposes the matrix in place (swap rows with columns).
- *
- * Only the upper triangle is traversed to avoid double-swapping.
- *
- * @param matrix Pointer to the matrix to transpose.
- */
-void	transpose_matrix(t_matrix *matrix)
-{
-	int		i;
-	int		j;
-	float	tmp;
-
-	i = 0;
-	while (i < matrix->size)
-	{
-		j = i + 1;
-		while (j < matrix->size)
-		{
-			swap(&matrix->rows[i].cols[j], &matrix->rows[j].cols[i]);
-			j++;
-		}
-		i++;
-	}
+	a = matrix.rows[0].cols[0] * matrix.rows[1].cols[1];
+	b = matrix.rows[0].cols[1] * matrix.rows[1].cols[0];
+	return (a - b);
 }
 
-
-float	matrix_determinant_2x2(const t_matrix m)
+void create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, uint8_t row)
 {
-	float	a;
-	float	b;
-	
-	a = m.rows[0].cols[0] * m.rows[1].cols[1];
-	b = m.rows[0].cols[1] * m.rows[1].cols[0];
-	return(a - b);
-}
-
-void	create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, uint8_t row)
-{
-	uint8_t	x;
-	uint8_t	y;
-	uint8_t	a;
-	uint8_t	b;
+	uint8_t x;
+	uint8_t y;
+	uint8_t a;
+	uint8_t b;
 
 	submatrix->size--;
 	y = 0;
 	b = 0;
-	while(y < matrix.size)
+	while (y < matrix.size)
 	{
 		x = 0;
 		a = 0;
 		if (y == row)
 			y++;
-		while(x < matrix.size && y < matrix.size)
+		while (x < matrix.size && y < matrix.size)
 		{
-			if(x == col)
+			if (x == col)
 				x++;
 			submatrix->rows[a].cols[b] = matrix.rows[y].cols[x];
 			x++;
@@ -115,14 +80,13 @@ void	create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, u
 	}
 }
 
-
-float	minor(const t_matrix matrix, uint8_t col, uint8_t row)
+float get_matrix_minor(const t_matrix matrix, uint8_t col, uint8_t row)
 {
-	t_matrix	submatrix;
-	uint8_t		sub_i;
-	uint8_t		sub_j;
-	uint8_t		i;
-	uint8_t		j;
+	t_matrix submatrix;
+	uint8_t sub_i;
+	uint8_t sub_j;
+	uint8_t i;
+	uint8_t j;
 
 	sub_i = 0;
 	sub_j = 0;
@@ -133,7 +97,7 @@ float	minor(const t_matrix matrix, uint8_t col, uint8_t row)
 		if (i == row)
 		{
 			i++;
-			continue ;
+			continue;
 		}
 		sub_j = 0;
 		j = 0;
@@ -151,54 +115,47 @@ float	minor(const t_matrix matrix, uint8_t col, uint8_t row)
 		sub_i++;
 		i++;
 	}
-	return (determinant(submatrix));
+	return (get_matrix_determinant(submatrix));
 }
 
-float determinant(const t_matrix matrix)
+float get_matrix_determinant(const t_matrix matrix)
 {
-    float det;
-    float cof;
-    uint8_t col;
+	float det;
+	float cof;
+	uint8_t col;
 
 	det = 0.0f;
 	col = 0;
 
-    if (matrix.size == 2)
-        return (matrix_determinant_2x2(matrix));
-    while (col < matrix.size)
-    {
-        cof = cofactor(matrix, col, 0);
-        det += matrix.rows[0].cols[col] * cof;
-        col++;
-    }
-    return (det);
+	if (matrix.size == 2)
+		return (get_matrix_determinant_2x2(matrix));
+	while (col < matrix.size)
+	{
+		cof = get_matrix_cofactor(matrix, col, 0);
+		det += matrix.rows[0].cols[col] * cof;
+		col++;
+	}
+	return (det);
 }
 
-
-
-
-float	cofactor(const t_matrix matrix, uint8_t col, uint8_t row)
+float get_matrix_cofactor(const t_matrix matrix, uint8_t col, uint8_t row)
 {
-
-	float	m;
+	float minor;
+	float cofactor;
 	t_matrix submatrix;
 
-	m = minor(matrix, col, row);
-
-	if ((col + row) % 2 != 0 )
-		m = -m;
-	return (m);
-}	
-
-bool	is_invertible(float det)
-{
-	return (fabs(det) > EPSILON);
+	minor = get_matrix_minor(matrix, col, row);
+	if ((col + row) % 2 != 0)
+		cofactor = -minor;
+	else
+		cofactor = minor;
+	return (cofactor);
 }
 
-void	dev_matrix_by_value(t_matrix *matrix, const float value)
+void dev_matrix_by_value(t_matrix *matrix, const float value)
 {
-	uint8_t	i;
-	uint8_t	j;
+	uint8_t i;
+	uint8_t j;
 
 	i = 0;
 	while (i < matrix->size)
@@ -211,36 +168,4 @@ void	dev_matrix_by_value(t_matrix *matrix, const float value)
 		}
 		i++;
 	}
-}
-
-void	invert_matrix(t_matrix *inverted, const t_matrix matrix)
-{
-	float	det;
-	float	data[16];
-	uint8_t	x;
-	uint8_t	y;
-	uint8_t	i;
-
-	det = determinant(matrix);
-	if (!is_invertible(det))
-	{
-		err("Error: matrix not invertible");
-		return ;
-	}
-	i = 0;
-	y = 0;
-	while(y < matrix.size)
-	{
-		x = 0;
-		while(x < matrix.size)
-		{
-			data[i] = cofactor(matrix, x, y);
-			i++;
-			x++;		
-		}
-		y++;
-	}
-	create_matrix_4x4(inverted, data);
-	transpose_matrix(inverted);
-	dev_matrix_by_value(inverted, det);
 }
