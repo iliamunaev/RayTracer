@@ -11,6 +11,7 @@
 # include "math_utils.h"
 # include "utils.h"
 # include "matrix.h"
+# include "../lib/libft/libft.h"
 
 
 #define BPP sizeof(int32_t)

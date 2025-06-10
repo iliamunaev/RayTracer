@@ -1,8 +1,11 @@
 /obj
 /lib
+/tests/src
+/tests/obj
 
 miniRT
 
 .vscode/
 
 a.out
+*.o

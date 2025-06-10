@@ -142,7 +142,6 @@ float get_matrix_cofactor(const t_matrix matrix, uint8_t col, uint8_t row)
 {
 	float minor;
 	float cofactor;
-	t_matrix submatrix;
 
 	minor = get_matrix_minor(matrix, col, row);
 	if ((col + row) % 2 != 0)

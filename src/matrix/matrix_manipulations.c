@@ -56,3 +56,8 @@ void invert_matrix(t_matrix *inverted, const t_matrix matrix)
 	transpose_matrix(inverted);
 	dev_matrix_by_value(inverted, det);
 }
+
+// void	translate(t_matrix *matrix, const t_tuple coordinates)
+// {
+// 	create_matrix_4x4(coordinates)
+// }
