@@ -6,13 +6,14 @@ CC      := cc
 CFLAGS  := #-Wextra -Wall -Werror 
 
 LIBMLX  := ../lib/MLX42
+LIBFT   := ../lib/libft
 
 
 HEADERS := -I../include -I../lib/MLX42/include -I../include
 
 # lglfw: OpenGL graphics library
 # ldl: Dynamic linking library for runtime symbol resolution
-LIBS    := ../lib/MLX42/build/libmlx42.a -ldl -lglfw -lm
+LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 SRCS	:=  test_translate.c \
 			print_matrix.c \
@@ -41,7 +42,7 @@ BLUE    := \033[34m
 RED     := \033[31m
 
 # ------------------------------- Targets ------------------------------------ #
-all: libmlx $(NAME)
+all: libmlx libft $(NAME)
 	@echo "$(GREEN)Program $(NAME) compiled successfully!$(RESET)"
 
 # Build MLX42
@@ -49,6 +50,10 @@ libmlx:
 	@echo "$(BLUE)[LIBMLX] Building MLX42 library...$(RESET)"
 	cmake $(LIBMLX) -B $(LIBMLX)/build
 	make -C $(LIBMLX)/build -j4
+
+libft:
+	@echo "$(BLUE)[LIBFT] Building Libft library...$(RESET)"
+	make -C $(LIBFT)
 
 
 $(NAME): $(OBJS) $(OBJ_TEST)
