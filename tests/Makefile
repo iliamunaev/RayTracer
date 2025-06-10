@@ -1,31 +1,37 @@
 
 # --------------------------- Executable and Library ------------------------- #
-NAME    := miniRT
+NAME    := test
 
 CC      := cc
 CFLAGS  := -Wextra -Wall -Werror 
 
-LIBMLX  := ./lib/MLX42
+LIBMLX  := ../lib/MLX42
 
 
-HEADERS := -Iinclude -Ilib/MLX42/include -I../include
+HEADERS := -I../include -I../lib/MLX42/include -I../include
 
 # lglfw: OpenGL graphics library
 # ldl: Dynamic linking library for runtime symbol resolution
-LIBS    := lib/MLX42/build/libmlx42.a -ldl -lglfw -lm
+LIBS    := ../lib/MLX42/build/libmlx42.a -ldl -lglfw -lm
 
-SRCS    :=	src/minirt.c \
-			src/utils/utils.c\
-			src/utils/color_utils.c \
-			src/utils/colors.c \
-			src/utils/math_utils.c \
-			src/matrix/math_matrix.c \
-			src/matrix/matrix_manipulations.c \
-			src/matrix/matrix_utils.c \
-			src/matrix/matrix.c
+SRCS	:=  test_fill_data_arr.c \
+			../src/utils/utils.c\
+			../src/utils/color_utils.c \
+			../src/utils/colors.c \
+			../src/utils/math_utils.c \
+			../src/matrix/math_matrix.c \
+			../src/matrix/matrix_manipulations.c \
+			../src/matrix/matrix_utils.c \
+			../src/matrix/matrix.c
 
+
+
+SRC_DIR := ../
 OBJ_DIR := obj
-OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
+
+OBJ_TEST := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
+# OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
+OBJ := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 # ------------------------------ Colors -------------------------------------- #
 RESET   := \033[0m
@@ -44,9 +50,9 @@ libmlx:
 	make -C $(LIBMLX)/build -j4
 
 
-$(NAME): $(OBJS)
+$(NAME): $(OBJS) $(OBJ_TEST)
 	@echo "$(BLUE)Linking executable: $(NAME)$(RESET)"
-	$(CC) $(OBJS) $(LIBS) -o $(NAME)
+	$(CC) $(OBJS) $(OBJ_TEST) $(LIBS) -o $(NAME)
 
 # Rule to compile .c files into .o and store them in obj/
 $(OBJ_DIR)/%.o: %.c
