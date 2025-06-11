@@ -15,7 +15,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
-SRCS	:=  test_translate.c \
+SRCS	:=  test_scale.c \
 			print_matrix.c \
 			../src/utils/utils.c\
 			../src/utils/color_utils.c \
