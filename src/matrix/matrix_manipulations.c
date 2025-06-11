@@ -123,21 +123,20 @@ void	rotate(t_matrix *matrix, t_tuple rotation)
 void	transform(t_matrix *matrix, t_transform transform)
 {
 	
-    t_matrix transformed_m;
     t_matrix tmp_m;
 
 
-    create_identity_matrix_4x4(&transformed_m);
+    create_identity_matrix_4x4(matrix);
 
     // Rotation
     rotate(&tmp_m, transform.rotate);
-    mult_matrices(&transformed_m, tmp_m, transformed_m);
+    mult_matrices(matrix, tmp_m, *matrix);
 
     // Scaling
     scale(&tmp_m, transform.scale);
-    mult_matrices(&transformed_m, tmp_m, transformed_m);
+    mult_matrices(matrix, tmp_m, *matrix);
 
     // Translation
     translate(&tmp_m, transform.translate);
-    mult_matrices(&transformed_m, tmp_m, transformed_m);
+    mult_matrices(matrix, tmp_m, *matrix);
 }

@@ -46,6 +46,14 @@ typedef struct s_tuple
     };
 }   t_tuple;
 
+typedef struct s_transform
+{
+	t_tuple	rotate;
+	t_tuple scale;
+	t_tuple translate;
+} t_transform;
+
+
 //COLORS
 void        create_color(t_tuple *color, float r, float g, float b);
 uint32_t    float_to_hex(const t_tuple color);

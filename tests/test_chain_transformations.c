@@ -96,6 +96,6 @@ int main(void)
     t_tuple point = {1, 0, 1, 1};
     mult_matrix_by_tuple(&result, transformed_m, point);
 
-    printf("\nTransformed point: point(%f, %f,%f)\n", result.x, result.y, result.z, result.w);
+    printf("\nTransformed point: point(%f, %f,%f)\n", result.x, result.y, result.z);
     return 0;
 }

@@ -7,6 +7,7 @@
 #define NUM_MAT_COLS 4
 
 typedef struct s_tuple t_tuple;
+typedef struct s_transform t_transform;
 
 typedef struct s_row
 {
@@ -29,13 +30,6 @@ typedef struct s_shear
 	float	zy;
 } t_shear;
 
-typedef struct s_transform
-{
-	t_tuple	rotate;
-	t_tuple scale;
-	t_tuple translate;
-} t_transform;
-
 // matrix.c
 void	create_identity_matrix_4x4(t_matrix *matrix);
 // void	create_identity_matrix_3x3(t_matrix *matrix);
@@ -45,7 +39,7 @@ bool are_matrices_equal(const t_matrix a, const t_matrix b);
 void create_submatrix(const t_matrix matrix, t_matrix *submatrix, uint8_t col, uint8_t row);
 
 // math_matrix.c
-void mult_matrices(t_matrix *a, const t_matrix b, const t_matrix c);
+void mult_matrices(t_matrix *a,const t_matrix b, t_matrix c);
 void mult_matrix_by_tuple(t_tuple *tuple, const t_matrix m, const t_tuple t);
 void dev_matrix_by_value(t_matrix *matrix, const float value);
 float get_matrix_determinant_2x2(t_matrix m);

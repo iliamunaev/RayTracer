@@ -9,7 +9,7 @@ static float get_dot_product_row_col(const float row[NUM_MAT_COLS], const t_matr
 			row[3] * matrix.rows[3].cols[col]);
 }
 
-void mult_matrices(t_matrix *product_m, const t_matrix b, const t_matrix c)
+void mult_matrices(t_matrix *product_m, const t_matrix b, t_matrix c)
 {
 	int i;
 	int j;
