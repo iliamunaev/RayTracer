@@ -41,6 +41,10 @@ void transpose_matrix(t_matrix *matrix);
 void invert_matrix(t_matrix *inverted, const t_matrix matrix);
 void	translate(t_matrix *matrix, t_tuple translation);
 void	scale(t_matrix *matrix, t_tuple scaling);
+void	rotate(t_matrix *matrix, t_tuple rotation);
+void	rotate_x(t_matrix *matrix, float degrees);
+void	rotate_y(t_matrix *matrix, float degrees);
+void	rotate_z(t_matrix *matrix, float degrees);
 
 
 // matrix_utils.c

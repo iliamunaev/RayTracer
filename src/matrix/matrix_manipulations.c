@@ -72,3 +72,47 @@ void	scale(t_matrix *matrix, t_tuple scaling)
 	matrix->rows[1].cols[1] = scaling.y;
 	matrix->rows[2].cols[2] = scaling.z;
 }
+
+
+void	rotate_x(t_matrix *matrix, float degrees)
+{
+	float	radians;
+
+	radians = get_radians(degrees);
+	matrix->rows[1].cols[1] = cos(radians);
+	matrix->rows[1].cols[2] = -sin(radians);
+	matrix->rows[2].cols[1] = sin(radians);
+	matrix->rows[2].cols[2] = cos(radians);	
+
+}
+void	rotate_y(t_matrix *matrix, float degrees)
+{
+	float	radians;
+
+	radians = get_radians(degrees);
+	matrix->rows[0].cols[0] = cos(radians);
+	matrix->rows[0].cols[2] = sin(radians);
+	matrix->rows[2].cols[0] = -sin(radians);
+	matrix->rows[2].cols[2] = cos(radians);	
+
+}
+void	rotate_z(t_matrix *matrix, float degrees)
+{
+	float	radians;
+
+	radians = get_radians(degrees);
+	matrix->rows[0].cols[0] = cos(radians);
+	matrix->rows[0].cols[1] = -sin(radians);
+	matrix->rows[1].cols[0] = sin(radians);
+	matrix->rows[1].cols[1] = cos(radians);	
+
+}
+
+void	rotate(t_matrix *matrix, t_tuple rotation)
+{
+	create_identity_matrix_4x4(matrix);
+	rotate_x(matrix, rotation.x);
+	rotate_y(matrix, rotation.y);
+	rotate_z(matrix, rotation.z);
+
+}

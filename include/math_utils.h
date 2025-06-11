@@ -13,7 +13,7 @@
 typedef struct s_tuple t_tuple;
 
 
-float   radians(float degrees);
+float   get_radians(float degrees);
 bool    is_equal(float a, float b);
 void add_tuples(t_tuple *c, const t_tuple a, const t_tuple b);
 void sub_tuples(t_tuple *c, const t_tuple a, const t_tuple b);
