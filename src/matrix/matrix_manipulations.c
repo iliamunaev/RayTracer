@@ -108,6 +108,7 @@ void	rotate_z(t_matrix *matrix, float degrees)
 
 }
 
+
 void	rotate(t_matrix *matrix, t_tuple rotation)
 {
 	create_identity_matrix_4x4(matrix);
