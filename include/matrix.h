@@ -29,6 +29,13 @@ typedef struct s_shear
 	float	zy;
 } t_shear;
 
+typedef struct s_transform
+{
+	t_tuple	rotate;
+	t_tuple scale;
+	t_tuple translate;
+} t_transform;
+
 // matrix.c
 void	create_identity_matrix_4x4(t_matrix *matrix);
 // void	create_identity_matrix_3x3(t_matrix *matrix);
@@ -56,7 +63,7 @@ void	rotate_x(t_matrix *matrix, float degrees);
 void	rotate_y(t_matrix *matrix, float degrees);
 void	rotate_z(t_matrix *matrix, float degrees);
 void	shear(t_matrix *matrix, t_shear shearing);
-
+void	transform(t_matrix *matrix, t_transform transform);
 
 // matrix_utils.c
 void swap_values(float *a, float *b);
