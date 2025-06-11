@@ -111,8 +111,16 @@ void	rotate_z(t_matrix *matrix, float degrees)
 void	rotate(t_matrix *matrix, t_tuple rotation)
 {
 	create_identity_matrix_4x4(matrix);
-	rotate_x(matrix, rotation.x);
-	rotate_y(matrix, rotation.y);
-	rotate_z(matrix, rotation.z);
-
+	if (rotation.x != 0)
+		rotate_x(matrix, rotation.x);
+	if (rotation.y != 0)
+		rotate_y(matrix, rotation.y);
+	if (rotation.z != 0)
+		rotate_z(matrix, rotation.z);
 }
+
+/* void	transform(t_matrix *matrix, ...)
+{
+	create_identity_matrix_4x4(matrix);
+
+} */

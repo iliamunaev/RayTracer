@@ -19,6 +19,16 @@ typedef struct s_matrix
 	uint8_t size;
 } t_matrix;
 
+typedef struct s_shear
+{
+	float	xy;
+	float	xz;
+	float	yx;
+	float	yz;
+	float	zx;
+	float	zy;
+} t_shear;
+
 // matrix.c
 void	create_identity_matrix_4x4(t_matrix *matrix);
 // void	create_identity_matrix_3x3(t_matrix *matrix);
@@ -45,6 +55,7 @@ void	rotate(t_matrix *matrix, t_tuple rotation);
 void	rotate_x(t_matrix *matrix, float degrees);
 void	rotate_y(t_matrix *matrix, float degrees);
 void	rotate_z(t_matrix *matrix, float degrees);
+void	shear(t_matrix *matrix, t_shear shearing);
 
 
 // matrix_utils.c

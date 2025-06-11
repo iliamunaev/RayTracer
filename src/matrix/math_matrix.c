@@ -36,9 +36,17 @@ static float get_dot_product_row_tuple(const float row[NUM_MAT_COLS], const t_tu
 void mult_matrix_by_tuple(t_tuple *product, const t_matrix matrix, const t_tuple tuple)
 {
 	product->x = get_dot_product_row_tuple(matrix.rows[0].cols, tuple);
+	printf("product->x %f\n",product->x);
+
 	product->y = get_dot_product_row_tuple(matrix.rows[1].cols, tuple);
+	printf("product->y %f\n",product->y);
+
 	product->z = get_dot_product_row_tuple(matrix.rows[2].cols, tuple);
+	printf("product->z %f\n",product->z);
+
 	product->w = get_dot_product_row_tuple(matrix.rows[3].cols, tuple);
+	printf("product->w %f\n",product->w);
+
 }
 
 float get_matrix_determinant_2x2(const t_matrix matrix)
