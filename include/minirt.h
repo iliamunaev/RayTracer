@@ -11,6 +11,7 @@
 # include "math_utils.h"
 # include "utils.h"
 # include "matrix.h"
+# include "ray.h"
 # include "../lib/libft/libft.h"
 
 
@@ -52,6 +53,13 @@ typedef struct s_transform
 	t_tuple scale;
 	t_tuple translate;
 } t_transform;
+
+// RAY struct
+typedef struct s_ray
+{
+    t_tuple origin;
+    t_tuple direction;
+}   t_ray;
 
 
 //COLORS

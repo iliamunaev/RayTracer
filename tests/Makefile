@@ -15,8 +15,9 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm -g
 
-SRCS	:=  test_chain_transformations.c \
+SRCS	:=  test_get_position.c \
 			print_matrix.c \
+			../src/ray/ray.c \
 			../src/utils/utils.c\
 			../src/utils/color_utils.c \
 			../src/utils/colors.c \

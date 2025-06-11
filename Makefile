@@ -15,6 +15,7 @@ HEADERS := -Iinclude -Ilib/MLX42/include -I../include
 LIBS    := lib/MLX42/build/libmlx42.a lib/libft/libft.a -ldl -lglfw -lm
 
 SRCS    :=	src/minirt.c \
+			src/ray/ray.c \
 			src/utils/utils.c\
 			src/utils/color_utils.c \
 			src/utils/colors.c \
