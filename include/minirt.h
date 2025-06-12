@@ -12,40 +12,21 @@
 # include "utils.h"
 # include "matrix.h"
 # include "ray.h"
+# include "primitives.h"
 # include "../lib/libft/libft.h"
 
 
 #define BPP sizeof(int32_t)
+#define MAX_PRIMITIVES 32
 
 typedef struct s_rt
 {
 	mlx_t		*mlx;
 	mlx_image_t	*scene;
+    uint8_t     obj_counted;
+    t_primitive primitives_list[MAX_PRIMITIVES];
 }	t_rt;
 
-typedef struct s_tuple
-{
-    union
-    {
-        float   x;
-        float   r;
-    };
-    union
-    {
-        float   y;
-        float   g;
-    };
-    union
-    {
-        float   z;
-        float   b;
-    };
-    union
-    {
-        float w;
-        float a;
-    };
-}   t_tuple;
 
 typedef struct s_transform
 {
@@ -53,13 +34,6 @@ typedef struct s_transform
 	t_tuple scale;
 	t_tuple translate;
 } t_transform;
-
-// RAY struct
-typedef struct s_ray
-{
-    t_tuple origin;
-    t_tuple direction;
-}   t_ray;
 
 
 //COLORS

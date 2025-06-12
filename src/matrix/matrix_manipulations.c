@@ -68,6 +68,8 @@ void	translate(t_matrix *matrix, t_tuple translation)
 void	scale(t_matrix *matrix, t_tuple scaling)
 {
 	create_identity_matrix_4x4(matrix);
+	if (scaling.x == 0 && scaling.y == 0 && scaling.z == 0)
+		return ;
 	matrix->rows[0].cols[0] = scaling.x;
 	matrix->rows[1].cols[1] = scaling.y;
 	matrix->rows[2].cols[2] = scaling.z;

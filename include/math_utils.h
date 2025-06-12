@@ -8,9 +8,33 @@
 #define EPSILON 0.00001
 
 
+// # include "minirt.h"
 /*------FORWARD DECLARATIONS-----------------------------------------*/
 
-typedef struct s_tuple t_tuple;
+typedef struct s_tuple
+{
+    union
+    {
+        float   x;
+        float   r;
+    };
+    union
+    {
+        float   y;
+        float   g;
+    };
+    union
+    {
+        float   z;
+        float   b;
+    };
+    union
+    {
+        float w;
+        float a;
+    };
+}   t_tuple;
+
 
 
 float   get_radians(float degrees);
