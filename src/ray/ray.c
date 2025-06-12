@@ -60,26 +60,19 @@ void    get_obj_intersec(t_ray *ray, t_primitive object)
 
 }
 
-// void    get_obj_intersec(t_primitive object, t_ray ray)
-// {
-//     float   a;
-//     float   b;
-//     float   c;
-//     float   discriminant;
-//     t_tuple sphere_to_ray;
+void get_hit(t_ray *ray)
+{
+    int i;
+    t_intersec_point temp;
 
-//     obj_intersec->counter = 0;
-//     obj_intersec->object = object;
-    
-//     a = dot_product(ray.direction, ray.direction);
-//     sub_tuples(&sphere_to_ray, ray.origin, object.position);
-//     b = 2 * dot_product(ray.direction, sphere_to_ray);
-//     c = dot_product(sphere_to_ray, sphere_to_ray) - 1;
-//     discriminant = pow(b, 2) - 4 * a * c;
-//     if (discriminant < 0)
-//         return ;
-//     obj_intersec->point[0] = (float)((-b - sqrt (discriminant)) / (2 * a));
-//     obj_intersec->point[1] = (float)((-b + sqrt (discriminant)) / (2 * a));
-//     obj_intersec->counter = 2;
-
-// }
+    i = 0;
+    temp = ray->intersections.intersec_list[i];
+    i++;
+    while(i < ray->intersections.counter)
+    {
+        if(temp.value > ray->intersections.intersec_list[i].value)
+            temp = ray->intersections.intersec_list[i];
+        i++;
+    }
+    ray->hit = temp;
+}
