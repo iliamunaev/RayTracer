@@ -30,6 +30,7 @@ typedef struct s_ray
     t_tuple direction;
     t_intersec intersections;
     t_intersec_point    hit;
+    bool                is_hit;
     
 }   t_ray;
 
@@ -38,5 +39,7 @@ void    get_position(t_tuple *position, const t_ray ray, float time);
 void    get_obj_intersec(t_ray *ray, t_primitive object);
 void    get_ray_intersections(t_ray *ray, t_rt minirt);
 void    get_hit(t_ray *ray);
+void	ray_transform(t_ray *ray, t_transform transform);
+
 
 # endif // RAY_H

@@ -4,6 +4,7 @@ void    create_ray(t_ray *ray, const t_tuple point, const t_tuple vector)
 {
     ray->origin = point;
     ray->direction = vector;
+    ray->is_hit = false;
 }
 
 void    get_position(t_tuple *position, const t_ray ray, float time)
@@ -75,15 +76,21 @@ void get_hit(t_ray *ray)
         i++;
     }
     if (temp.value >= 0)
-        ray->hit = temp;
-    //ADDED CHECK FOR IF NOT HITTED, THEN ASSIGN ALL TO -1. NEEDS VERIFICATION
-    else
     {
-        ray->hit.object.id = -1;
-        ray->hit.object.position.x = -1;
-        ray->hit.object.position.y = -1;
-        ray->hit.object.position.z = -1;
-        ray->hit.object.position.w = -1;
-        ray->hit.value = -1;
+        ray->hit = temp;
+        ray->is_hit = true;
     }
+    //ADDED CHECK FOR IF NOT HITTED, THEN ASSIGN ALL TO -1. NEEDS VERIFICATION
+}
+
+void	ray_transform(t_ray *ray, t_transform transformation)
+{
+    t_matrix matrix;
+
+    transform(&matrix, transformation);
+
+    print_matrix(matrix);
+    
+    mult_matrix_by_tuple(&ray->origin, matrix, ray->origin);
+    mult_matrix_by_tuple(&ray->direction, matrix, ray->direction);
 }

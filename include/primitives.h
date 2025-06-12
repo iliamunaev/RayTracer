@@ -6,7 +6,7 @@
 
 typedef struct s_primitive
 {
-    uint8_t id;
+    int id;
     t_tuple position;
 }   t_primitive;
 
