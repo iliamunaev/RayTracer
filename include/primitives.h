@@ -6,8 +6,9 @@
 
 typedef struct s_primitive
 {
-    int id;
-    t_tuple position;
+    int         id;
+    t_tuple     position;
+    t_matrix    matrix;
 }   t_primitive;
 
 void    create_sphere(t_primitive *sphere, t_tuple position);

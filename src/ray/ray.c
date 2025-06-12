@@ -83,14 +83,23 @@ void get_hit(t_ray *ray)
     //ADDED CHECK FOR IF NOT HITTED, THEN ASSIGN ALL TO -1. NEEDS VERIFICATION
 }
 
-void	ray_transform(t_ray *ray, t_transform transformation)
+void	ray_transform(t_ray *ray, t_matrix matrix)
+{
+    mult_matrix_by_tuple(&ray->origin, matrix, ray->origin);
+    mult_matrix_by_tuple(&ray->direction, matrix, ray->direction);
+}
+
+
+//THIS IS OLD:
+
+/* void	ray_transform(t_ray *ray, t_transform transformation)
 {
     t_matrix matrix;
 
     transform(&matrix, transformation);
 
     print_matrix(matrix);
-    
+
     mult_matrix_by_tuple(&ray->origin, matrix, ray->origin);
     mult_matrix_by_tuple(&ray->direction, matrix, ray->direction);
-}
+} */
