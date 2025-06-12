@@ -30,9 +30,11 @@ int main(void)
     minirt.primitives_list[0] = sphere;
 
     t_matrix inverse_matrix;
+    // invert the matrix of the transformed sphere
     invert_matrix(&inverse_matrix, minirt.primitives_list[0].matrix);
-
+    // transform ray by the inverted matrix of sphere to bring ray into object space
     ray_transform(&ray, inverse_matrix);
+    //with this ray check for intersections
     get_ray_intersections(&ray, minirt);
     printf("counter = %f\n", ray.intersections.counter);
     printf("instersection 1 = %f\n", ray.intersections.intersec_list[0].value);
