@@ -15,7 +15,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm -g
 
-SRCS	:=  test_ray_sphere_interesect.c \
+SRCS	:=  test_get_obj_intersec.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/ray/ray.c \

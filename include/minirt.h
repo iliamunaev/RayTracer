@@ -17,11 +17,14 @@
 
 
 #define BPP sizeof(int32_t)
+#define MAX_PRIMITIVES 32
 
 typedef struct s_rt
 {
 	mlx_t		*mlx;
 	mlx_image_t	*scene;
+    uint8_t     obj_counted;
+    t_primitive primitives_list[MAX_PRIMITIVES];
 }	t_rt;
 
 
