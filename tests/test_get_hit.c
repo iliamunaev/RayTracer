@@ -19,15 +19,15 @@ int main() {
 
 
     t_primitive sphere;
-    t_tuple     sph_position = {0, 2, 0, 1};
+    t_tuple     sph_position = {0, 2, -9, 1};
     create_sphere(&sphere, sph_position);
 
     t_primitive sphere2;
-    t_tuple     sph_position2 = {0, 0, 0, 1};
+    t_tuple     sph_position2 = {0, 0, -8, 1};
     create_sphere(&sphere2, sph_position2);
 
     t_primitive sphere3;
-    t_tuple     sph_position3 = {0, 0, -1, 1};
+    t_tuple     sph_position3 = {0, 0, -7, 1};
     create_sphere(&sphere3, sph_position3);
 
     t_ray   ray;

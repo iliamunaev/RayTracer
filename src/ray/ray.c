@@ -70,9 +70,20 @@ void get_hit(t_ray *ray)
     i++;
     while(i < ray->intersections.counter)
     {
-        if(temp.value > ray->intersections.intersec_list[i].value)
+        if(temp.value > ray->intersections.intersec_list[i].value && ray->intersections.intersec_list[i].value >= 0)
             temp = ray->intersections.intersec_list[i];
         i++;
     }
-    ray->hit = temp;
+    if (temp.value >= 0)
+        ray->hit = temp;
+    //ADDED CHECK FOR IF NOT HITTED, THEN ASSIGN ALL TO -1. NEEDS VERIFICATION
+    else
+    {
+        ray->hit.object.id = -1;
+        ray->hit.object.position.x = -1;
+        ray->hit.object.position.y = -1;
+        ray->hit.object.position.z = -1;
+        ray->hit.object.position.w = -1;
+        ray->hit.value = -1;
+    }
 }
