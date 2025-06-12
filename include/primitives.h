@@ -3,15 +3,14 @@
 
 /*------FORWARD DECLARATIONS-----------------------------------------*/
 
-typedef struct s_tuple t_tuple;
-typedef struct s_ray t_ray;
 
-typedef struct s_sphere
+typedef struct s_primitive
 {
     uint8_t id;
-}   t_sphere;
+    t_tuple position;
+}   t_primitive;
 
-void    create_sphere(t_sphere *sphere);
+void    create_sphere(t_primitive *sphere, t_tuple position);
 uint8_t generate_id();
 
 

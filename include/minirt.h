@@ -24,29 +24,6 @@ typedef struct s_rt
 	mlx_image_t	*scene;
 }	t_rt;
 
-typedef struct s_tuple
-{
-    union
-    {
-        float   x;
-        float   r;
-    };
-    union
-    {
-        float   y;
-        float   g;
-    };
-    union
-    {
-        float   z;
-        float   b;
-    };
-    union
-    {
-        float w;
-        float a;
-    };
-}   t_tuple;
 
 typedef struct s_transform
 {
@@ -54,13 +31,6 @@ typedef struct s_transform
 	t_tuple scale;
 	t_tuple translate;
 } t_transform;
-
-// RAY struct
-typedef struct s_ray
-{
-    t_tuple origin;
-    t_tuple direction;
-}   t_ray;
 
 
 //COLORS

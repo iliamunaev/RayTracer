@@ -21,7 +21,7 @@ SRCS    :=	src/minirt.c \
 			src/utils/color_utils.c \
 			src/utils/colors.c \
 			src/math/math.c \
-			/src/matrix/shear.c \
+			src/matrix/shear.c \
 			src/matrix/math_matrix.c \
 			src/matrix/matrix_manipulations.c \
 			src/matrix/matrix_utils.c \
