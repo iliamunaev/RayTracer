@@ -12,6 +12,7 @@
 # include "utils.h"
 # include "matrix.h"
 # include "ray.h"
+# include "primitives.h"
 # include "../lib/libft/libft.h"
 
 
