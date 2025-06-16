@@ -3,7 +3,7 @@
 NAME    := miniRT
 
 CC      := cc
-CFLAGS  := -Wextra -Wall -Werror 
+CFLAGS  := -Wextra -Wall -Werror
 
 LIBMLX  := ./lib/MLX42
 LIBFT   := ./lib/libft
@@ -47,8 +47,16 @@ libmlx:
 	make -C $(LIBMLX)/build -j4
 
 libft:
-	@echo "$(BLUE)[LIBFT] Building Libft library...$(RESET)"
-	make -C $(LIBFT)
+	@echo "$(BLUE)[LIBFT] Ensuring Libft library...$(RESET)"
+	@if [ ! -f $(LIBFT)/libft.a ]; then \
+		if [ ! -d $(LIBFT)/.git ]; then \
+			echo "$(BLUE)[LIBFT] Not found. Cloning from GitHub...$(RESET)"; \
+			rm -rf $(LIBFT); \
+			git clone https://github.com/iliamunaev/libft-Standart-C-Library-Rebuild.git $(LIBFT); \
+		fi; \
+	fi
+	@echo "$(BLUE)[LIBFT] Building Libft...$(RESET)"
+	@$(MAKE) -C $(LIBFT)
 
 $(NAME): $(OBJS)
 	@echo "$(BLUE)Linking executable: $(NAME)$(RESET)"
@@ -75,8 +83,9 @@ clean:
 fclean: clean
 	@echo "$(GREEN)Removing executable: $(NAME)...$(RESET)"
 	rm -rf $(NAME)
-	@echo "$(GREEN)'$(NAME)' executable successfully removed!$(RESET)"
+	@$(MAKE) -C $(LIBFT) fclean
+	@echo "$(GREEN)'$(NAME)' executable and libft cleaned!$(RESET)"
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re
