@@ -13,9 +13,9 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 
 # lglfw: OpenGL graphics library
 # ldl: Dynamic linking library for runtime symbol resolution
-LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm -g
+LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm -g -o3
 
-SRCS	:=  test_sphere_ray_interaction.c \
+SRCS	:=  test_draw_sphere.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/ray/ray.c \
