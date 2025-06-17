@@ -29,6 +29,49 @@ typedef struct s_amb_light
 	t_tuple	color;
 }	t_amb_light;
 
+
+typedef struct s_cam
+{
+    char    id;
+    t_tuple    coordinates;
+    t_tuple    norm_vector;
+    float		fov;    
+}   t_cam;
+
+typedef struct s_light
+{
+    char	id;
+	t_tuple	coordinates;
+    float	brightness;   
+    t_tuple	color;   
+}   t_light;
+
+typedef struct s_sphere
+{
+    char    id;
+    t_tuple    coordinates;
+    float   diameter;   
+    t_tuple	color;   
+}   t_sphere;
+
+typedef struct s_plane_tmp
+{
+    char    id;
+    t_tuple    coordinates;
+    t_tuple    norm_vector;   
+    t_tuple    color;   
+}   t_plane_tmp;
+
+typedef struct s_cylinder_tmp
+{
+    char    id;
+    t_tuple    coordinates;
+    t_tuple    norm_vector;   
+    float    diameter; 
+    float    height; 
+    t_tuple    color;   
+}   t_cylinder_tmp;
+
 typedef struct s_rt
 {
 	mlx_t		*mlx;
@@ -36,7 +79,8 @@ typedef struct s_rt
     uint8_t     obj_counted;
     t_primitive primitives_list[MAX_PRIMITIVES];
 	t_amb_light	amb_light;
-
+	t_cam		cam;
+	t_light		light;
 }	t_rt;
 
 

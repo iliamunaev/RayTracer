@@ -12,26 +12,26 @@ character(s)), followed by all specific information for each object in a strict
 order 
 */
 
-void parse_ambient_light(char *map, t_rt *world)
+void parse_ambient_light(t_pars *map, t_rt *world)
 {
-    char  id;
-    int i;
+    // char  id;
+    // int i;
 
-    id = 'A';
-    i = 0;
-    while(map[i])
-    {
-        skip_spacese(map, &i);
-        if (map[i] == id)
-        {
-            world->amb_light.id = map[i];
-            i++;
-            world->amb_light.ratio = ft_strtof(map[i]);
-            skip_not_space(map[i], &i);
-            skip_spacese(map, &i);
-        }
-        i++;
-    }
+    // id = 'A';
+    // i = 0;
+    // while(map[i])
+    // {
+    //     skip_spacese(map, &i);
+    //     if (map[i] == id)
+    //     {
+    //         world->amb_light.id = map[i];
+    //         i++;
+    //         world->amb_light.ratio = ft_strtof(map[i]);
+    //         skip_not_space(map[i], &i);
+    //         skip_spacese(map, &i);
+    //     }
+    //     i++;
+    // }
 }
 // void parse_camera(char *map, t_rt *world)
 // {
@@ -56,18 +56,36 @@ void parse_ambient_light(char *map, t_rt *world)
 
 // }
 
-int parse(char *map, t_rt *world)
+void init_map_tmp(t_pars *map_tmp)
 {
-    if(!is_map_valid(map))
-        return (EXIT_FAILURE);  
+
+
+}
+
+void    free_map_tmp(t_pars *map_tmp)
+{
 
     
-    parse_ambient_light(map, world);
+}
+int parse(char *map, t_rt *world)
+{
+    t_pars  map_tmp;
+
+    if(!is_map_valid(map))
+        return (EXIT_FAILURE);
+
+    init_map_tmp(&map_tmp);
+
+    
+
+    
+    parse_ambient_light(map_tmp, world);
     // parse_camera(map, world);
     // parse_light(map, world);
     // parse_sphere(map, world);
     // parse_plane(map, world);
     // parse_cylinder(map, world);
+    free_map_tmp(&map_tmp);
 
     return (EXIT_SUCCESS);
 }
