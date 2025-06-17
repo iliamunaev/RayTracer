@@ -9,3 +9,6 @@ miniRT
 
 a.out
 *.o
+test
+
+tests/Makefile

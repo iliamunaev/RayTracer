@@ -10,6 +10,8 @@
 
 // # include "minirt.h"
 /*------FORWARD DECLARATIONS-----------------------------------------*/
+typedef struct s_primitive t_primitive;
+
 
 typedef struct s_tuple
 {
@@ -47,5 +49,8 @@ float    magnitude_vector(const t_tuple vector);
 void    normalize_vector(t_tuple *vector);
 float   dot_product(const t_tuple a, const t_tuple b);
 void cross_product(t_tuple *product, const t_tuple a, const t_tuple b);
+
+// normal math
+void    get_normal_at(t_tuple *normal, t_primitive object, t_tuple world_point);
 
 # endif // MATH_UTILS_H

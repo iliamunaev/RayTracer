@@ -66,9 +66,7 @@ int	main(void)
             get_ray_intersections(&ray, rt);
             get_hit(&ray);
             if (ray.is_hit == true)
-            {
-                mlx_put_pixel(rt.scene, x, y, 0xFF0000FF);
-            }
+                mlx_put_pixel(rt.scene, x, y, 0xFF4433FF);
             else
                 mlx_put_pixel(rt.scene, x, y,  0x58c0dc);
             x++;
