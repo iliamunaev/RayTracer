@@ -52,5 +52,6 @@ void cross_product(t_tuple *product, const t_tuple a, const t_tuple b);
 
 // normal math
 void    get_normal_at(t_tuple *normal, t_primitive object, t_tuple world_point);
+void    reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
 
 # endif // MATH_UTILS_H

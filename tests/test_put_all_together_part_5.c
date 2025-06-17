@@ -39,7 +39,7 @@ int	main(void)
     create_sphere( &sphere, sphere_position);
 
     t_tuple color;
-    create_color(&color, 250, 150, 90);
+    create_color(&color, 1, 0.5, 0.2);
 
 
     int y = 0;
@@ -66,7 +66,7 @@ int	main(void)
             get_ray_intersections(&ray, rt);
             get_hit(&ray);
             if (ray.is_hit == true)
-                mlx_put_pixel(rt.scene, x, y, 0xFF4433FF);
+                mlx_put_pixel(rt.scene, x, y, float_to_hex(color));
             else
                 mlx_put_pixel(rt.scene, x, y,  0x58c0dc);
             x++;
