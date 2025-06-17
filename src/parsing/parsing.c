@@ -1,117 +1,110 @@
 #include "minirt.h"
 
-/*
-- Each type of element can be separated by one or more line break(s).
-- Each type of information from an element can be separated by one or more
-space(s).
-- Each type of element can be set in any order in the file.
-- Elements which are defined by a capital letter can only be declared
-once inthe scene.
-- Each element first’s information is the type identifier (composed by one or two
-character(s)), followed by all specific information for each object in a strict
-order
-*/
-
-void parse_ambient_light(t_pars *map, t_rt *world)
+static bool is_singleton_id(char id)
 {
-    // char  id;
-    // int i;
-
-    // id = 'A';
-    // i = 0;
-    // while(map[i])
-    // {
-    //     skip_spacese(map, &i);
-    //     if (map[i] == id)
-    //     {
-    //         world->amb_light.id = map[i];
-    //         i++;
-    //         world->amb_light.ratio = ft_strtof(map[i]);
-    //         skip_not_space(map[i], &i);
-    //         skip_spacese(map, &i);
-    //     }
-    //     i++;
-    // }
-}
-// void parse_camera(char *map, t_rt *world)
-// {
-
-// }
-// void parse_light(char *map, t_rt *world)
-// {
-
-// }
-
-// void parse_sphere(char *map, t_rt *world)
-// {
-
-// }
-
-// void parse_plane(char *map, t_rt *world)
-// {
-
-// }
-// void parse_cylinder(char *map, t_rt *world)
-// {
-
-// }
-
-void init_map_tmp(t_pars *map_tmp, uint8_t eleements)
-{
-
-
+    return (id == 'A' || id == 'C' || id == 'L');
 }
 
-void    free_map_tmp(t_pars *map_tmp)
+static void set_singleton_flag(bool *flags, char id)
 {
-
-
+    if (id == 'A')
+        flags[0] = true;
+    else if (id == 'C')
+        flags[1] = true;
+    else if (id == 'L')
+        flags[2] = true;
 }
 
-
-uint8_t count_elements(const char *map)
+static bool is_singleton_duplicate(bool *flags, char id)
 {
-    uint8_t count;
+    if (id == 'A' && flags[0])
+        return (true);
+    if (id == 'C' && flags[1])
+        return (true);
+    if (id == 'L' && flags[2])
+        return (true);
+    return (false);
+}
 
+static void dispatch_parser(t_primitive *prim, char **tokens)
+{
+    if (ft_strcmp(tokens[0], "A") == 0)
+        parse_ambient(prim, tokens);
+    else if (ft_strcmp(tokens[0], "C") == 0)
+        parse_camera(prim, tokens);
+    else if (ft_strcmp(tokens[0], "L") == 0)
+        parse_light(prim, tokens);
+    else if (ft_strcmp(tokens[0], "sp") == 0)
+        parse_sphere(prim, tokens);
+    else if (ft_strcmp(tokens[0], "pl") == 0)
+        parse_plane(prim, tokens);
+    else if (ft_strcmp(tokens[0], "cy") == 0)
+        parse_cylinder(prim, tokens);
+}
+
+static void parse_rt_map(t_pars *map_tmp, const char *map)
+{
+    char **lines;
+    char **tokens;
+    char *id;
+    char id_char;
+    bool singleton_flags[3] = {false, false, false};
+    int count;
+    int i;
+
+    lines = ft_split(map, '\n');
     count = 0;
-    while (*map)
+    i = 0;
+    while (lines[i])
     {
-        while (*map && ft_isspace(*map) && *map != '\n')
-            map++;
-        if (*map && *map != '\n')
-            count++;
-        while (*map && *map != '\n')
-            map++;
-        if (*map == '\n')
-            map++;
+        if (is_line_empty_or_space(lines[i]))
+        {
+            i++;
+            continue ;
+        }
+        tokens = split_whitespace(lines[i]);
+        if (!tokens[0])
+        {
+            free_str_array(tokens);
+            i++;
+            continue ;
+        }
+
+        id = tokens[0];
+        id_char = id[0];
+        if (is_singleton_id(id_char) && is_singleton_duplicate(singleton_flags, id_char))
+            exit_with_error("Duplicate singleton element");
+
+        set_singleton_flag(singleton_flags, id_char);
+
+        dispatch_parser(&map_tmp->element[count], tokens);
+        map_tmp->element[count].id = generate_id();
+        count++;
+        free_str_array(tokens);
+        i++;
     }
-    return (count);
+    map_tmp->count = count;
+    free_str_array(lines);
 }
 
 int parse(char *map, t_rt *world)
 {
-    t_pars  map_tmp;
+    t_pars  *map_tmp;
     uint8_t elements;
 
     if(!is_map_valid(map))
         return (EXIT_FAILURE);
-
     elements = count_elements(map);
+    if (elements > MAX_PRIMITIVES)
+        return (EXIT_FAILURE);
+    map_tmp = init_map_tmp(elements);
+    if (!map_tmp)
+        return (EXIT_FAILURE);
 
+    parse_rt_map(map_tmp, map);
 
+    fillup_world(&world, map_tmp);
 
-    init_map_tmp(&map_tmp, elements);
-
-
-
-
-    parse_ambient_light(map_tmp, world);
-    // parse_camera(map, world);
-    // parse_light(map, world);
-    // parse_sphere(map, world);
-    // parse_plane(map, world);
-    // parse_cylinder(map, world);
     free_map_tmp(&map_tmp);
-
     return (EXIT_SUCCESS);
 }
