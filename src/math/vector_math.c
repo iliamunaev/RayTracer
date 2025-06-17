@@ -16,3 +16,13 @@ void    get_normal_at(t_tuple *normal, t_primitive object, t_tuple world_point)
     normal->w = 0;
     normalize_vector(normal);
 }
+
+void    reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal)
+{
+    t_tuple temp;
+
+    create_point(&temp, normal.x, normal.y, normal.z);
+    mult_tuple(&temp, 2);
+    mult_tuple(&temp, dot_product(vector_in, normal));
+    sub_tuples(reflected, vector_in, temp);
+}
