@@ -14,10 +14,20 @@
 # include "ray.h"
 # include "primitives.h"
 # include "../lib/libft/libft.h"
+# include "parsing.h"
+# include "validation.h"
 
 
 #define BPP sizeof(int32_t)
 #define MAX_PRIMITIVES 32
+
+
+typedef struct s_amb_light
+{
+	char	id;
+	float	ratio;
+	t_tuple	color;
+}	t_amb_light;
 
 typedef struct s_rt
 {
@@ -25,6 +35,8 @@ typedef struct s_rt
 	mlx_image_t	*scene;
     uint8_t     obj_counted;
     t_primitive primitives_list[MAX_PRIMITIVES];
+	t_amb_light	amb_light;
+
 }	t_rt;
 
 
