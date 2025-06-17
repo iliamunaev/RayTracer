@@ -15,7 +15,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm -g -o3
 
-SRCS	:=  test_reflect_vec.c \
+SRCS	:=  test_put_all_together_part_5.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/ray/ray.c \
@@ -23,13 +23,12 @@ SRCS	:=  test_reflect_vec.c \
 			../src/utils/color_utils.c \
 			../src/utils/colors.c \
 			../src/math/math.c \
-			../src/math/vector_math.c \
 			../src/matrix/shear.c \
 			../src/matrix/math_matrix.c \
 			../src/matrix/matrix_manipulations.c \
 			../src/matrix/matrix_utils.c \
-			../src/matrix/matrix.c
-
+			../src/matrix/matrix.c \
+			../src/reflection/reflection_math.c
 
 
 SRC_DIR := ../
