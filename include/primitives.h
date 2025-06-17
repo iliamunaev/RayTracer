@@ -3,12 +3,21 @@
 
 /*------FORWARD DECLARATIONS-----------------------------------------*/
 
+typedef struct s_material
+{
+    t_tuple color;
+    float   ambient;
+    float   diffuse;
+    float   specular;
+    float   shininess; // between 10 and 200
+}   t_material;
 
 typedef struct s_primitive
 {
     int         id;
     t_tuple     position;
     t_matrix    matrix;
+    t_material  material;
 }   t_primitive;
 
 void    create_sphere(t_primitive *sphere, t_tuple position);
