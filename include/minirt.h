@@ -54,15 +54,15 @@ typedef struct s_sphere
     t_tuple	color;   
 }   t_sphere;
 
-typedef struct s_plane_tmp
+typedef struct s_plane
 {
     char    id;
     t_tuple    coordinates;
     t_tuple    norm_vector;   
     t_tuple    color;   
-}   t_plane_tmp;
+}   t_plane;
 
-typedef struct s_cylinder_tmp
+typedef struct s_cylinder
 {
     char    id;
     t_tuple    coordinates;
@@ -70,7 +70,7 @@ typedef struct s_cylinder_tmp
     float    diameter; 
     float    height; 
     t_tuple    color;   
-}   t_cylinder_tmp;
+}   t_cylinder;
 
 typedef struct s_rt
 {

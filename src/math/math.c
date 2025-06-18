@@ -17,7 +17,7 @@ void add_tuples(t_tuple *c, const t_tuple a, const t_tuple b)
     c->z = a.z + b.z;
     c->w = a.w + b.w;
     if (c->w > 1)
-        err("Error: 'w' should not be more than 1. Tried to add two points");
+        c->w = 1;
 }
 
 void sub_tuples(t_tuple *c, const t_tuple a, const t_tuple b)

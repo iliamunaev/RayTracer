@@ -16,25 +16,23 @@ void    get_position(t_tuple *position, const t_ray ray, float time)
 }
 
 
-void    get_ray_intersections(t_ray *ray, t_rt minirt)
+void    get_ray_intersections(t_ray *ray, t_rt *minirt)
 {
     uint8_t i;
 
-    t_primitive curr_object;
 
     ray->intersections.counter = 0;
 
     i = 0;
-    while(i < minirt.obj_counted)
-    {
-        curr_object = minirt.primitives_list[i];
-        get_obj_intersec(ray, curr_object);
+    while(i < minirt->obj_counted)
+    {   
+        get_obj_intersec(ray, &minirt->primitives_list[i]);
         i++;
     }    
 
 }
 
-void    get_obj_intersec(t_ray *ray, t_primitive object)
+void    get_obj_intersec(t_ray *ray, t_primitive *object)
 {
     float   a;
     float   b;
@@ -44,7 +42,7 @@ void    get_obj_intersec(t_ray *ray, t_primitive object)
 
 
     a = dot_product(ray->direction, ray->direction);
-    sub_tuples(&sphere_to_ray, ray->origin, object.position);
+    sub_tuples(&sphere_to_ray, ray->origin, object->position);
     b = 2 * dot_product(ray->direction, sphere_to_ray);
     c = dot_product(sphere_to_ray, sphere_to_ray) - 1;
     discriminant = pow(b, 2) - 4 * a * c;
@@ -66,6 +64,12 @@ void get_hit(t_ray *ray)
     int i;
     t_intersec_point temp;
 
+    ray->is_hit = false;
+    if (ray->intersections.counter == 0)
+    {
+        ray->hit.value = -1.0f;
+        return; 
+    }
     i = 0;
     temp = ray->intersections.intersec_list[i];
     i++;

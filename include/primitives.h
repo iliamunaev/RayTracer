@@ -15,6 +15,7 @@ typedef struct s_material
 typedef struct s_primitive
 {
     int         id;
+    char           type;
     t_tuple     position;
     t_matrix    matrix;
     t_material  material;
