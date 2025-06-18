@@ -13,9 +13,9 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 
 # lglfw: OpenGL graphics library
 # ldl: Dynamic linking library for runtime symbol resolution
-LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm -g -o3
+LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
-SRCS	:=  parsing/test_parse_ambient.c \
+SRCS	:=  test_lighting.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/ray/ray.c \
@@ -28,6 +28,8 @@ SRCS	:=  parsing/test_parse_ambient.c \
 			../src/matrix/matrix_manipulations.c \
 			../src/matrix/matrix_utils.c \
 			../src/matrix/matrix.c \
+			../src/reflection/reflection_math.c \
+			../src/reflection/lighting.c
 			../src/parsing/parsing.c \
 			../src/parsing/parsing_utils.c \
 			../src/parsing/fillup_world.c 

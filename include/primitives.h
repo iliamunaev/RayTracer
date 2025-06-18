@@ -3,6 +3,16 @@
 
 /*------FORWARD DECLARATIONS-----------------------------------------*/
 
+
+typedef struct s_material
+{
+    t_tuple color;
+    float   ambient;
+    float   diffuse;
+    float   specular;
+    float   shininess; // between 10 and 200
+}   t_material;
+
 typedef struct s_primitive
 {
     int         id;
@@ -18,6 +28,7 @@ typedef struct s_primitive
     float       diameter;
     float       height;
     float       fov;
+    t_material  material;
 
     t_matrix    matrix;
 } t_primitive;

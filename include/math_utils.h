@@ -11,6 +11,8 @@
 // # include "minirt.h"
 /*------FORWARD DECLARATIONS-----------------------------------------*/
 typedef struct s_primitive t_primitive;
+typedef struct s_light t_light;
+typedef struct s_ray t_ray;
 
 
 typedef struct s_tuple
@@ -58,8 +60,14 @@ float    magnitude_vector(const t_tuple vector);
 void    normalize_vector(t_tuple *vector);
 float   dot_product(const t_tuple a, const t_tuple b);
 void cross_product(t_tuple *product, const t_tuple a, const t_tuple b);
+
 float ft_strtof(char *start);
-// normal math
-void    get_normal_at(t_tuple *normal, t_primitive object, t_tuple world_point);
+
+// reflection -> needs to go somewhere else
+void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
+void    reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
+void    lighting(t_tuple *color, t_primitive *object, t_light light, t_ray ray);
+void    create_material(t_primitive *object, t_tuple color);
+void    create_point_light(t_light *light, t_tuple position, float brighness, t_tuple color);
 
 # endif // MATH_UTILS_H

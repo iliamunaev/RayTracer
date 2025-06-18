@@ -1,21 +1,6 @@
 #include "minirt.h"
 
 
-    /* 
-    uint8_t  w = 0;
-    uint8_t  h = 0;
-    
-    while (h < size)
-    {
-        w = 0;
-        while (w < size)
-        {
-            mlx_put_pixel(rt.scene, w, h, 0x58c0dc);
-            w++;
-        }
-        h++;
-    } */
-
 int	main(void)
 {
     t_rt rt;
@@ -26,7 +11,7 @@ int	main(void)
         exit(EXIT_FAILURE);
     rt.scene = mlx_new_image(rt.mlx, canvas_size, canvas_size);
     ft_memset(rt.scene->pixels, 255, rt.scene->width * rt.scene->height * BPP);
-
+    rt.obj_counted = 1;
 
 
     t_tuple ray_origin = {0, 0, -5, 1};
@@ -37,10 +22,14 @@ int	main(void)
     t_primitive sphere;
     t_tuple     sphere_position = {0, 0, 0, 1};
     create_sphere( &sphere, sphere_position);
+    t_tuple sphere_color;
+    create_color(&sphere_color, 1, 0, 0);
+    create_material(&sphere, sphere_color);
+    rt.primitives_list[0] = sphere;
+
 
     t_tuple color;
-    create_color(&color, 1, 0.5, 0.2);
-
+    //create_color(&color, 1, 0.5, 0.2);
 
     int y = 0;
     int x;
@@ -51,7 +40,23 @@ int	main(void)
     t_ray ray;
     t_tuple ray_vector;
     t_tuple position;
+    t_light light;
+    
+    light.brightness = 1;
+    create_color(&light.color, 1, 1, 1);
+    create_point(&light.coordinates, -10, 10, -10);
 
+     while (y < canvas_size)
+    {
+        x = 0;
+         while (x < canvas_size)
+        {
+            mlx_put_pixel(rt.scene, x, y, 0x58c0dc);
+            x++;
+        }
+        y++;
+    }
+    y = 0;
 
     while (y < canvas_size)
     {
@@ -63,12 +68,18 @@ int	main(void)
             create_point(&position, world_x, world_y, wall_z);
             sub_tuples(&ray_vector, position, ray_origin);
             create_ray(&ray, ray_origin, ray_vector);
-            get_ray_intersections(&ray, rt);
+            get_ray_intersections(&ray, &rt);
             get_hit(&ray);
             if (ray.is_hit == true)
+            {
+                lighting(&color, ray.hit.object, light, ray);
                 mlx_put_pixel(rt.scene, x, y, float_to_hex(color));
-            else
-                mlx_put_pixel(rt.scene, x, y,  0x58c0dc);
+
+            }
+/*             else
+            {
+                mlx_put_pixel(rt.scene, x, y,  0xFFFFFFFFFF);
+            } */
             x++;
         }
         y++;
@@ -81,4 +92,4 @@ int	main(void)
 
 
     return (EXIT_SUCCESS);
-}
+} 
