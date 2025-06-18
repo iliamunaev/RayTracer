@@ -2,9 +2,9 @@
 
 
 //NEED TO CHANGE TO T_PRIMITIVE INSTEAD OF T_LIGHT
-void    create_point_light(t_light *light, t_tuple position, float brighness, t_tuple color)
+void    create_point_light(t_primitive *light, t_tuple position, float brighness, t_tuple color)
 {
-    create_point(&light->coordinates, position.x, position.y, position.z);
+    create_point(&light->position, position.x, position.y, position.z);
     light->brightness = brighness;
     create_color(&light->color, position.r, position.g, position.b);
 }
@@ -20,7 +20,7 @@ void    create_material(t_primitive *object, t_tuple color)
 }
 
 //NEED TO CHANGE TO T_PRIMITIVE INSTEAD OF T_LIGHT + REPLACE EYE_VECTOR + REFACTOR
-void    lighting(t_tuple *color, t_primitive *object, t_light light, t_ray ray)
+void    lighting(t_tuple *color, t_primitive *object, t_primitive light, t_ray ray)
 {
     t_tuple normal;
     t_tuple point;
@@ -39,7 +39,7 @@ void    lighting(t_tuple *color, t_primitive *object, t_light light, t_ray ray)
     mult_tuple(&effective_color, light.brightness);
     get_position(&point, ray, ray.hit.value);
     get_normal_at(&normal, object, point);
-    sub_tuples(&light_v, light.coordinates, point);
+    sub_tuples(&light_v, light.position, point);
     normalize_vector(&light_v);
     create_color(&ambient, effective_color.r, effective_color.g, effective_color.b);
     mult_tuple(&ambient, object->material.ambient);

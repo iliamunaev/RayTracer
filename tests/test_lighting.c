@@ -22,6 +22,10 @@ int	main(void)
     t_primitive sphere;
     t_tuple     sphere_position = {0, 0, 0, 1};
     create_sphere( &sphere, sphere_position);
+    
+    print_matrix(sphere.matrix);
+
+
     t_tuple sphere_color;
     create_color(&sphere_color, 1, 0, 0);
     create_material(&sphere, sphere_color);
@@ -40,11 +44,11 @@ int	main(void)
     t_ray ray;
     t_tuple ray_vector;
     t_tuple position;
-    t_light light;
+    t_primitive light;
     
     light.brightness = 1;
     create_color(&light.color, 1, 1, 1);
-    create_point(&light.coordinates, -10, 10, -10);
+    create_point(&light.position, -10, 10, -10);
 
      while (y < canvas_size)
     {
@@ -70,6 +74,7 @@ int	main(void)
             create_ray(&ray, ray_origin, ray_vector);
             get_ray_intersections(&ray, &rt);
             get_hit(&ray);
+
             if (ray.is_hit == true)
             {
                 lighting(&color, ray.hit.object, light, ray);
