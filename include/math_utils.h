@@ -39,7 +39,16 @@ typedef struct s_tuple
     };
 }   t_tuple;
 
+// typedef struct s_vector {
+//     float x, y, z, w;
+// } t_vector;
 
+// typedef struct s_color {
+//     float r;
+//     float g;
+//     float b;
+//     float a;
+// } t_color;
 
 float   get_radians(float degrees);
 bool    is_equal(float a, float b);
@@ -51,6 +60,8 @@ float    magnitude_vector(const t_tuple vector);
 void    normalize_vector(t_tuple *vector);
 float   dot_product(const t_tuple a, const t_tuple b);
 void cross_product(t_tuple *product, const t_tuple a, const t_tuple b);
+
+float ft_strtof(char *start);
 
 // reflection -> needs to go somewhere else
 void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);

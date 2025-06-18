@@ -5,13 +5,13 @@ int	main(int argc, char **argv)
 
     // remove on production
     (void)argc;
-    (void)argv;
 
     t_rt world;
     uint32_t  w = 0;
     uint32_t  h = 0;
     
     /* validation stage */
+    // validate num of arguments, file name, file extention
 
 	if (parse(argv[1], &world) == EXIT_FAILURE)
     {
@@ -19,7 +19,7 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
     }
 
-     world.mlx = mlx_init(512, 512, "Test", true);
+    world.mlx = mlx_init(512, 512, "Test", true);
     if (!world.mlx)
     {
         err("Error");

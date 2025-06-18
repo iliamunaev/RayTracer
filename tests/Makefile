@@ -3,7 +3,7 @@
 NAME    := test
 
 CC      := cc
-CFLAGS  := #-Wextra -Wall -Werror 
+CFLAGS  := -g -O0 #-Wextra -Wall -Werror 
 
 LIBMLX  := ../lib/MLX42
 LIBFT   := ../lib/libft
@@ -30,7 +30,9 @@ SRCS	:=  test_lighting.c \
 			../src/matrix/matrix.c \
 			../src/reflection/reflection_math.c \
 			../src/reflection/lighting.c
-
+			../src/parsing/parsing.c \
+			../src/parsing/parsing_utils.c \
+			../src/parsing/fillup_world.c 
 
 SRC_DIR := ../
 OBJ_DIR := obj

@@ -1,91 +1,90 @@
 #include "minirt.h"
 
-/*
-- Each type of element can be separated by one or more line break(s).
-- Each type of information from an element can be separated by one or more
-space(s).
-- Each type of element can be set in any order in the file.
-- Elements which are defined by a capital letter can only be declared 
-once inthe scene.
-- Each element first’s information is the type identifier (composed by one or two
-character(s)), followed by all specific information for each object in a strict
-order 
-*/
-
-void parse_ambient_light(t_pars *map, t_rt *world)
+int	read_file(const char *map_file)
 {
-    // char  id;
-    // int i;
+	int	fd;
 
-    // id = 'A';
-    // i = 0;
-    // while(map[i])
-    // {
-    //     skip_spacese(map, &i);
-    //     if (map[i] == id)
-    //     {
-    //         world->amb_light.id = map[i];
-    //         i++;
-    //         world->amb_light.ratio = ft_strtof(map[i]);
-    //         skip_not_space(map[i], &i);
-    //         skip_spacese(map, &i);
-    //     }
-    //     i++;
-    // }
-}
-// void parse_camera(char *map, t_rt *world)
-// {
-
-// }
-// void parse_light(char *map, t_rt *world)
-// {
-
-// }
-
-// void parse_sphere(char *map, t_rt *world)
-// {
-
-// }
-    
-// void parse_plane(char *map, t_rt *world)
-// {
-
-// }
-// void parse_cylinder(char *map, t_rt *world)
-// {
-
-// }
-
-void init_map_tmp(t_pars *map_tmp)
-{
-
-
+	fd = open(map_file, O_RDONLY);
+	if (fd < 0)
+		err("Error");
+	return (fd);
 }
 
-void    free_map_tmp(t_pars *map_tmp)
+static void skip_spaces(char **line)
 {
-
-    
+    while (ft_isspace(**line))
+        (*line)++;
 }
-int parse(char *map, t_rt *world)
+
+void parse_line(char *line, t_token *tokens)
 {
-    t_pars  map_tmp;
+    char    *start;
+    size_t  len;
+    size_t  i = 0;
 
-    if(!is_map_valid(map))
-        return (EXIT_FAILURE);
+    while (*line && i < MAX_NUM_TOKENS)
+    {
+        // Skip leading whitespace
+        skip_spaces(&line);
 
-    init_map_tmp(&map_tmp);
+        if (*line == '\0' || *line == '\n')
+            break;
 
-    
+        start = line;
 
-    
-    parse_ambient_light(map_tmp, world);
-    // parse_camera(map, world);
-    // parse_light(map, world);
-    // parse_sphere(map, world);
-    // parse_plane(map, world);
-    // parse_cylinder(map, world);
-    free_map_tmp(&map_tmp);
+        // Move until next whitespace
+        while (*line && !ft_isspace(*line))
+            line++;
 
+        len = line - start;
+        if (len >= MAX_TOKEN_LENGTH)
+            len = MAX_TOKEN_LENGTH - 1;
+
+
+        ft_memset(tokens->token[i], 0, MAX_TOKEN_LENGTH);
+
+        // Copy the token
+        for (size_t j = 0; j < len; j++)
+            tokens->token[i][j] = start[j];
+
+        tokens->token[i][len] = '\0';  // Just in case, null-terminate again
+        i++;
+    }
+
+    // Clear remaining tokens
+    while (i < MAX_NUM_TOKENS)
+        tokens->token[i++][0] = '\0';
+}
+
+
+int parse(const char *map_file, t_rt *world)
+{    
+    int     fd;
+	char    *line;
+    t_token tokens;
+    int       i;    
+  
+    fd = read_file(map_file); // open map file for reading  
+	if (fd < 0)
+        return (EXIT_FAILURE);   
+    i = 0;
+    while (line = get_next_line(fd)) // read line by line, add mamory clininig if malloc fails in get next line
+	{
+        // add validation
+        /*
+        if(!is_line_valid(line)) // validate line
+        {
+            free(line);
+            close(fd);
+            return (EXIT_FAILURE);
+        }
+        */
+
+        parse_line(line, &tokens); // fillup world with primitives
+        fillup_world(world, &tokens, i);
+        free(line);
+        i++;
+    }
+	close(fd);
     return (EXIT_SUCCESS);
 }
