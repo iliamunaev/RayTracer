@@ -3,7 +3,7 @@
 NAME    := test
 
 CC      := cc
-CFLAGS  := #-Wextra -Wall -Werror 
+CFLAGS  := -g -O0 #-Wextra -Wall -Werror 
 
 LIBMLX  := ../lib/MLX42
 LIBFT   := ../lib/libft
@@ -15,7 +15,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm -g -o3
 
-SRCS	:=  test_draw_sphere.c \
+SRCS	:=  parsing/test_parse_ambient.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/ray/ray.c \
@@ -27,9 +27,10 @@ SRCS	:=  test_draw_sphere.c \
 			../src/matrix/math_matrix.c \
 			../src/matrix/matrix_manipulations.c \
 			../src/matrix/matrix_utils.c \
-			../src/matrix/matrix.c
-
-
+			../src/matrix/matrix.c \
+			../src/parsing/parsing.c \
+			../src/parsing/parsing_utils.c \
+			../src/parsing/fillup_world.c 
 
 SRC_DIR := ../
 OBJ_DIR := obj

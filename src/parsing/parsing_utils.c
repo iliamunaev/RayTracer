@@ -1,28 +1,27 @@
 #include "minirt.h"
 
-void free_map_tmp(t_pars *map_tmp)
+void parse_rgb(t_tuple *color, const char *str)
 {
-	if (!map_tmp)
-		return ;
-	free(map_tmp->element);
-	free(map_tmp);
-}
+    int value = 0;
+    int i = 0;
 
-uint8_t count_elements(const char *map)
-{
-    uint8_t count;
-
-    count = 0;
-    while (*map)
+    while (*str && i < 3)
     {
-        while (*map && ft_isspace(*map) && *map != '\n')
-            map++;
-        if (*map && *map != '\n')
-            count++;
-        while (*map && *map != '\n')
-            map++;
-        if (*map == '\n')
-            map++;
+        if (*str >= '0' && *str <= '9')
+        {
+            value = value * 10 + (*str - '0');
+        }
+        else if (*str == ',' || *str == '\0')
+        {
+            if (i == 0) color->r = (float)value;
+            else if (i == 1) color->g = (float)value;
+            else if (i == 2) color->b = (float)value;
+            value = 0;
+            i++;
+        }
+        str++;
     }
-    return (count);
+
+    if (i == 2)
+        color->b = (float)value; // ensure final component is captured
 }

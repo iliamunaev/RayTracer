@@ -7,6 +7,7 @@
 # include <MLX42/MLX42.h>
 # include <math.h>
 # include <stdbool.h>
+# include <fcntl.h>
 
 # include "math_utils.h"
 # include "utils.h"

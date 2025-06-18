@@ -1,110 +1,90 @@
 #include "minirt.h"
 
-static bool is_singleton_id(char id)
+int	read_file(const char *map_file)
 {
-    return (id == 'A' || id == 'C' || id == 'L');
+	int	fd;
+
+	fd = open(map_file, O_RDONLY);
+	if (fd < 0)
+		err("Error");
+	return (fd);
 }
 
-static void set_singleton_flag(bool *flags, char id)
+static void skip_spaces(char **line)
 {
-    if (id == 'A')
-        flags[0] = true;
-    else if (id == 'C')
-        flags[1] = true;
-    else if (id == 'L')
-        flags[2] = true;
+    while (ft_isspace(**line))
+        (*line)++;
 }
 
-static bool is_singleton_duplicate(bool *flags, char id)
+void parse_line(char *line, t_token *tokens)
 {
-    if (id == 'A' && flags[0])
-        return (true);
-    if (id == 'C' && flags[1])
-        return (true);
-    if (id == 'L' && flags[2])
-        return (true);
-    return (false);
-}
+    char    *start;
+    size_t  len;
+    size_t  i = 0;
 
-static void dispatch_parser(t_primitive *prim, char **tokens)
-{
-    if (ft_strcmp(tokens[0], "A") == 0)
-        parse_ambient(prim, tokens);
-    else if (ft_strcmp(tokens[0], "C") == 0)
-        parse_camera(prim, tokens);
-    else if (ft_strcmp(tokens[0], "L") == 0)
-        parse_light(prim, tokens);
-    else if (ft_strcmp(tokens[0], "sp") == 0)
-        parse_sphere(prim, tokens);
-    else if (ft_strcmp(tokens[0], "pl") == 0)
-        parse_plane(prim, tokens);
-    else if (ft_strcmp(tokens[0], "cy") == 0)
-        parse_cylinder(prim, tokens);
-}
-
-static void parse_rt_map(t_pars *map_tmp, const char *map)
-{
-    char **lines;
-    char **tokens;
-    char *id;
-    char id_char;
-    bool singleton_flags[3] = {false, false, false};
-    int count;
-    int i;
-
-    lines = ft_split(map, '\n');
-    count = 0;
-    i = 0;
-    while (lines[i])
+    while (*line && i < MAX_NUM_TOKENS)
     {
-        if (is_line_empty_or_space(lines[i]))
-        {
-            i++;
-            continue ;
-        }
-        tokens = split_whitespace(lines[i]);
-        if (!tokens[0])
-        {
-            free_str_array(tokens);
-            i++;
-            continue ;
-        }
+        // Skip leading whitespace
+        skip_spaces(&line);
 
-        id = tokens[0];
-        id_char = id[0];
-        if (is_singleton_id(id_char) && is_singleton_duplicate(singleton_flags, id_char))
-            exit_with_error("Duplicate singleton element");
+        if (*line == '\0' || *line == '\n')
+            break;
 
-        set_singleton_flag(singleton_flags, id_char);
+        start = line;
 
-        dispatch_parser(&map_tmp->element[count], tokens);
-        map_tmp->element[count].id = generate_id();
-        count++;
-        free_str_array(tokens);
+        // Move until next whitespace
+        while (*line && !ft_isspace(*line))
+            line++;
+
+        len = line - start;
+        if (len >= MAX_TOKEN_LENGTH)
+            len = MAX_TOKEN_LENGTH - 1;
+
+
+        ft_memset(tokens->token[i], 0, MAX_TOKEN_LENGTH);
+
+        // Copy the token
+        for (size_t j = 0; j < len; j++)
+            tokens->token[i][j] = start[j];
+
+        tokens->token[i][len] = '\0';  // Just in case, null-terminate again
         i++;
     }
-    map_tmp->count = count;
-    free_str_array(lines);
+
+    // Clear remaining tokens
+    while (i < MAX_NUM_TOKENS)
+        tokens->token[i++][0] = '\0';
 }
 
-int parse(char *map, t_rt *world)
-{
-    t_pars  *map_tmp;
-    uint8_t elements;
 
-    if(!is_map_valid(map))
-        return (EXIT_FAILURE);
-    elements = count_elements(map);
-    if (elements > MAX_PRIMITIVES)
-        return (EXIT_FAILURE);
-    map_tmp = init_map_tmp(elements);
-    if (!map_tmp)
-        return (EXIT_FAILURE);
+int parse(const char *map_file, t_rt *world)
+{    
+    int     fd;
+	char    *line;
+    t_token tokens;
+    int       i;    
+  
+    fd = read_file(map_file); // open map file for reading  
+	if (fd < 0)
+        return (EXIT_FAILURE);   
+    i = 0;
+    while (line = get_next_line(fd)) // read line by line, add mamory clininig if malloc fails in get next line
+	{
+        // add validation
+        /*
+        if(!is_line_valid(line)) // validate line
+        {
+            free(line);
+            close(fd);
+            return (EXIT_FAILURE);
+        }
+        */
 
-    parse_rt_map(map_tmp, map);
-
-    fillup_world(&world, map_tmp);
-
-    free_map_tmp(&map_tmp);
+        parse_line(line, &tokens); // fillup world with primitives
+        fillup_world(world, &tokens, i);
+        free(line);
+        i++;
+    }
+	close(fd);
     return (EXIT_SUCCESS);
 }

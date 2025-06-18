@@ -1,31 +1,36 @@
 #include "minirt.h"
 
-static void copy_data(t_primitive *dst, const t_primitive *src)
+void parse_ambient(t_rt *world, const t_token *token, int i)
 {
-	dst->id = generate_id();
-	dst->char_id = src->char_id;
-	dst->position = src->position;
-	dst->norm_vector = src->norm_vector;
-	dst->ratio = src->ratio;
-	dst->brightness = src->brightness;
-	dst->color = src->color;
-	dst->diameter = src->diameter;
-	dst->height = src->height;
-	dst->fov = src->fov;
-	dst->matrix = src->matrix;
+
+    t_primitive *p = &world->primitives_list[i];
+	
+    p->id = generate_id();
+    p->type = 'A';
+	p->ratio = ft_strtof(token->token[1]);
+    parse_rgb(&p->color, token->token[2]);
 }
 
-void fillup_world(t_rt *world, const t_pars *map_tmp)
-{
-	int i;
 
-    world->mlx = NULL;
-	world->scene = NULL;
-	world->obj_counted = map_tmp->count;
-    i = 0;
-	while (i < map_tmp->count)
-	{
-		copy_data(&world->primitives_list[i], &map_tmp->element[i]);
-		i++;
-	}
+void fillup_world(t_rt	*world, const t_token *token, int i)
+{
+    const char *id;
+
+	id = token->token[0];
+
+    if (ft_strcmp(id, "A") == 0)
+        parse_ambient(world, token, i);
+    // else if (ft_strcmp(id, "C") == 0)
+    //     parse_camera(&p, token);
+    // else if (ft_strcmp(id, "L") == 0)
+    //     parse_light(&p, token);
+    // else if (ft_strcmp(id, "sp") == 0)
+    //     parse_sphere(&p, token);
+    // else if (ft_strcmp(id, "pl") == 0)
+    //     parse_plane(&p, token);
+    // else if (ft_strcmp(id, "cy") == 0)
+    //     parse_cylinder(&p, token);
+
+	world->obj_counted++;
 }
+
