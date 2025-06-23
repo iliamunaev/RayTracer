@@ -71,6 +71,7 @@ void fillup_world(t_rt *world, t_token *token, int i);
 
 // //parsing_utils.c
 void parse_rgb(t_tuple *color, const char *str);
+void parse_position(t_tuple *position, const char *str);
 
 
 # endif // PARSING_H
