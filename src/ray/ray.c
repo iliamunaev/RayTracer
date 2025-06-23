@@ -15,6 +15,26 @@ void    get_position(t_tuple *position, const t_ray ray, float time)
     position->w = ray.origin.w + ray.direction.w *time;
 }
 
+void    sort_intersec_list(t_intersec_point *intersec_list, int count)
+{
+    uint8_t i;
+    int8_t j;
+    t_intersec_point key;
+
+    i = 1;
+    while (i < count)
+    {
+        key = intersec_list[i];
+        j = i - 1;
+        while( j >= 0 && intersec_list[j].value > key.value)
+        {
+            intersec_list[j + 1] = intersec_list [j];
+            j--;
+        }
+        intersec_list[j + 1] = key;
+        i++;
+    }
+}
 
 void    get_ray_intersections(t_ray *ray, t_rt *minirt)
 {
@@ -29,7 +49,7 @@ void    get_ray_intersections(t_ray *ray, t_rt *minirt)
         get_obj_intersec(ray, &minirt->primitives_list[i]);
         i++;
     }    
-
+    sort_intersec_list(ray->intersections.intersec_list, ray->intersections.counter);
 }
 
 void    get_obj_intersec(t_ray *ray, t_primitive *object)
@@ -59,7 +79,7 @@ void    get_obj_intersec(t_ray *ray, t_primitive *object)
 
 }
 
-void get_hit(t_ray *ray)
+/* void get_hit(t_ray *ray)
 {
     int i;
     t_intersec_point temp;
@@ -85,6 +105,25 @@ void get_hit(t_ray *ray)
         ray->is_hit = true;
     }
     //ADDED CHECK FOR IF NOT HITTED, THEN ASSIGN ALL TO -1. NEEDS VERIFICATION
+} */
+
+void get_hit(t_ray *ray)
+{
+    uint8_t i = 0;
+
+    ray->is_hit = false;
+    ray->hit.value = -1.0f;
+
+    while (i < ray->intersections.counter)
+    {
+        if (ray->intersections.intersec_list[i].value >= 0)
+        {
+            ray->hit = ray->intersections.intersec_list[i];
+            ray->is_hit = true;
+            return;
+        }
+        i++;
+    }
 }
 
 void	ray_transform(t_ray *ray, t_matrix matrix)

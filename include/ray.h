@@ -15,7 +15,7 @@ typedef struct s_intersec_point
 {   
     float   value;
     t_primitive *object;
-    t_tuple     position;
+    t_tuple     position; // PROBABLY NOT NEEDED
 }   t_intersec_point;
 
 
