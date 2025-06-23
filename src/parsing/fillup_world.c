@@ -31,15 +31,7 @@ void parse_sphere(t_rt *world, t_token *token, int i)
     parse_rgb(&p->color, token->token[3]);
 }
 
-/*
-  C -50.0,0,20 0,0,1 70
 
-* identifier: C
-∗ x,y,z coordinates of the view point: -50.0,0,20
-∗ 3d normalized orientation vector. In range [-1,1] for each x,y,z axis:
-0.0,0.0,1.0
-∗ FOV : Horizontal field of view in degrees in range [0,180]: 70
-*/
 
 void parse_camera(t_rt *world, t_token *token, int i)
 {
@@ -56,6 +48,29 @@ void parse_camera(t_rt *world, t_token *token, int i)
     parse_coordinates(&p->norm_vector, token->token[2]);
     p->fov = ft_strtof(token->token[3]);
 }
+/*
+  L -40.0,50.0,0.0 0.6 10,0,255
+
+∗ identifier: L
+∗ x,y,z coordinates of the light point: -40.0,50.0,0.0
+∗ the light brightness ratio in range [0.0,1.0]: 0.6
+∗ (unused in mandatory part)R,G,B colors in range [0-255]: 10, 0, 255
+*/
+void parse_light(t_rt *world, t_token *token, int i)
+{
+    t_primitive *p;
+
+    p = &world->primitives_list[i];
+
+    p->id = generate_id();
+    p->type[0] = 'L';
+    p->type[1] = '\0';
+    p->type[2] = '\0';
+
+    parse_coordinates(&p->position, token->token[1]);
+    p->ratio = ft_strtof(token->token[2]);
+    parse_rgb(&p->color, token->token[3]);
+}
 void fillup_world(t_rt *world, t_token *token, int i)
 {
     char *id;
@@ -66,8 +81,8 @@ void fillup_world(t_rt *world, t_token *token, int i)
         parse_ambient(world, token, i);
     else if (ft_strcmp(id, "C") == 0)
         parse_camera(world, token, i);
-    // else if (ft_strcmp(id, "L") == 0)
-    //     parse_light(world, token, i);
+    else if (ft_strcmp(id, "L") == 0)
+        parse_light(world, token, i);
     else if (ft_strcmp(id, "sp") == 0)
         parse_sphere(world, token, i);
     // else if (ft_strcmp(id, "pl") == 0)

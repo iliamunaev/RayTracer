@@ -14,7 +14,6 @@ int main(int c, char **av)
     }
 
     // ambient
-
     int id = world.primitives_list[0].id;
     char *type= world.primitives_list[0].type;
     float ratio = world.primitives_list[0].ratio;
@@ -76,6 +75,29 @@ int main(int c, char **av)
     float fovCam = world.primitives_list[2].fov;
     printf("FOV: %f\n",fovCam);
 
-    
+    // light
+    printf("\nLIGHT 'L -40.0,50.0,0.0 0.6 10,0,255':\n");
+
+    int idL = world.primitives_list[3].id;
+    printf("id: %i\n", idL);
+
+    char *typeL = world.primitives_list[3].type;
+    printf("type: %s\n", typeL);
+
+    t_tuple posL = world.primitives_list[3].position;
+    printf("x: %f\n",posL.x);
+    printf("y: %f\n",posL.y);
+    printf("z: %f\n",posL.z);
+    printf("w: %f\n",posL.w);
+
+    float ratioL = world.primitives_list[3].ratio;
+    printf("Ratio: %f\n",ratioL);
+
+    t_tuple colorL = world.primitives_list[3].color;
+    printf("Vec X: %f\n",colorL.x);
+    printf("Vec Y: %f\n",colorL.y);
+    printf("Vec Z: %f\n",colorL.z);
+    printf("Vec W: %f\n",colorL.w);
+
 }
 
