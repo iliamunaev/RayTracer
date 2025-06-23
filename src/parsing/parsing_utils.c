@@ -8,7 +8,8 @@ void parse_rgb(t_tuple *color, const char *str)
     while (*str && i < 3)
     {
         // Skip spaces
-        while (*str == ' ') str++;
+        while (*str == ' ')
+            str++;
 
         rgb[i] = 0;
         while (*str >= '0' && *str <= '9')
@@ -17,8 +18,10 @@ void parse_rgb(t_tuple *color, const char *str)
             str++;
         }
         // Skip spaces before comma
-        while (*str == ' ') str++;
-        if (*str == ',') str++;
+        while (*str == ' ')
+            str++;
+        if (*str == ',')
+            str++;
         i++;
     }
 
@@ -27,7 +30,7 @@ void parse_rgb(t_tuple *color, const char *str)
     color->b = rgb[2] / 255.0f;
 }
 
-void parse_position(t_tuple *position, const char *str)
+void parse_coordinates(t_tuple *position, const char *str)
 {
     int i;
     float vals[3];
@@ -36,12 +39,15 @@ void parse_position(t_tuple *position, const char *str)
     for (i = 0; i < 3; i++)
     {
         // Skip leading spaces
-        while (*p == ' ') p++;
+        while (*p == ' ')
+            p++;
         vals[i] = ft_strtof(p);
 
         // Move pointer to next comma or end
-        while (*p && *p != ',') p++;
-        if (*p == ',') p++;
+        while (*p && *p != ',')
+            p++;
+        if (*p == ',')
+            p++;
     }
     position->x = vals[0];
     position->y = vals[1];

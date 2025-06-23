@@ -51,5 +51,31 @@ int main(int c, char **av)
     printf("G: %f\n",color1.g);
     printf("B: %f\n",color1.b);
     printf("A: %f\n",color1.a);
+
+    // camera
+    printf("\nCAMERA 'C -50.0,0,20 0,0,1 70':\n");
+
+    int idCam = world.primitives_list[2].id;
+    printf("id: %i\n", idCam);
+
+    char *typeCam = world.primitives_list[2].type;
+    printf("type: %s\n", typeCam);
+
+    t_tuple posCam = world.primitives_list[2].position;
+    printf("x: %f\n",posCam.x);
+    printf("y: %f\n",posCam.y);
+    printf("z: %f\n",posCam.z);
+    printf("w: %f\n",posCam.w);
+
+    t_tuple normVecCam = world.primitives_list[2].norm_vector;
+    printf("Vec X: %f\n",normVecCam.x);
+    printf("Vec Y: %f\n",normVecCam.y);
+    printf("Vec Z: %f\n",normVecCam.z);
+    printf("Vec W: %f\n",normVecCam.w);
+
+    float fovCam = world.primitives_list[2].fov;
+    printf("FOV: %f\n",fovCam);
+
+    
 }
 
