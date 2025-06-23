@@ -1,10 +1,10 @@
 #include "minirt.h"
 
-void parse_ambient(t_rt *world, const t_token *token, int i)
+void parse_ambient(t_rt *world, t_token *token, int i)
 {
 
     t_primitive *p = &world->primitives_list[i];
-	
+
     p->id = generate_id();
     p->type = 'A';
 	p->ratio = ft_strtof(token->token[1]);
@@ -12,9 +12,9 @@ void parse_ambient(t_rt *world, const t_token *token, int i)
 }
 
 
-void fillup_world(t_rt	*world, const t_token *token, int i)
+void fillup_world(t_rt	*world, t_token *token, int i)
 {
-    const char *id;
+    char *id;
 
 	id = token->token[0];
 

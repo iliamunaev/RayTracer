@@ -97,16 +97,15 @@ float ft_strtof(char *start)
     fraction = 0.0f;
     divider = 10.0f;
     dot_seen = 0;
-
     while (*start)
     {
         if (*start == '.')
         {
             if (dot_seen)
-                break;
+                break ;
             dot_seen = 1;
             start++;
-            continue;
+            continue ;
         }
 
         if (*start >= '0' && *start <= '9')
@@ -119,11 +118,10 @@ float ft_strtof(char *start)
                 divider *= 10.0f;
             }
         }
-        else break;
-
+        else
+            break;
         start++;
     }
     final = result + fraction;
-
     return (final);
 }

@@ -67,7 +67,7 @@ typedef struct s_token
 
 // parsing.c
 int parse(const char *map_file, t_rt *world);
-void fillup_world(t_rt *world, const t_token *token, int i);
+void fillup_world(t_rt *world, t_token *token, int i);
 
 // //parsing_utils.c
 void parse_rgb(t_tuple *color, const char *str);
