@@ -48,6 +48,16 @@ void parse_line(char *line, t_token *tokens)
     while (i < MAX_NUM_TOKENS)
         tokens->token[i++][0] = '\0';
 }
+static bool is_line_empty(const char *line)
+{
+    while (*line)
+    {
+        if (!ft_isspace(*line) && *line != '\n')
+            return (false);
+        line++;
+    }
+    return (true);
+}
 
 
 int parse(const char *map_file, t_rt *world)
@@ -72,6 +82,11 @@ int parse(const char *map_file, t_rt *world)
             return (EXIT_FAILURE);
         }
         */
+        if (is_line_empty(line))
+        {
+            free(line);
+            continue;
+        }
 
         parse_line(line, &tokens); // fillup world with primitives
         fillup_world(world, &tokens, i);
