@@ -1,4 +1,55 @@
 # include "minirt.h"
+/*
+typedef struct s_primitive
+{
+    int         id;
+    char        type[3];
+
+    t_tuple    position;
+    t_tuple    norm_vector;
+
+    float       ratio;
+    float       brightness;
+
+    t_tuple     color;
+    float       diameter;
+    float       height;
+    float       fov;
+    t_material  material;
+
+    t_matrix    matrix;
+} t_primitive;
+*/
+
+static void print_ratio (float ratio)
+{
+    printf("Ratio: %f\n", ratio);
+}
+
+static void print_color(t_tuple color)
+{
+    printf("R: %f\n",color.r);
+    printf("G: %f\n",color.g);
+    printf("B: %f\n",color.b);
+    printf("A: %f\n",color.a);
+}
+
+static void print_position(t_tuple pos)
+{
+    printf("X: %f\n",pos.x);
+    printf("Y: %f\n",pos.y);
+    printf("Z: %f\n",pos.z);
+    printf("W: %f\n",pos.w);
+}
+
+static void print_norm_vec(t_tuple nv)
+{
+    printf("Vec X: %f\n",nv.x);
+    printf("Vec Y: %f\n",nv.y);
+    printf("Vec Z: %f\n",nv.z);
+    printf("Vec W: %f\n",nv.w);
+}
+
 
 int main(int c, char **av)
 {
@@ -13,119 +64,62 @@ int main(int c, char **av)
 		return (EXIT_FAILURE);
     }
 
-    // ambient
-    int id = world.primitives_list[0].id;
-    char *type= world.primitives_list[0].type;
-    float ratio = world.primitives_list[0].ratio;
-    t_tuple color = world.primitives_list[0].color;
+    int i = 0;
+    t_primitive p;
 
-    printf("\nAMBIENT 'A 0.2 255,255,255':\n");
-    printf("id: %i\n", id);
-    printf("type: %s\n", type);
-    printf("ratio: %f\n", ratio);
+    while(i < world.obj_counted)
+    {
+        p = world.primitives_list[i];
+        printf("---------- \n");
+        printf("id: %i\n", p.id);
+        printf("type: %s\n", p.type);
+        if (ft_strcmp(p.type, "A") == 0)
+        {
+            printf("AMBIENT\n");
 
-    printf("R: %f\n",color.r);
-    printf("G: %f\n",color.g);
-    printf("B: %f\n",color.b);
-    printf("A: %f\n",color.a);
+            print_ratio(p.ratio);
+            print_color(p.color);
 
-    // sphere
-    int id1 = world.primitives_list[1].id;
-    char *type1 = world.primitives_list[1].type;
-    float diameter = world.primitives_list[1].diameter;
-    t_tuple pos = world.primitives_list[1].position;
-    t_tuple color1 = world.primitives_list[1].color;
+        }
+        else if (ft_strcmp(p.type, "C") == 0)
+        {
+            printf("CAMERA\n");
+            print_position(p.position);
+            print_norm_vec(p.norm_vector);
+            printf("FOV: %f\n",p.fov);
+        }
+        else if (ft_strcmp(p.type, "L") == 0)
+        {
+            printf("LIGHT\n");
+            print_position(p.position);
+            print_ratio(p.ratio);
+            print_color(p.color);
 
-    printf("\nSPHERE 'sp 0.0,0.0,20.6 12.6 10,0,255':\n");
-    printf("id: %i\n", id1);
-    printf("type: %s\n", type1);
-    printf("x: %f\n",pos.x);
-    printf("y: %f\n",pos.y);
-    printf("z: %f\n",pos.z);
-    printf("w: %f\n",pos.w);
-
-    printf("diameter: %f\n",diameter);
-
-    printf("R: %f\n",color1.r);
-    printf("G: %f\n",color1.g);
-    printf("B: %f\n",color1.b);
-    printf("A: %f\n",color1.a);
-
-    // camera
-    printf("\nCAMERA 'C -50.0,0,20 0,0,1 70':\n");
-
-    int idCam = world.primitives_list[2].id;
-    printf("id: %i\n", idCam);
-
-    char *typeCam = world.primitives_list[2].type;
-    printf("type: %s\n", typeCam);
-
-    t_tuple posCam = world.primitives_list[2].position;
-    printf("x: %f\n",posCam.x);
-    printf("y: %f\n",posCam.y);
-    printf("z: %f\n",posCam.z);
-    printf("w: %f\n",posCam.w);
-
-    t_tuple normVecCam = world.primitives_list[2].norm_vector;
-    printf("Vec X: %f\n",normVecCam.x);
-    printf("Vec Y: %f\n",normVecCam.y);
-    printf("Vec Z: %f\n",normVecCam.z);
-    printf("Vec W: %f\n",normVecCam.w);
-
-    float fovCam = world.primitives_list[2].fov;
-    printf("FOV: %f\n",fovCam);
-
-    // light
-    printf("\nLIGHT 'L -40.0,50.0,0.0 0.6 10,0,255':\n");
-
-    int idL = world.primitives_list[3].id;
-    printf("id: %i\n", idL);
-
-    char *typeL = world.primitives_list[3].type;
-    printf("type: %s\n", typeL);
-
-    t_tuple posL = world.primitives_list[3].position;
-    printf("x: %f\n",posL.x);
-    printf("y: %f\n",posL.y);
-    printf("z: %f\n",posL.z);
-    printf("w: %f\n",posL.w);
-
-    float ratioL = world.primitives_list[3].ratio;
-    printf("Ratio: %f\n",ratioL);
-
-    t_tuple colorL = world.primitives_list[3].color;
-    printf("Vec X: %f\n",colorL.x);
-    printf("Vec Y: %f\n",colorL.y);
-    printf("Vec Z: %f\n",colorL.z);
-    printf("Vec W: %f\n",colorL.w);
-
-
-    // plane
-    printf("\nPLANE ' pl 0.0,0.0,-10.0 0.0,1.0,0.0 0,0,225':\n");
-
-    int idPl = world.primitives_list[4].id;
-    printf("id: %i\n", idPl);
-
-    char *typePl = world.primitives_list[4].type;
-    printf("type: %s\n", typePl);
-
-    t_tuple posPl = world.primitives_list[4].position;
-    printf("x: %f\n",posPl.x);
-    printf("y: %f\n",posPl.y);
-    printf("z: %f\n",posPl.z);
-    printf("w: %f\n",posPl.w);
-
-    t_tuple normVecPl = world.primitives_list[4].norm_vector;
-    printf("Vec X: %f\n",normVecPl.x);
-    printf("Vec Y: %f\n",normVecPl.y);
-    printf("Vec Z: %f\n",normVecPl.z);
-    printf("Vec W: %f\n",normVecPl.w);
-
-    t_tuple colorPl = world.primitives_list[4].color;
-    printf("R: %f\n",colorPl.r);
-    printf("G: %f\n",colorPl.g);
-    printf("B: %f\n",colorPl.b);
-    printf("A: %f\n",colorPl.a);
-
+        }
+        else if (ft_strcmp(p.type, "sp") == 0)
+        {
+            printf("SPHERE\n");
+            print_position(p.position);
+            printf("Diameter: %f\n",p.diameter);
+            print_color(p.color);
+        }
+        else if (ft_strcmp(p.type, "pl") == 0)
+        {
+            print_position(p.position);
+            print_norm_vec(p.norm_vector);
+            print_color(p.color);
+        }
+        else if (ft_strcmp(p.type, "cy") == 0)
+        {
+            printf("CYLINDER\n");
+            print_position(p.position);
+            print_norm_vec(p.norm_vector);
+            printf("Diameter: %f\n",p.diameter);
+            printf("Hight: %f\n",p.height);
+            print_color(p.color);
+        }
+        i++;
+    }
+    return 0;
 }
 

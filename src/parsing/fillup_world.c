@@ -65,14 +65,6 @@ void parse_light(t_rt *world, t_token *token, int i)
     parse_rgb(&p->color, token->token[3]);
 }
 
-/*
-  pl 0.0,0.0,-10.0 0.0,1.0,0.0 0,0,225
-
-∗ identifier: pl
-∗ x,y,z coordinates of a point in the plane: 0.0,0.0,-10.0
-∗ 3d normalized normal vector. In range [-1,1] for each x,y,z axis: 0.0,1.0,0.0
-∗ R,G,B colors in range [0-255]: 0,0,225
-*/
 void parse_plane(t_rt *world, t_token *token, int i)
 {
     t_primitive *p;
@@ -88,6 +80,36 @@ void parse_plane(t_rt *world, t_token *token, int i)
     parse_coordinates(&p->norm_vector, token->token[2]);
     parse_rgb(&p->color, token->token[3]);
 }
+
+/*
+  cy 50.0,0.0,20.6 0.0,0.0,1.0 14.2 21.42 10,0,255
+
+∗ identifier: cy
+∗ x,y,z coordinates of the center of the cylinder: 50.0,0.0,20.6
+∗ 3d normalized vector of axis of cylinder. In range [-1,1] for each x,y,z axis:
+0.0,0.0,1.0
+∗ the cylinder diameter: 14.2
+∗ the cylinder height: 21.42
+∗ R,G,B colors in range [0,255]: 10, 0, 255
+*/
+void parse_cylinder(t_rt *world, t_token *token, int i)
+{
+    t_primitive *p;
+
+    p = &world->primitives_list[i];
+
+    p->id = generate_id();
+    p->type[0] = 'c';
+    p->type[1] = 'y';
+    p->type[2] = '\0';
+
+    parse_coordinates(&p->position, token->token[1]);
+    parse_coordinates(&p->norm_vector, token->token[2]);
+    p->diameter = ft_strtof(token->token[3]);
+    p->height = ft_strtof(token->token[4]);
+    parse_rgb(&p->color, token->token[5]);
+}
+
 void fillup_world(t_rt *world, t_token *token, int i)
 {
     char *id;
@@ -104,8 +126,7 @@ void fillup_world(t_rt *world, t_token *token, int i)
         parse_sphere(world, token, i);
     else if (ft_strcmp(id, "pl") == 0)
         parse_plane(world, token, i);
-    // else if (ft_strcmp(id, "cy") == 0)
-    //     parse_cylinder(&p, token);
-
+    else if (ft_strcmp(id, "cy") == 0)
+        parse_cylinder(world, token, i);
     world->obj_counted++;
 }
