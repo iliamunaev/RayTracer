@@ -99,5 +99,33 @@ int main(int c, char **av)
     printf("Vec Z: %f\n",colorL.z);
     printf("Vec W: %f\n",colorL.w);
 
+
+    // plane
+    printf("\nPLANE ' pl 0.0,0.0,-10.0 0.0,1.0,0.0 0,0,225':\n");
+
+    int idPl = world.primitives_list[4].id;
+    printf("id: %i\n", idPl);
+
+    char *typePl = world.primitives_list[4].type;
+    printf("type: %s\n", typePl);
+
+    t_tuple posPl = world.primitives_list[4].position;
+    printf("x: %f\n",posPl.x);
+    printf("y: %f\n",posPl.y);
+    printf("z: %f\n",posPl.z);
+    printf("w: %f\n",posPl.w);
+
+    t_tuple normVecPl = world.primitives_list[4].norm_vector;
+    printf("Vec X: %f\n",normVecPl.x);
+    printf("Vec Y: %f\n",normVecPl.y);
+    printf("Vec Z: %f\n",normVecPl.z);
+    printf("Vec W: %f\n",normVecPl.w);
+
+    t_tuple colorPl = world.primitives_list[4].color;
+    printf("R: %f\n",colorPl.r);
+    printf("G: %f\n",colorPl.g);
+    printf("B: %f\n",colorPl.b);
+    printf("A: %f\n",colorPl.a);
+
 }
 
