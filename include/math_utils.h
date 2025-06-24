@@ -60,7 +60,6 @@ float    magnitude_vector(const t_tuple vector);
 void    normalize_vector(t_tuple *vector);
 float   dot_product(const t_tuple a, const t_tuple b);
 void cross_product(t_tuple *product, const t_tuple a, const t_tuple b);
-
 float ft_strtof(const char *start);
 
 // reflection -> needs to go somewhere else
