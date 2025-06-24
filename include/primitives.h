@@ -16,13 +16,13 @@ typedef struct s_material
 typedef struct s_primitive
 {
     int         id;
-    char        type;
+    char        type[3];
 
     t_tuple    position;
     t_tuple    norm_vector;
 
     float       ratio;
-    float       brightness;
+    float       brightness; 
 
     t_tuple     color;
     float       diameter;

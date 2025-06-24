@@ -85,18 +85,19 @@ void cross_product(t_tuple *product, const t_tuple a, const t_tuple b)
     product->z = a.x * b.y - a.y * b.x;
 }
 
-float ft_strtof(char *start)
+float ft_strtof(const char *start)
 {
-    float result;
-    float fraction;
-    float divider;
-    int dot_seen;
-    float final;
+    float result = 0.0f, fraction = 0.0f, divider = 10.0f;
+    int dot_seen = 0, sign = 1;
 
-    result = 0.0f;
-    fraction = 0.0f;
-    divider = 10.0f;
-    dot_seen = 0;
+    // Skip leading spaces
+    while (*start == ' ') start++;
+
+    // Handle sign
+    if (*start == '-') {
+        sign = -1;
+        start++;
+    }
 
     while (*start)
     {
@@ -108,7 +109,6 @@ float ft_strtof(char *start)
             start++;
             continue;
         }
-
         if (*start >= '0' && *start <= '9')
         {
             if (!dot_seen)
@@ -119,11 +119,9 @@ float ft_strtof(char *start)
                 divider *= 10.0f;
             }
         }
-        else break;
-
+        else
+            break;
         start++;
     }
-    final = result + fraction;
-
-    return (final);
+    return (sign * (result + fraction));
 }

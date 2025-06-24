@@ -1,5 +1,5 @@
 #ifndef PARSING_H
-# define PARSING_H
+#define PARSING_H
 
 #define MAX_NUM_TOKENS 6
 #define MAX_TOKEN_LENGTH 32
@@ -26,7 +26,6 @@
 //     char    *brightness;
 //     char    *color;
 // }   t_light_tmp;
-
 
 // typedef struct s_sphere_tmp
 // {
@@ -57,8 +56,8 @@
 typedef struct s_pars
 {
     t_primitive *element;
-    int         count;
-}   t_pars;
+    int count;
+} t_pars;
 
 typedef struct s_token
 {
@@ -67,10 +66,11 @@ typedef struct s_token
 
 // parsing.c
 int parse(const char *map_file, t_rt *world);
-void fillup_world(t_rt *world, const t_token *token, int i);
+void fillup_world(t_rt *world, t_token *token, int i);
 
 // //parsing_utils.c
 void parse_rgb(t_tuple *color, const char *str);
+void parse_coordinates(t_tuple *position, const char *str);
 
 
-# endif // PARSING_H
+#endif // PARSING_H
