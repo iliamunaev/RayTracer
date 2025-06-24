@@ -20,53 +20,56 @@ void parse_line(char *line, t_token *tokens)
 {
     char    *start;
     size_t  len;
-    size_t  i = 0;
+    size_t  i;
+    size_t  j;
 
+    i = 0;
     while (*line && i < MAX_NUM_TOKENS)
     {
-        // Skip leading whitespace
         skip_spaces(&line);
-
         if (*line == '\0' || *line == '\n')
-            break;
-
+            break ;
         start = line;
-
-        // Move until next whitespace
         while (*line && !ft_isspace(*line))
             line++;
-
         len = line - start;
         if (len >= MAX_TOKEN_LENGTH)
             len = MAX_TOKEN_LENGTH - 1;
-
-
         ft_memset(tokens->token[i], 0, MAX_TOKEN_LENGTH);
-
-        // Copy the token
-        for (size_t j = 0; j < len; j++)
+        j = 0;
+        while (j < len)
+        {
             tokens->token[i][j] = start[j];
-
-        tokens->token[i][len] = '\0';  // Just in case, null-terminate again
+            j++;
+        }
+        tokens->token[i][len] = '\0';
         i++;
     }
-
-    // Clear remaining tokens
     while (i < MAX_NUM_TOKENS)
         tokens->token[i++][0] = '\0';
+}
+static bool is_line_empty(const char *line)
+{
+    while (*line)
+    {
+        if (!ft_isspace(*line) && *line != '\n')
+            return (false);
+        line++;
+    }
+    return (true);
 }
 
 
 int parse(const char *map_file, t_rt *world)
-{    
+{
     int     fd;
 	char    *line;
     t_token tokens;
-    int       i;    
-  
-    fd = read_file(map_file); // open map file for reading  
+    int       i;
+
+    fd = read_file(map_file); // open map file for reading
 	if (fd < 0)
-        return (EXIT_FAILURE);   
+        return (EXIT_FAILURE);
     i = 0;
     while (line = get_next_line(fd)) // read line by line, add mamory clininig if malloc fails in get next line
 	{
@@ -79,6 +82,11 @@ int parse(const char *map_file, t_rt *world)
             return (EXIT_FAILURE);
         }
         */
+        if (is_line_empty(line))
+        {
+            free(line);
+            continue;
+        }
 
         parse_line(line, &tokens); // fillup world with primitives
         fillup_world(world, &tokens, i);

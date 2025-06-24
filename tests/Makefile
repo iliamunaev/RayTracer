@@ -3,7 +3,7 @@
 NAME    := test
 
 CC      := cc
-CFLAGS  := -g -O0 #-Wextra -Wall -Werror 
+CFLAGS  := -g -O0 #-Wextra -Wall -Werror
 
 LIBMLX  := ../lib/MLX42
 LIBFT   := ../lib/libft
@@ -15,7 +15,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
-SRCS	:=  test_sort_intersec_list.c \
+SRCS	:=  parsing/test_parse.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/ray/ray.c \
@@ -32,7 +32,7 @@ SRCS	:=  test_sort_intersec_list.c \
 			../src/reflection/lighting.c \
 			../src/parsing/parsing.c \
 			../src/parsing/parsing_utils.c \
-			../src/parsing/fillup_world.c 
+			../src/parsing/fillup_world.c
 
 SRC_DIR := ../
 OBJ_DIR := obj
@@ -90,4 +90,4 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re 
+.PHONY: all clean fclean re
