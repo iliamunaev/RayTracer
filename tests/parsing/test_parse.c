@@ -64,6 +64,7 @@ int main(int c, char **av)
 		return (EXIT_FAILURE);
     }
 
+
     int i = 0;
     t_primitive p;
 

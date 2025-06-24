@@ -114,6 +114,8 @@ void fillup_world(t_rt *world, t_token *token, int i)
 {
     char *id;
 
+    // memset world
+
     id = token->token[0];
 
     if (ft_strcmp(id, "A") == 0)

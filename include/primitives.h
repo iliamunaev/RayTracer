@@ -22,7 +22,7 @@ typedef struct s_primitive
     t_tuple    norm_vector;
 
     float       ratio;
-    float       brightness;
+    float       brightness; 
 
     t_tuple     color;
     float       diameter;
