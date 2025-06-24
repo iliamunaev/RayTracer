@@ -28,7 +28,7 @@ void parse_rgb(t_tuple *color, const char *str)
     color->r = rgb[0] / 255.0f;
     color->g = rgb[1] / 255.0f;
     color->b = rgb[2] / 255.0f;
-    color->a = 0.0f; // should it be zero????
+    color->a = 1.0f;
 }
 
 void parse_coordinates(t_tuple *position, const char *str)

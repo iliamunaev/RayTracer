@@ -8,7 +8,7 @@ typedef struct s_primitive
     t_tuple    position;
     t_tuple    norm_vector;
 
-    float       ratio;
+    float       brightness;
     float       brightness;
 
     t_tuple     color;
@@ -21,9 +21,9 @@ typedef struct s_primitive
 } t_primitive;
 */
 
-static void print_ratio (float ratio)
+static void print_brightness (float brightness)
 {
-    printf("Ratio: %f\n", ratio);
+    printf("brightness: %f\n", brightness);
 }
 
 static void print_color(t_tuple color)
@@ -78,7 +78,7 @@ int main(int c, char **av)
         {
             printf("AMBIENT\n");
 
-            print_ratio(p.ratio);
+            print_brightness(p.brightness);
             print_color(p.color);
 
         }
@@ -93,7 +93,7 @@ int main(int c, char **av)
         {
             printf("LIGHT\n");
             print_position(p.position);
-            print_ratio(p.ratio);
+            print_brightness(p.brightness);
             print_color(p.color);
 
         }

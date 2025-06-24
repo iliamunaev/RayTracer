@@ -5,6 +5,9 @@ int	main(int argc, char **argv)
 {
     t_rt rt;    
     parse(argv[1], &rt);
+
+
+
     
     uint64_t  canvas_size = 400;
     rt.mlx = mlx_init(canvas_size, canvas_size, "Test", true);
@@ -31,9 +34,10 @@ int	main(int argc, char **argv)
 
     //t_tuple sphere_color;
     //create_color(&sphere_color, 1, 0, 0);
-    create_material(&sphere, sphere_color);
+    // create_material(&sphere, sphere_color);
    // rt.primitives_list[0] = sphere;
 
+//    create_material(rt);
 
    // color for pixel
     t_tuple color;
@@ -66,7 +70,11 @@ int	main(int argc, char **argv)
         }
         y++;
     }
+
     y = 0;
+
+    t_primitive *light;
+    light = find_primitive(&rt, "L");
 
     while (y < canvas_size)
     {
@@ -77,19 +85,17 @@ int	main(int argc, char **argv)
             world_x = -half + pixel_size * x;
             create_point(&position, world_x, world_y, wall_z);
             sub_tuples(&ray_vector, position, ray_origin);
+
             create_ray(&ray, ray_origin, ray_vector);
-            get_ray_intersections(&ray, &rt);
-            get_hit(&ray);
             
-            t_primitive *light;
-
-            find_light(&light, rt);
-
+            get_ray_intersections(&ray, &rt);
+            get_hit(&ray); 
+            
             if (ray.is_hit == true)
             {
                 lighting(&color, ray.hit.object, light, ray);
                 mlx_put_pixel(rt.scene, x, y, float_to_hex(color));
-
+                
             }
 /*             else
             {
@@ -99,8 +105,6 @@ int	main(int argc, char **argv)
         }
         y++;
     }
-
-
     mlx_image_to_window(rt.mlx, rt.scene, 0, 0);
     mlx_loop(rt.mlx);
     mlx_terminate(rt.mlx);

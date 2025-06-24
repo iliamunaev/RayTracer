@@ -59,6 +59,38 @@ static bool is_line_empty(const char *line)
     return (true);
 }
 
+void    create_material(t_rt *rt)
+{
+    int i;
+    float amb_light;
+
+    i = 0;
+
+    while(i < rt->obj_counted)
+    {
+        if (ft_strcmp(rt->primitives_list[i].type, "A") == 0)
+        {
+            amb_light = rt->primitives_list[i].brightness;
+        }
+        i++;
+    }
+
+    i = 0;
+    while(i < rt->obj_counted)
+    {
+        if (ft_strcmp(rt->primitives_list[i].type, "C") != 0
+            && ft_strcmp(rt->primitives_list[i].type, "A") != 0
+            && ft_strcmp(rt->primitives_list[i].type, "L") != 0)
+            {
+                rt->primitives_list[i].material.ambient = amb_light;
+                rt->primitives_list[i].material.diffuse = 0.9;
+                rt->primitives_list[i].material.specular = 0.1;
+                rt->primitives_list[i].material.shininess = 50;
+            }
+        i++;
+    }
+}
+
 
 int parse(const char *map_file, t_rt *world)
 {
@@ -87,12 +119,13 @@ int parse(const char *map_file, t_rt *world)
             free(line);
             continue;
         }
-
-        parse_line(line, &tokens); // fillup world with primitives
+        parse_line(line, &tokens);
         fillup_world(world, &tokens, i);
         free(line);
         i++;
     }
+    world->obj_counted = i;
+    create_material(world);
 	close(fd);
     return (EXIT_SUCCESS);
 }

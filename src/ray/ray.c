@@ -42,13 +42,18 @@ void    get_ray_intersections(t_ray *ray, t_rt *minirt)
 
 
     ray->intersections.counter = 0;
-
     i = 0;
     while(i < minirt->obj_counted)
     {   
-        get_obj_intersec(ray, &minirt->primitives_list[i]);
+        if (ft_strcmp(minirt->primitives_list[i].type, "C") != 0
+                && ft_strcmp(minirt->primitives_list[i].type, "A") != 0
+                && ft_strcmp(minirt->primitives_list[i].type, "L") != 0)
+                {
+                    get_obj_intersec(ray, &minirt->primitives_list[i]);
+                }
         i++;
     }    
+
     sort_intersec_list(ray->intersections.intersec_list, ray->intersections.counter);
 }
 
@@ -70,6 +75,7 @@ void    get_obj_intersec(t_ray *ray, t_primitive *object)
         return ;
 
     ray->intersections.intersec_list[ray->intersections.counter].object = object;
+
     ray->intersections.intersec_list[ray->intersections.counter].value = (float)((-b - sqrt (discriminant)) / (2 * a));
     ray->intersections.counter++;
 
@@ -78,34 +84,6 @@ void    get_obj_intersec(t_ray *ray, t_primitive *object)
     ray->intersections.counter++;
 
 }
-
-/* void get_hit(t_ray *ray)
-{
-    int i;
-    t_intersec_point temp;
-
-    ray->is_hit = false;
-    if (ray->intersections.counter == 0)
-    {
-        ray->hit.value = -1.0f;
-        return; 
-    }
-    i = 0;
-    temp = ray->intersections.intersec_list[i];
-    i++;
-    while(i < ray->intersections.counter)
-    {
-        if(temp.value > ray->intersections.intersec_list[i].value && ray->intersections.intersec_list[i].value >= 0)
-            temp = ray->intersections.intersec_list[i];
-        i++;
-    }
-    if (temp.value >= 0)
-    {
-        ray->hit = temp;
-        ray->is_hit = true;
-    }
-    //ADDED CHECK FOR IF NOT HITTED, THEN ASSIGN ALL TO -1. NEEDS VERIFICATION
-} */
 
 void get_hit(t_ray *ray)
 {
@@ -131,18 +109,3 @@ void	ray_transform(t_ray *ray, t_matrix matrix)
     mult_matrix_by_tuple(&ray->origin, matrix, ray->origin);
     mult_matrix_by_tuple(&ray->direction, matrix, ray->direction);
 }
-
-
-//THIS IS OLD:
-
-/* void	ray_transform(t_ray *ray, t_transform transformation)
-{
-    t_matrix matrix;
-
-    transform(&matrix, transformation);
-
-    print_matrix(matrix);
-
-    mult_matrix_by_tuple(&ray->origin, matrix, ray->origin);
-    mult_matrix_by_tuple(&ray->direction, matrix, ray->direction);
-} */

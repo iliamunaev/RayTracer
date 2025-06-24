@@ -2,6 +2,7 @@
 # define PRIMITIVES_H
 
 /*------FORWARD DECLARATIONS-----------------------------------------*/
+typedef struct s_rt t_rt;
 
 
 typedef struct s_material
@@ -21,7 +22,7 @@ typedef struct s_primitive
     t_tuple    position;
     t_tuple    norm_vector;
 
-    float       ratio;
+    // float       ratio;
     float       brightness; 
 
     t_tuple     color;
@@ -36,6 +37,9 @@ typedef struct s_primitive
 
 void    create_sphere(t_primitive *sphere, t_tuple position);
 uint8_t generate_id();
+
+// primitive_utils.c
+t_primitive *find_primitive(t_rt *world, char *type);
 
 
 # endif // PRIMITIVES_H
