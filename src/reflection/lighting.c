@@ -12,7 +12,7 @@ void    create_point_light(t_primitive *light, t_tuple position, float brighness
 void    create_material(t_primitive *object, t_tuple color)
 {
     create_color(&object->material.color, color.r, color.g, color.b);
-    object->material.ambient = 0.1;
+    object->material.ambient = 0.2;
     object->material.diffuse = 0.9;
     object->material.specular = 0.1;
     object->material.shininess = 50;
