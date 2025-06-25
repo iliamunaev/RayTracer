@@ -27,8 +27,11 @@ typedef struct s_rt
 {
 	mlx_t		*mlx;
 	mlx_image_t	*scene;
-    uint8_t     obj_counted;
+    uint8_t     obj_counted;	
     t_primitive primitives_list[MAX_PRIMITIVES];
+	t_amb		amb;
+	t_cam		cam;
+	t_light		light;
 }	t_rt;
 
 

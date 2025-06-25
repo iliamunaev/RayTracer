@@ -1,25 +1,5 @@
 # include "minirt.h"
-/*
-typedef struct s_primitive
-{
-    int         id;
-    char        type[3];
 
-    t_tuple    position;
-    t_tuple    norm_vector;
-
-    float       brightness;
-    float       brightness;
-
-    t_tuple     color;
-    float       diameter;
-    float       height;
-    float       fov;
-    t_material  material;
-
-    t_matrix    matrix;
-} t_primitive;
-*/
 
 static void print_brightness (float brightness)
 {
@@ -68,36 +48,42 @@ int main(int c, char **av)
     int i = 0;
     t_primitive p;
 
+    printf("obj_counted: %i\n", world.obj_counted);
+    printf("\nAMB---------- \n");
+
+
+    // A                0.2    255,255,255
+    printf("A brightness: %f\n", world.amb.brightness);
+    print_color(world.amb.color);
+
+//    C                 -50.0,0,20    0,0,1     70
+    printf("\nCAM---------- \n");
+    print_position(world.cam.position);
+    print_norm_vec(world.cam.norm_vector);
+    printf("fov: %f\n",world.cam.fov);
+
+    // L -40.0,50.0,0.0   0.6    10,0,255
+    printf("\nLIGH---------- \n");
+    print_position(world.light.position);
+    printf("BR: %f\n",world.light.brightness);
+    print_color(world.light.color);
+
+
+
+
+
+
+
+
+
     while(i < world.obj_counted)
     {
         p = world.primitives_list[i];
-        printf("---------- \n");
+        printf("\n---------- \n");
         printf("id: %i\n", p.id);
         printf("type: %s\n", p.type);
-        if (ft_strcmp(p.type, "A") == 0)
-        {
-            printf("AMBIENT\n");
 
-            print_brightness(p.brightness);
-            print_color(p.color);
-
-        }
-        else if (ft_strcmp(p.type, "C") == 0)
-        {
-            printf("CAMERA\n");
-            print_position(p.position);
-            print_norm_vec(p.norm_vector);
-            printf("FOV: %f\n",p.fov);
-        }
-        else if (ft_strcmp(p.type, "L") == 0)
-        {
-            printf("LIGHT\n");
-            print_position(p.position);
-            print_brightness(p.brightness);
-            print_color(p.color);
-
-        }
-        else if (ft_strcmp(p.type, "sp") == 0)
+        if (ft_strcmp(p.type, "sp") == 0)
         {
             printf("SPHERE\n");
             print_position(p.position);
