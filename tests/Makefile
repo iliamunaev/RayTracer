@@ -15,7 +15,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
-SRCS	:=  view_transformation/test_transform_view.c \
+SRCS	:=  test_shadow.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/primitives/primitive_utils.c \
@@ -31,6 +31,7 @@ SRCS	:=  view_transformation/test_transform_view.c \
 			../src/matrix/matrix.c \
 			../src/reflection/reflection_math.c \
 			../src/reflection/lighting.c \
+			../src/reflection/shadow.c \
 			../src/parsing/parsing.c \
 			../src/parsing/parsing_utils.c \
 			../src/parsing/fillup_world.c \
