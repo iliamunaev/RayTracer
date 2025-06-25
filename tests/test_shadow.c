@@ -93,7 +93,7 @@ int	main(int argc, char **argv)
             
             if (ray.is_hit == true)
             {
-                lighting(&color, ray.hit.object, light, ray);
+                lighting(&color, ray.hit.object, light, ray, check_shadow());
                 mlx_put_pixel(rt.scene, x, y, float_to_hex(color));
                 
             }

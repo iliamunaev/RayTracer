@@ -17,6 +17,7 @@
 # include "../lib/libft/libft.h"
 # include "parsing.h"
 # include "validation.h"
+# include "reflection.h"
 
 
 #define BPP sizeof(int32_t)
