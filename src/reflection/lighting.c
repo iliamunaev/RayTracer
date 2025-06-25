@@ -132,7 +132,7 @@ bool    check_shadow(t_rt *world, t_tuple point)
         return (false);
 }
 
-void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps)
+void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray)
 {
     bool    is_shaded;
     
@@ -148,5 +148,5 @@ void    color_at(t_comps *comps, t_tuple *color, t_rt *world, t_ray *ray)
     if (ray->is_hit == false)
         return;
     precompute_values(comps, ray);
-    shade_hit(color, world, comps);
+    shade_hit(color, world, comps, ray);
 }
