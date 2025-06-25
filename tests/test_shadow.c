@@ -34,6 +34,9 @@ int	main(int argc, char **argv)
 
     t_comps comps;
 
+    print_matrix(rt.primitives_list[0].matrix);
+    print_matrix(rt.primitives_list[1].matrix);
+
 
     while (y < canvas_size)
     {

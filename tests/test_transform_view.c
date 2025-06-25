@@ -11,7 +11,7 @@ int main(int c, char **av)
 		return (EXIT_FAILURE);
     }
 
-    t_tuple from = {1, 3, 2, 1};
+    t_tuple from = {0, 0, 0, 1};
     t_tuple to = {4, -2, 8, 1};
     t_tuple up = {1, 1, 0, 1};
 

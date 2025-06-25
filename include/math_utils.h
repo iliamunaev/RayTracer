@@ -5,7 +5,7 @@
 # define M_PI 3.14159265358979323846
 # endif // M_PI
 
-#define EPSILON 0.00001
+#define EPSILON 0.00002
 
 
 // # include "minirt.h"

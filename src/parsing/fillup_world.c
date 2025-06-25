@@ -53,6 +53,8 @@ void parse_light(t_rt *rt, t_token *token)
 void parse_sphere(t_rt *rt, t_token *token, int j)
 {
     t_primitive *p;
+    t_tuple scale_factor;
+    t_matrix scale_m;
 
     p = &rt->primitives_list[j];
     p->id = generate_id();
@@ -63,7 +65,9 @@ void parse_sphere(t_rt *rt, t_token *token, int j)
     p->diameter = ft_strtof(token->token[2]);
     parse_rgb(&p->color, token->token[3]);
     create_identity_matrix_4x4(&p->matrix);
-
+    create_point(&scale_factor, p->diameter ,p->diameter ,p->diameter);
+    scale(&scale_m, scale_factor);
+    mult_matrices(&p->matrix, scale_m, p->matrix);
 }
 
 void parse_plane(t_rt *rt, t_token *token, int j)
