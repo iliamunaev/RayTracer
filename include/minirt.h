@@ -21,6 +21,8 @@
 
 #define BPP sizeof(int32_t)
 #define MAX_PRIMITIVES 32
+#define SCREEN_WIDTH 400
+#define SCREEN_HEIGHT 400
 
 typedef struct s_rt
 {
