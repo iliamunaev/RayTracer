@@ -33,7 +33,9 @@ SRCS	:=  parsing/test_parse.c \
 			../src/reflection/lighting.c \
 			../src/parsing/parsing.c \
 			../src/parsing/parsing_utils.c \
-			../src/parsing/fillup_world.c
+			../src/parsing/fillup_world.c \
+			../src/view_transformation/transform_view.c 
+
 
 SRC_DIR := ../
 OBJ_DIR := obj
