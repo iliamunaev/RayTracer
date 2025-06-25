@@ -17,20 +17,18 @@ int	main(int argc, char **argv)
     ft_memset(rt.scene->pixels, 255, rt.scene->width * rt.scene->height * BPP);
 
 
-
-
-    float   half_view = field_of_view / 2;
+    // printf("fov: %f\n", rt.cam.fov);
+    // printf("pixel_size: %f\n", rt.cam.pix_size);
     
-
-
-
 
     t_tuple ray_origin = {0, 0, -5, 1};
 
-    float   field_of_view = 7;
-    float   pixel_size = field_of_view / canvas_size;
-    float   half_view = field_of_view / 2;
+    // float   field_of_view = 7;
+    // float   half_view = field_of_view / 2;
     
+    // float   pixel_size = get_pixel_size(&rt);
+
+
 
    // color for pixel
     t_tuple color;
@@ -49,13 +47,13 @@ int	main(int argc, char **argv)
     t_primitive *light;
     light = find_primitive(&rt, "L");
 
-    while (y < canvas_size)
+    while (y < SCREEN_WIDTH)
     {
         x = 0;
-        world_y = half_view - pixel_size * y;
-        while (x < canvas_size)
+        world_y = half_view - rt.cam.pix_size * y;
+        while (x < SCREEN_HEIGHT)
         {
-            world_x = -half_view + pixel_size * x;
+            world_x = -half_view + rt.cam.pix_size * x;
             create_point(&position, world_x, world_y, wall_z);
             sub_tuples(&ray_vector, position, ray_origin);
 

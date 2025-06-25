@@ -24,6 +24,15 @@
 #define SCREEN_WIDTH 400
 #define SCREEN_HEIGHT 400
 
+typedef struct s_cam
+{
+    t_tuple     position;
+    t_tuple     norm_vector;
+    float       fov;
+    float       pix_size;
+    t_matrix    matrix;
+}   t_cam;
+
 typedef struct s_rt
 {
 	mlx_t		*mlx;
@@ -54,5 +63,9 @@ void        mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
 
 //transform_view.c
 void transform_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up);
+
+//camera.c
+float get_pixel_size(t_rt *rt);
+
 
 #endif // MINIRT_H

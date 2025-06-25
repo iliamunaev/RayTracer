@@ -35,14 +35,6 @@ typedef struct s_amb
     t_matrix    matrix;
 }   t_amb;
 
-typedef struct s_cam
-{
-    t_tuple     position;
-    t_tuple     norm_vector;
-    float       fov;
-    t_matrix    matrix;
-}   t_cam;
-
 
 typedef struct s_light
 {

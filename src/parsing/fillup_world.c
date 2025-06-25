@@ -29,6 +29,7 @@ void parse_camera(t_rt *rt, t_token *token)
     parse_coordinates(&rt->cam.position, token->token[1]);
     parse_coordinates(&rt->cam.norm_vector, token->token[2]);
     rt->cam.fov = ft_strtof(token->token[3]);
+    rt->cam.pix_size = get_pixel_size(rt);
     create_identity_matrix_4x4(&rt->cam.matrix);
 }
 
