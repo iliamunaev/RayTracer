@@ -11,7 +11,7 @@
 // }
 
 
-float calculate_half_view(t_rt *rt)
+float get_half_view(t_rt *rt)
 {
     float fov_rad;
 
@@ -21,7 +21,10 @@ float calculate_half_view(t_rt *rt)
 
 float calculate_aspect(void)
 {
-    return ((float)SCREEN_HEIGHT / (float)SCREEN_WIDTH);
+    float aspect;
+
+    aspect = (float)SCREEN_HEIGHT / (float)SCREEN_WIDTH;
+    return (aspect);
 }
 
 float calculate_half_width(float aspect, float half_view)
@@ -29,30 +32,49 @@ float calculate_half_width(float aspect, float half_view)
     if (aspect >= 1.0f)
         return (half_view);
     else
+
         return (half_view * aspect);
 }
 
 float calculate_half_height(float aspect, float half_view)
 {
+
     if (aspect >= 1.0f)
         return (half_view / aspect);
     else
         return (half_view);
 }
 
-float calculate_pixel_size(float half_width, float screen_width)
+float calculate_pixel_size(float half_width)
 {
-    return ((half_width * 2.0f) / screen_width);
+    return ((half_width * 2.0f) / SCREEN_WIDTH);
+}
+
+
+float get_half_width(t_rt *rt)
+{
+    float aspect;
+    float half_view;
+
+    aspect = calculate_aspect();
+    half_view = get_half_view(rt);
+    return(calculate_half_width(aspect, half_view));
+}
+
+float get_half_height(t_rt *rt)
+{
+    float aspect;
+    float half_view;
+
+    aspect = calculate_aspect();
+    half_view = get_half_view(rt);
+    return(calculate_half_height(aspect, half_view));
 }
 
 float get_pixel_size(t_rt *rt)
 {
     float half_width;
-    float half_view;
-    float aspect;
 
-    half_view = calculate_half_view(rt);
-    aspect = calculate_aspect();
-    half_width = calculate_half_width(aspect, half_view);
-    return ((half_width * 2.0f) / SCREEN_WIDTH);
+    half_width = get_half_width(rt);
+    return (calculate_pixel_size(half_width));
 }

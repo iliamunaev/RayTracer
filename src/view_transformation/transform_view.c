@@ -29,6 +29,7 @@ void transform_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up)
 
     cross_product(&true_up, left, forward); // true_up = left × forward
 
+
     create_identity_matrix_4x4(&orientation);
     orientation.rows[0].cols[0] = left.x;
     orientation.rows[0].cols[1] = left.y;
@@ -48,4 +49,5 @@ void transform_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up)
     translate(&translation, from);      // build translation matrix
 
     mult_matrices(&rt->primitives_list[0].matrix, orientation, translation);
+
 }

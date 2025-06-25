@@ -8,6 +8,15 @@ int	main(int argc, char **argv)
     t_rt rt;    
     parse(argv[1], &rt);
 
+
+    printf("fov: %f\n", rt.cam.fov);
+    printf("pixel_size: %f\n", rt.cam.pix_size);
+    printf("half_w: %f\n", rt.cam.half_width);
+    printf("half_h: %f\n", rt.cam.half_height);
+    printf("half_view: %f\n", rt.cam.half_view);
+
+
+    /*
     // setup mlx
     rt.mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "Test", true);
     if (!rt.mlx)
@@ -79,7 +88,7 @@ int	main(int argc, char **argv)
     mlx_image_to_window(rt.mlx, rt.scene, 0, 0);
     mlx_loop(rt.mlx);
     mlx_terminate(rt.mlx);
-
+*/
 
     return (EXIT_SUCCESS);
 } 
