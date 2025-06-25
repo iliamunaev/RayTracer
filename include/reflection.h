@@ -21,6 +21,7 @@ void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point)
 void    reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
 void    lighting(t_tuple *color, t_primitive *object, t_primitive *light, t_ray ray);
 bool    check_shadow(t_rt world, t_tuple point);
+void    precompute_values(t_comps *comps, t_ray *ray);
 // void    create_material(t_primitive *object, t_tuple color);
 //void    create_point_light(t_primitive *light, t_tuple position, float brighness, t_tuple color);
 

@@ -112,7 +112,37 @@ void    lighting(t_tuple *color, t_primitive *object, t_primitive *light, t_tupl
     add_tuples(color, *color, specular);
 }
 
+bool    check_shadow(t_rt *world, t_tuple point)
+{
+    t_tuple v_shadow;
+    t_ray   r_shadow;
+    float   distance;
+    t_tuple direction;
+
+    sub_tuples(&v_shadow, world->light.position, point);
+    distance = magnitude_vector(v_shadow);
+    create_vector(&direction, v_shadow.x, v_shadow.y, v_shadow.z);
+    normalize_vector(&direction);
+    create_ray(&r_shadow, point, direction);
+    get_ray_intersections(&r_shadow, world);
+    get_hit(&r_shadow);
+    if(r_shadow.is_hit == true && r_shadow.hit.value < distance)
+        return (true);
+    else
+        return (false);
+}
+
 void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps)
 {
     lighting(color, comps->object, world.light, comps->position, comps->v_eye, comps->v_normal);
+}
+
+void    color_at(t_tuple *color, t_rt *world, t_ray *ray)
+{
+    t_comps comps;
+
+    get_ray_intersections(ray, world);
+    get_hit(ray);
+    precompute_values(&comps, ray);
+    shade_hit(color, world, &comps);
 }
