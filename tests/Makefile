@@ -3,7 +3,7 @@
 NAME    := test
 
 CC      := cc
-CFLAGS  := -g -O0 #-Wextra -Wall -Werror
+CFLAGS  := -g -O3 -ffast-math -march=native #-Wextra -Wall -Werror
 
 LIBMLX  := ../lib/MLX42
 LIBFT   := ../lib/libft
@@ -16,7 +16,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 
-SRCS	:=  parsing/test_parse.c \
+SRCS	:=  test_shadow.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/primitives/primitive_utils.c \
@@ -32,7 +32,7 @@ SRCS	:=  parsing/test_parse.c \
 			../src/matrix/matrix.c \
 			../src/reflection/reflection_math.c \
 			../src/reflection/lighting.c \
-			../src/reflection/shadow.c \
+			../src/reflection/precompute_values.c \
 			../src/parsing/parsing.c \
 			../src/parsing/parsing_utils.c \
 			../src/parsing/fillup_world.c \

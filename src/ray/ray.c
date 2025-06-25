@@ -7,12 +7,12 @@ void    create_ray(t_ray *ray, const t_tuple point, const t_tuple vector)
     ray->is_hit = false;
 }
 
-void    get_position(t_tuple *position, const t_ray ray, float time)
+void    get_position(t_tuple *position, t_ray *ray, float time)
 {
-    position->x = ray.origin.x + ray.direction.x *time;
-    position->y = ray.origin.y + ray.direction.y *time;
-    position->z = ray.origin.z + ray.direction.z *time;
-    position->w = ray.origin.w + ray.direction.w *time;
+    position->x = ray->origin.x + ray->direction.x *time;
+    position->y = ray->origin.y + ray->direction.y *time;
+    position->z = ray->origin.z + ray->direction.z *time;
+    position->w = ray->origin.w + ray->direction.w *time;
 }
 
 void    sort_intersec_list(t_intersec_point *intersec_list, int count)
@@ -45,12 +45,7 @@ void    get_ray_intersections(t_ray *ray, t_rt *minirt)
     i = 0;
     while(i < minirt->obj_counted)
     {   
-        if (ft_strcmp(minirt->primitives_list[i].type, "C") != 0
-                && ft_strcmp(minirt->primitives_list[i].type, "A") != 0
-                && ft_strcmp(minirt->primitives_list[i].type, "L") != 0)
-                {
-                    get_obj_intersec(ray, &minirt->primitives_list[i]);
-                }
+        get_obj_intersec(ray, &minirt->primitives_list[i]);
         i++;
     }    
 

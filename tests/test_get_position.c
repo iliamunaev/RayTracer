@@ -8,7 +8,7 @@ int main(void)
     t_ray ray;
 
     create_ray(&ray, point, vector);
-    get_position(&position, ray, -4);
+    get_position(&position, &ray, -4);
 
     printf("\ray position(%f, %f,%f, %f) \n", position.x, position.y, position.z, position.w);
     //printf(" direction (%f, %f, %f\n", ray.direction.x, ray.direction.y, ray.direction.z);

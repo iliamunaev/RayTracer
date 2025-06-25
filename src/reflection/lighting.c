@@ -61,7 +61,7 @@
 } */
 
 
-void    lighting(t_tuple *color, t_primitive *object, t_primitive *light, t_tuple point, t_tuple v_eye, t_tuple v_normal)
+void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple point, t_tuple v_eye, t_tuple v_normal, bool in_shadow)
 {
     t_tuple effective_color;
     t_tuple light_v;
@@ -74,12 +74,12 @@ void    lighting(t_tuple *color, t_primitive *object, t_primitive *light, t_tupl
     float   reflect_dot_eye;
 
     create_color(&effective_color,object->color.r, object->color.g, object->color.b);
-    mult_tuple(&effective_color, light->brightness);
-    sub_tuples(&light_v, light->position, point);
+    mult_tuple(&effective_color, light.brightness);
+    sub_tuples(&light_v, light.position, point);
     normalize_vector(&light_v);
     create_color(&ambient, effective_color.r, effective_color.g, effective_color.b);
     mult_tuple(&ambient, object->material.ambient);
-    if (check_shadow == true)
+    if (in_shadow == true)
     {
         color->r = ambient.r;
         color->g = ambient.g;
@@ -105,7 +105,7 @@ void    lighting(t_tuple *color, t_primitive *object, t_primitive *light, t_tupl
         else
         {
         create_color(&specular, effective_color.r, effective_color.g, effective_color.b);
-        mult_tuple(&specular, (light->brightness * object->material.specular * pow(reflect_dot_eye, object->material.shininess)));
+        mult_tuple(&specular, (light.brightness * object->material.specular * pow(reflect_dot_eye, object->material.shininess)));
         }
     }
     add_tuples(color, ambient, diffuse);
@@ -134,15 +134,19 @@ bool    check_shadow(t_rt *world, t_tuple point)
 
 void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps)
 {
-    lighting(color, comps->object, world.light, comps->position, comps->v_eye, comps->v_normal);
+    bool    is_shaded;
+    
+    is_shaded = check_shadow(world, comps->over_pos);
+    lighting(color, comps->object, world->light, comps->position, comps->v_eye, comps->v_normal, is_shaded);
 }
 
-void    color_at(t_tuple *color, t_rt *world, t_ray *ray)
+void    color_at(t_comps *comps, t_tuple *color, t_rt *world, t_ray *ray)
 {
-    t_comps comps;
 
     get_ray_intersections(ray, world);
     get_hit(ray);
-    precompute_values(&comps, ray);
-    shade_hit(color, world, &comps);
+    if (ray->is_hit == false)
+        return;
+    precompute_values(comps, ray);
+    shade_hit(color, world, comps);
 }
