@@ -14,7 +14,6 @@ void parse_ambient(t_rt *rt, t_token *token)
     parse_rgb(&rt->amb.color, token->token[2]);
     create_color(&rt->amb.amb_component, rt->amb.color.r, rt->amb.color.g, rt->amb.color.b);
     mult_tuple(&rt->amb.amb_component, rt->amb.brightness);
-    printf("r = %f, g= %f, b = %f\n", rt->amb.amb_component.r, rt->amb.amb_component.g, rt->amb.amb_component.b);
     create_identity_matrix_4x4(&rt->amb.matrix);  
 }
 
@@ -50,6 +49,8 @@ void parse_light(t_rt *rt, t_token *token)
     parse_coordinates(&rt->light.position, token->token[1]);
     rt->light.brightness = ft_strtof(token->token[2]);
     parse_rgb(&rt->light.color, token->token[3]);
+    create_color(&rt->light.color_component, rt->light.color.r, rt->light.color.g, rt->light.color.b);
+    mult_tuple(&rt->light.color_component, rt->light.brightness);
     create_identity_matrix_4x4(&rt->light.matrix);    
 }
 

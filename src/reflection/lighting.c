@@ -72,15 +72,16 @@ void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple poi
     t_tuple negated_light_v;
     float   light_dot_normal;
     float   reflect_dot_eye;
+    float   factor;
 
-    create_color(&effective_color,object->color.r, object->color.g, object->color.b);
-    mult_tuple(&effective_color, light.brightness);
-    sub_tuples(&light_v, light.position, point);
-    normalize_vector(&light_v);
+    //create_color(&effective_color,object->color.r, object->color.g, object->color.b);
+    //mult_tuple(&effective_color, light.brightness);
+    mult_colors(&effective_color, object->color, light.color_component);
     //create_color(&ambient, 0, 0, effective_color.b);
     //mult_tuple(&ambient, object->material.ambient);
     mult_colors(&ambient, effective_color, amb.amb_component);
-    //printf("r = %f, g= %f, b = %f\n", ambient.r, ambient.g, ambient.b);
+    sub_tuples(&light_v, light.position, point);
+    normalize_vector(&light_v);
     if (in_shadow == true)
     {
         color->r = ambient.r;

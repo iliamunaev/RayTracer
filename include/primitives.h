@@ -49,7 +49,8 @@ typedef struct s_light
 {
     t_tuple     position;
     float       brightness;
-    t_tuple     color; 
+    t_tuple     color;
+    t_tuple     color_component;
     t_matrix    matrix;
 }   t_light;
 
