@@ -54,7 +54,7 @@ void        add_colors(t_tuple *c, const t_tuple a, const t_tuple b);
 void        mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
 
 
-
-
+// render.c
+void	render(t_rt *rt);
 
 #endif // MINIRT_H
