@@ -22,6 +22,9 @@
 
 #define BPP sizeof(int32_t)
 #define MAX_PRIMITIVES 32
+#define SCREEN_WIDTH 600
+#define SCREEN_HEIGHT 600
+
 
 typedef struct s_rt
 {
@@ -51,7 +54,7 @@ void        add_colors(t_tuple *c, const t_tuple a, const t_tuple b);
 void        mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
 
 
-//transform_view.c
-void transform_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up);
+
+
 
 #endif // MINIRT_H

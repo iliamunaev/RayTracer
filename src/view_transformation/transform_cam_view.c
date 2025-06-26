@@ -12,7 +12,7 @@
  * @param to    The target point the camera looks at.
  * @param up    The world's up direction (approximate vertical orientation).
  */
-void transform_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up)
+void transform_cam_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up)
 {
     t_tuple forward;
     t_tuple left;
@@ -28,6 +28,7 @@ void transform_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up)
     cross_product(&left, forward, up);    // left = forward × up
 
     cross_product(&true_up, left, forward); // true_up = left × forward
+
 
     create_identity_matrix_4x4(&orientation);
     orientation.rows[0].cols[0] = left.x;
@@ -47,7 +48,8 @@ void transform_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up)
     negate_tuple(&from);                 // negate from vector for translation
     translate(&translation, from);      // build translation matrix
 
-    mult_matrices(&rt->primitives_list[0].matrix, orientation, translation);
+    mult_matrices(&rt->cam.matrix, orientation, translation);
+
 }
 
 /* 

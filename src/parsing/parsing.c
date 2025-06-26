@@ -109,8 +109,7 @@ int parse(const char *map_file, t_rt *world)
             continue;
         }
         parse_line(line, &tokens);
-        
-   
+           
         fillup_world(world, &tokens, j);
         
         if (ft_strcmp(tokens.token[0], "sp") == 0 ||
