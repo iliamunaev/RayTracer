@@ -61,7 +61,7 @@
 } */
 
 
-void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple point, t_tuple v_eye, t_tuple v_normal, bool in_shadow)
+void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple point, t_tuple v_eye, t_tuple v_normal, bool in_shadow, t_amb amb)
 {
     t_tuple effective_color;
     t_tuple light_v;
@@ -77,8 +77,10 @@ void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple poi
     mult_tuple(&effective_color, light.brightness);
     sub_tuples(&light_v, light.position, point);
     normalize_vector(&light_v);
-    create_color(&ambient, effective_color.r, effective_color.g, effective_color.b);
-    mult_tuple(&ambient, object->material.ambient);
+    //create_color(&ambient, 0, 0, effective_color.b);
+    //mult_tuple(&ambient, object->material.ambient);
+    mult_colors(&ambient, effective_color, amb.amb_component);
+    //printf("r = %f, g= %f, b = %f\n", ambient.r, ambient.g, ambient.b);
     if (in_shadow == true)
     {
         color->r = ambient.r;
@@ -137,7 +139,7 @@ void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray)
     bool    is_shaded;
     
     is_shaded = check_shadow(world, comps->over_pos);
-    lighting(color, comps->object, world->light, comps->position, comps->v_eye, comps->v_normal, is_shaded);
+    lighting(color, comps->object, world->light, comps->position, comps->v_eye, comps->v_normal, is_shaded, world->amb);
 }
 
 void    color_at(t_comps *comps, t_tuple *color, t_rt *world, t_ray *ray)
