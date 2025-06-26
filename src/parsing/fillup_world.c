@@ -26,14 +26,23 @@ typedef struct s_cam
 */
 void parse_camera(t_rt *rt, t_token *token)
 {
-    parse_coordinates(&rt->cam.position, token->token[1]);
+    t_tuple up = {0, 1, 0, 0};
+    t_tuple to;
+
+  
+    parse_coordinates(&rt->cam.position, token->token[1]);    
     parse_coordinates(&rt->cam.norm_vector, token->token[2]);
+
+    normalize_vector(&rt->cam.norm_vector);
+    add_tuples(&to, rt->cam.position, rt->cam.norm_vector);
+
     rt->cam.fov = ft_strtof(token->token[3]);
     rt->cam.pix_size = get_pixel_size(rt);
     rt->cam.half_width = get_half_width(rt);
     rt->cam.half_height = get_half_height(rt);
     rt->cam.half_view = get_half_view(rt);
-    create_identity_matrix_4x4(&rt->cam.matrix);
+    
+    transform_cam_view(rt, rt->cam.position, to, up);
 }
 
 /*

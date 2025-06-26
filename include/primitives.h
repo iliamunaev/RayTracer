@@ -63,12 +63,13 @@ uint8_t generate_id();
 t_primitive *find_primitive(t_rt *world, char *type);
 
 //transform_view.c
-void transform_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up);
+void transform_cam_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up);
 
 //camera.c
 float get_pixel_size(t_rt *rt);
 float get_half_height(t_rt *rt);
 float get_half_width(t_rt *rt);
 float get_half_view(t_rt *rt);
+void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py);
 
 # endif // PRIMITIVES_H

@@ -16,7 +16,7 @@ int main(int c, char **av)
     t_tuple up = {1, 1, 0, 1};
 
 
-    transform_view(&rt, from, to, up);
+    transform_cam_view(&rt, from, to, up);
 
     print_matrix(rt.primitives_list[0].matrix);
 

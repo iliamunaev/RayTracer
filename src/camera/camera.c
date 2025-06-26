@@ -78,3 +78,34 @@ float get_pixel_size(t_rt *rt)
     half_width = get_half_width(rt);
     return (calculate_pixel_size(half_width));
 }
+
+void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
+{
+    float xoffset;
+    float yoffset;
+    float world_x;
+    float world_y;
+    
+    xoffset = (px + 0.5) * cam->pix_size;
+    yoffset = (py + 0.5) * cam->pix_size;
+    
+    world_x = cam->half_view - xoffset;
+    world_y = cam->half_height - yoffset;
+    
+    t_tuple pixel_point = {world_x, world_y, -1.0f, 1.0f,};
+
+    t_tuple pixel;
+    mult_matrix_by_tuple(&pixel, cam->matrix, pixel_point);
+
+    t_tuple origin;
+    t_tuple point = {0, 0, 0, 1.0f,};    
+    mult_matrix_by_tuple(&origin, cam->matrix, point);
+
+    t_tuple direction;
+    sub_tuples(&direction, pixel, origin);
+
+    normalize_vector(&direction);
+
+    ray->origin = origin;
+    ray->direction = direction;
+}
