@@ -84,11 +84,11 @@ void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
     t_tuple pixel_point = {world_x, world_y, -1.0f, 1.0f,};
 
     t_tuple pixel;
-    mult_matrix_by_tuple(&pixel, cam->inv_matrix, pixel_point);
+    mult_matrix_by_tuple(&pixel, cam->matrix, pixel_point);
 
     t_tuple origin;
     t_tuple point = {0, 0, 0, 1.0f,};    
-    mult_matrix_by_tuple(&origin, cam->inv_matrix, point);
+    mult_matrix_by_tuple(&origin, cam->matrix, point);
 
     t_tuple direction;
     sub_tuples(&direction, pixel, origin);

@@ -15,12 +15,8 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 # ldl: Dynamic linking library for runtime symbol resolution
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
-<<<<<<< HEAD
 
-SRCS	:=  test_shadow.c \
-=======
-SRCS	:=  test_ray_for_pixel.c \
->>>>>>> camera
+SRCS	:=  test_camera.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/primitives/primitive_utils.c \

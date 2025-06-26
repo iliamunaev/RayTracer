@@ -46,11 +46,11 @@ void parse_camera(t_rt *rt, t_token *token)
     transform_cam_view(rt, rt->cam.position, to, up);
     
     // note: added for tests, delet if needed all below
-    rt->cam.position.x = 0;
-    rt->cam.position.y = 0;
-    rt->cam.position.z = 0;
+    // rt->cam.position.x = 0;
+    // rt->cam.position.y = 0;
+    // rt->cam.position.z = 0;
 
-    invert_matrix(&rt->cam.inv_matrix, rt->cam.matrix);
+    // invert_matrix(&rt->cam.inv_matrix, rt->cam.matrix);
 }
 
 /*

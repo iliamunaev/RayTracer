@@ -1,11 +1,7 @@
 #include "minirt.h"
 
 //NEED TO CHANGE TO T_PRIMITIVE INSTEAD OF T_LIGHT + REPLACE EYE_VECTOR + REFACTOR
-<<<<<<< HEAD
 /* void    lighting(t_tuple *color, t_primitive *object, t_primitive *light, t_ray ray)
-=======
-void    lighting(t_tuple *color, t_primitive *object, t_light *light, t_ray ray)
->>>>>>> camera
 {
     t_tuple normal;
     t_tuple point;

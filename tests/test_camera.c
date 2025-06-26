@@ -35,37 +35,38 @@ int	main(int argc, char **argv)
     
     int y = 0;
     int x;
-    float   world_y;
-    float   world_x;
-    float   wall_z = 7;
+    // float   world_y;
+    // float   world_x;
+    // float   wall_z = 7;
     t_ray ray;
     t_tuple ray_vector;
     t_tuple position;
 
+    t_comps comps;
+
+
     while (y < SCREEN_WIDTH)
     {
         x = 0;
-        world_y = rt.cam.half_view - rt.cam.pix_size * y;
+        // world_y = half - pixel_size * y;
         while (x < SCREEN_HEIGHT)
         {
-            world_x = -rt.cam.half_view + rt.cam.pix_size * x;
-            create_point(&position, world_x, world_y, wall_z);
-            sub_tuples(&ray_vector, position, ray_origin);
+            // world_x = -half + pixel_size * x;
+            // create_point(&position, world_x, world_y, wall_z);
+            // sub_tuples(&ray_vector, position, ray_origin);
 
-            create_ray(&ray, ray_origin, ray_vector);
+            // create_ray(&ray, ray_origin, ray_vector);
+
+
+            ray_for_pixel(&ray, &rt.cam, x, y);
             
-            get_ray_intersections(&ray, &rt);
-            get_hit(&ray); 
+            color_at(&comps, &color, &rt, &ray);
             
             if (ray.is_hit == true)
-            {
-                lighting(&color, ray.hit.object, &rt.light, ray);
-                mlx_put_pixel(rt.scene, x, y, float_to_hex(color));                
-            }
+                mlx_put_pixel(rt.scene, x, y, float_to_hex(color));
             else
-            {
-                mlx_put_pixel(rt.scene, x, y,  0x58c0dc);
-            } 
+                mlx_put_pixel(rt.scene, x, y, 0x58c0dc);
+            //mlx_put_pixel(rt.scene, x, y, float_to_hex(rt.amb.amb_component));
             x++;
         }
         y++;
@@ -73,6 +74,8 @@ int	main(int argc, char **argv)
     mlx_image_to_window(rt.mlx, rt.scene, 0, 0);
     mlx_loop(rt.mlx);
     mlx_terminate(rt.mlx);
+
+
 
     return (EXIT_SUCCESS);
 } 
