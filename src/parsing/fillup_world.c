@@ -28,7 +28,6 @@ void parse_camera(t_rt *rt, t_token *token)
 {
     t_tuple up = {0, 1, 0, 0};
     t_tuple to;
-
   
     parse_coordinates(&rt->cam.position, token->token[1]);    
     parse_coordinates(&rt->cam.norm_vector, token->token[2]);
@@ -41,8 +40,15 @@ void parse_camera(t_rt *rt, t_token *token)
     rt->cam.half_width = get_half_width(rt);
     rt->cam.half_height = get_half_height(rt);
     rt->cam.half_view = get_half_view(rt);
-    
+
     transform_cam_view(rt, rt->cam.position, to, up);
+    
+    // note: added for tests, delet if needed all below
+    rt->cam.position.x = 0;
+    rt->cam.position.y = 0;
+    rt->cam.position.z = 0;
+
+    invert_matrix(&rt->cam.inv_matrix, rt->cam.matrix);
 }
 
 /*

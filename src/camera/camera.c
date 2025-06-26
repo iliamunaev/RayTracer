@@ -1,16 +1,5 @@
 #include "minirt.h"
 
-// V_SCREEN_SIZE
-
-// C from -50.0,0,20      to 0,0,1       70
-
-
-// void camera()
-// {
-    
-// }
-
-
 float get_half_view(t_rt *rt)
 {
     float fov_rad;
@@ -95,11 +84,11 @@ void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
     t_tuple pixel_point = {world_x, world_y, -1.0f, 1.0f,};
 
     t_tuple pixel;
-    mult_matrix_by_tuple(&pixel, cam->matrix, pixel_point);
+    mult_matrix_by_tuple(&pixel, cam->inv_matrix, pixel_point);
 
     t_tuple origin;
     t_tuple point = {0, 0, 0, 1.0f,};    
-    mult_matrix_by_tuple(&origin, cam->matrix, point);
+    mult_matrix_by_tuple(&origin, cam->inv_matrix, point);
 
     t_tuple direction;
     sub_tuples(&direction, pixel, origin);
@@ -108,4 +97,5 @@ void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
 
     ray->origin = origin;
     ray->direction = direction;
+    //ray_transform(ray, cam->inv_matrix);
 }

@@ -20,5 +20,6 @@ int	main(int argc, char **argv)
     printf("Direction Y: %f\n", ray.direction.y);
     printf("Direction Z: %f\n", ray.direction.z);
 
-    return (EXIT_SUCCESS);
+
+    return (0);
 } 

@@ -45,6 +45,7 @@ typedef struct s_cam
     float       half_height;
     float       half_view;
     t_matrix    matrix;
+    t_matrix    inv_matrix;
 }   t_cam;
 
 typedef struct s_light
@@ -62,7 +63,7 @@ uint8_t generate_id();
 // primitive_utils.c
 t_primitive *find_primitive(t_rt *world, char *type);
 
-//transform_view.c
+//transform_cam_view.c
 void transform_cam_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up);
 
 //camera.c
