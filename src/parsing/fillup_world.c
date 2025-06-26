@@ -12,6 +12,8 @@ void parse_ambient(t_rt *rt, t_token *token)
 
     rt->amb.brightness = ft_strtof(token->token[1]);
     parse_rgb(&rt->amb.color, token->token[2]);
+    create_color(&rt->amb.amb_component, rt->amb.color.r, rt->amb.color.g, rt->amb.color.b);
+    mult_tuple(&rt->amb.amb_component, rt->amb.brightness);
     create_identity_matrix_4x4(&rt->amb.matrix);  
 }
 
@@ -47,6 +49,8 @@ void parse_light(t_rt *rt, t_token *token)
     parse_coordinates(&rt->light.position, token->token[1]);
     rt->light.brightness = ft_strtof(token->token[2]);
     parse_rgb(&rt->light.color, token->token[3]);
+    create_color(&rt->light.color_component, rt->light.color.r, rt->light.color.g, rt->light.color.b);
+    mult_tuple(&rt->light.color_component, rt->light.brightness);
     create_identity_matrix_4x4(&rt->light.matrix);    
 }
 
@@ -55,6 +59,7 @@ void parse_sphere(t_rt *rt, t_token *token, int j)
     t_primitive *p;
     t_tuple scale_factor;
     t_matrix scale_m;
+    t_matrix translate_m;
 
     p = &rt->primitives_list[j];
     p->id = generate_id();
@@ -68,6 +73,12 @@ void parse_sphere(t_rt *rt, t_token *token, int j)
     create_point(&scale_factor, p->diameter ,p->diameter ,p->diameter);
     scale(&scale_m, scale_factor);
     mult_matrices(&p->matrix, scale_m, p->matrix);
+    translate(&translate_m, p->position);
+    mult_matrices(&p->matrix, translate_m, p->matrix);
+    p->position.x = 0.0f;
+    p->position.y = 0.0f;
+    p->position.z = 0.0f;
+    //something is wrong here still
 }
 
 void parse_plane(t_rt *rt, t_token *token, int j)

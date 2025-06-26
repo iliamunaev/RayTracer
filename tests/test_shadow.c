@@ -34,8 +34,8 @@ int	main(int argc, char **argv)
 
     t_comps comps;
 
-    print_matrix(rt.primitives_list[0].matrix);
-    print_matrix(rt.primitives_list[1].matrix);
+    //print_matrix(rt.primitives_list[0].matrix);
+    //print_matrix(rt.primitives_list[1].matrix);
 
 
     while (y < canvas_size)
@@ -56,7 +56,7 @@ int	main(int argc, char **argv)
                 mlx_put_pixel(rt.scene, x, y, float_to_hex(color));
             else
                 mlx_put_pixel(rt.scene, x, y, 0x58c0dc);
-
+            //mlx_put_pixel(rt.scene, x, y, float_to_hex(rt.amb.amb_component));
             x++;
         }
         y++;

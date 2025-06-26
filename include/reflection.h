@@ -20,7 +20,7 @@ typedef struct s_comps
 
 void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
 void    reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
-void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple point, t_tuple v_eye, t_tuple v_normal, bool in_shadow);
+void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple point, t_tuple v_eye, t_tuple v_normal, bool in_shadow, t_amb amb);
 bool    check_shadow(t_rt *world, t_tuple point);
 void    precompute_values(t_comps *comps, t_ray *ray);
 void    color_at(t_comps *comps, t_tuple *color, t_rt *world, t_ray *ray);

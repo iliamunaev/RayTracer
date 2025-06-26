@@ -31,7 +31,8 @@ typedef struct s_primitive
 typedef struct s_amb
 {
     float       brightness;
-    t_tuple     color; 
+    t_tuple     color;
+    t_tuple     amb_component;
     t_matrix    matrix;
 }   t_amb;
 
@@ -48,7 +49,8 @@ typedef struct s_light
 {
     t_tuple     position;
     float       brightness;
-    t_tuple     color; 
+    t_tuple     color;
+    t_tuple     color_component;
     t_matrix    matrix;
 }   t_light;
 
