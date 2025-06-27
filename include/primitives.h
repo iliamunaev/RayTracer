@@ -76,4 +76,7 @@ float get_half_width(t_rt *rt);
 float get_half_view(t_rt *rt);
 void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py);
 
+//plane.c
+void intersect_plane(t_ray *ray, t_primitive *plane);
+
 # endif // PRIMITIVES_H

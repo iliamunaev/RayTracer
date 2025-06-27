@@ -97,12 +97,15 @@ void parse_sphere(t_rt *rt, t_token *token, int j)
     p->position.x = 0.0f;
     p->position.y = 0.0f;
     p->position.z = 0.0f;
-    //something is wrong here still
 }
 
 void parse_plane(t_rt *rt, t_token *token, int j)
 {
     t_primitive *p;
+    t_matrix translate_m;
+    t_matrix rotate_m;
+    t_transform transformer;
+
 
     p = &rt->primitives_list[j];
     p->id = generate_id();
@@ -112,7 +115,18 @@ void parse_plane(t_rt *rt, t_token *token, int j)
     parse_coordinates(&p->position, token->token[1]);
     parse_coordinates(&p->norm_vector, token->token[2]);
     parse_rgb(&p->color, token->token[3]);
-    create_identity_matrix_4x4(&p->matrix);    
+    create_identity_matrix_4x4(&p->matrix);
+    // rotate(&rotate_m, p->norm_vector);
+    // mult_matrices(&p->matrix, rotate_m, p->matrix);
+    create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
+    mult_tuple(&transformer.scale, 0);
+    mult_tuple(&transformer.rotate, 0);
+    //vectorToEuler(&transformer.rotate, p->norm_vector);    
+    //translate(&translate_m, p->position);
+    //mult_matrices(&p->matrix, translate_m, p->matrix);
+    transform(&p->matrix, transformer);
+    print_matrix(p->matrix);
+
 }
 
 void parse_cylinder(t_rt *rt, t_token *token, int j)

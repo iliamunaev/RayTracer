@@ -45,7 +45,10 @@ void    get_ray_intersections(t_ray *ray, t_rt *minirt)
     i = 0;
     while(i < minirt->obj_counted)
     {   
-        get_obj_intersec(ray, &minirt->primitives_list[i]);
+        if (!ft_strcmp(minirt->primitives_list[i].type, "sp"))
+            get_obj_intersec(ray, &minirt->primitives_list[i]);
+        else if (!ft_strcmp(minirt->primitives_list[i].type, "pl"))
+            intersect_plane(ray, &minirt->primitives_list[i]);
         i++;
     }    
 
