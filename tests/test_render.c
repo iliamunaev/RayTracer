@@ -5,6 +5,7 @@ int	main(int argc, char **argv)
 {
 
     // setup world
+    (void)argc;
     t_rt rt;    
     parse(argv[1], &rt);
 

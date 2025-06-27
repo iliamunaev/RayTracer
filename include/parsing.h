@@ -25,6 +25,7 @@ void    create_material(t_rt *rt);
 // //parsing_utils.c
 void parse_rgb(t_tuple *color, const char *str);
 void parse_coordinates(t_tuple *position, const char *str);
+void vectorToEuler(t_tuple *angles, t_tuple vector);
 
 
 #endif // PARSING_H
