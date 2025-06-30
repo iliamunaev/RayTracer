@@ -11,4 +11,5 @@ void    init_world(t_rt *world)
         ft_memset(&world->primitives_list[i], 0, sizeof(t_primitive));
         i++;
     }
+    
 }

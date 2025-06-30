@@ -16,7 +16,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 
-SRCS	:=  test_render.c \
+SRCS	:=  test_mlx_hook.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/primitives/primitive_utils.c \
@@ -38,6 +38,8 @@ SRCS	:=  test_render.c \
 			../src/parsing/init_world.c \
 			../src/parsing/parsing_utils.c \
 			../src/parsing/fillup_world.c \
+			../src/parsing/setup_mlx.c \
+			../src/parsing/world_loop.c \
 			../src/view_transformation/transform_cam_view.c \
 			../src/camera/camera.c \
 			../src/render.c
