@@ -101,6 +101,7 @@ void parse_sphere(t_rt *rt, t_token *token, int j)
     p->position.x = 0.0f;
     p->position.y = 0.0f;
     p->position.z = 0.0f;
+    invert_matrix(&p->inv_matrix, p->matrix);
 }
 
 void parse_plane(t_rt *rt, t_token *token, int j)
@@ -109,7 +110,6 @@ void parse_plane(t_rt *rt, t_token *token, int j)
     t_matrix translate_m;
     t_matrix rotate_m;
     t_transform transformer;
-
 
     p = &rt->primitives_list[j];
     p->id = generate_id();
@@ -122,10 +122,14 @@ void parse_plane(t_rt *rt, t_token *token, int j)
     create_identity_matrix_4x4(&p->matrix);
 
     create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
-    create_point(&transformer.rotate, 0, 0, 0);
+    vector_to_euler(&transformer.rotate, p->norm_vector);
+    printf("r.x = %f\n", transformer.rotate.x);
+    printf("r.y = %f\n", transformer.rotate.y);
+    printf("r.x = %f\n", transformer.rotate.x);
+
     create_point(&transformer.scale, 0, 0, 0);
     transform(&p->matrix, transformer);
-
+    invert_matrix(&p->inv_matrix, p->matrix);
 }
 
 void parse_cylinder(t_rt *rt, t_token *token, int j)
