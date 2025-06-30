@@ -3,7 +3,7 @@
 NAME    := test
 
 CC      := cc
-CFLAGS  := -g -O3 -ffast-math -march=native #-Wextra -Wall -Werror
+CFLAGS  := -g2 #-Wextra -Wall -Werror
 
 LIBMLX  := ../lib/MLX42
 LIBFT   := ../lib/libft
@@ -16,7 +16,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 
-SRCS	:=  test_render.c \
+SRCS	:=  test_init_world.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/primitives/primitive_utils.c \
@@ -35,6 +35,7 @@ SRCS	:=  test_render.c \
 			../src/reflection/lighting.c \
 			../src/reflection/precompute_values.c \
 			../src/parsing/parsing.c \
+			../src/parsing/init_world.c \
 			../src/parsing/parsing_utils.c \
 			../src/parsing/fillup_world.c \
 			../src/view_transformation/transform_cam_view.c \
@@ -43,11 +44,11 @@ SRCS	:=  test_render.c \
 
 
 
-SRC_DIR := ../
+SRC_DIR := src
 OBJ_DIR := obj
 
-OBJ_TEST := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
-# OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
+#OBJ_TEST := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 OBJ := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
 
 # ------------------------------ Colors -------------------------------------- #
@@ -73,7 +74,7 @@ libft:
 
 $(NAME): $(OBJS) $(OBJ_TEST)
 	@echo "$(BLUE)Linking executable: $(NAME)$(RESET)"
-	$(CC) $(OBJS) $(OBJ_TEST) $(LIBS) -o $(NAME)
+	$(CC) $(CFLAGS) $(OBJS) $(OBJ_TEST) $(LIBS) -o $(NAME)
 
 # Rule to compile .c files into .o and store them in obj/
 $(OBJ_DIR)/%.o: %.c
@@ -89,6 +90,7 @@ $(OBJ_DIR):
 clean:
 	@echo "$(GREEN)Removing object files...$(RESET)"
 	rm -rf $(OBJ_DIR)
+	rm -rf $(SRC_DIR)
 	rm -rf $(LIBMLX)/build
 	@echo "$(BLUE)Cleaned object files and directories.$(RESET)"
 

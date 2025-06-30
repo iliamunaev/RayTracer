@@ -17,6 +17,7 @@ typedef struct s_token
 
 // parsing.c
 
+void    init_world(t_rt *world);
 int parse(const char *map_file, t_rt *world);
 void fillup_world(t_rt *world, t_token *token, int j);
 void    create_material(t_rt *rt);

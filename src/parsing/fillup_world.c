@@ -125,7 +125,6 @@ void parse_plane(t_rt *rt, t_token *token, int j)
     //translate(&translate_m, p->position);
     //mult_matrices(&p->matrix, translate_m, p->matrix);
     transform(&p->matrix, transformer);
-    print_matrix(p->matrix);
 
 }
 

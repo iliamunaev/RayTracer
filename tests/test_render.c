@@ -6,7 +6,8 @@ int	main(int argc, char **argv)
 
     // setup world
     (void)argc;
-    t_rt rt;    
+    t_rt rt;
+    init_world(&rt);
     parse(argv[1], &rt);
 
     // setup mlx

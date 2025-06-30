@@ -126,7 +126,6 @@ float get_matrix_determinant(const t_matrix matrix)
 
 	det = 0.0f;
 	col = 0;
-
 	if (matrix.size == 2)
 		return (get_matrix_determinant_2x2(matrix));
 	while (col < matrix.size)
