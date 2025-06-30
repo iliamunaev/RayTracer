@@ -98,7 +98,7 @@ void	rotate_y(t_matrix *matrix, float degrees)
 {
 	float	radians;
 
-	radians = get_radians(degrees);
+	//radians = get_radians(degrees);
 	matrix->rows[0].cols[0] = cos(radians);
 	matrix->rows[0].cols[2] = sin(radians);
 	matrix->rows[2].cols[0] = -sin(radians);
@@ -109,7 +109,7 @@ void	rotate_z(t_matrix *matrix, float degrees)
 {
 	float	radians;
 
-	radians = get_radians(degrees);
+	//radians = get_radians(degrees);
 	matrix->rows[0].cols[0] = cos(radians);
 	matrix->rows[0].cols[1] = -sin(radians);
 	matrix->rows[1].cols[0] = sin(radians);

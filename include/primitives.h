@@ -26,8 +26,8 @@ typedef struct s_primitive
     t_tuple     color;
     t_material  material;
     t_matrix    matrix;
+    t_matrix    inv_matrix;
 } t_primitive;
-
 
 typedef struct s_amb
 {
