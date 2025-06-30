@@ -33,10 +33,15 @@ void invert_matrix(t_matrix *inverted, const t_matrix matrix)
 	uint8_t y;
 	uint8_t i;
 
+	// print_matrix(matrix);
+
 	det = get_matrix_determinant(matrix);
 	if (!is_invertible(det))
 	{
+		print_matrix(matrix);
+
 		err("Error: matrix not invertible");
+		exit(3);
 		return;
 	}
 	i = 0;
@@ -130,7 +135,7 @@ void	transform(t_matrix *matrix, t_transform transform)
     t_matrix tmp_m;
 
 
-    create_identity_matrix_4x4(matrix);
+    // create_identity_matrix_4x4(matrix);
 
     // Rotation
     rotate(&tmp_m, transform.rotate);

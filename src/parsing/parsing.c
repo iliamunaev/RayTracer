@@ -122,6 +122,7 @@ int parse(const char *map_file, t_rt *world)
         i++;
     }    
     world->obj_counted = j;
+
     create_material(world);
 	close(fd);
     return (EXIT_SUCCESS);
