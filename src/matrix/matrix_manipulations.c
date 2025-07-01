@@ -196,7 +196,7 @@ void	transform(t_matrix *matrix, t_transform transform)
     t_matrix tmp_m;
 
 
-		// Rotation
+	// Rotation
 	if (fabsf(transform.rotate.x) > EPSILON ||
     	fabsf(transform.rotate.y) > EPSILON ||
     	fabsf(transform.rotate.z) > EPSILON)
