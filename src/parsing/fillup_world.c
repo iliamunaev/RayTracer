@@ -122,14 +122,16 @@ void parse_plane(t_rt *rt, t_token *token, int j)
     create_identity_matrix_4x4(&p->matrix);
 
     create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
-    vector_to_euler(&transformer.rotate, p->norm_vector);
-    printf("r.x = %f\n", transformer.rotate.x);
-    printf("r.y = %f\n", transformer.rotate.y);
-    printf("r.x = %f\n", transformer.rotate.x);
-
-    create_point(&transformer.scale, 0, 0, 0);
+    create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
+    //vector_to_euler(&transformer.rotate, p->norm_vector);
+    create_point(&transformer.scale, 1, 1, 1);
     transform(&p->matrix, transformer);
+    p->position.x = 0.0f;
+    p->position.y = 0.0f;
+    p->position.z = 0.0f;
     invert_matrix(&p->inv_matrix, p->matrix);
+    printf("n.x = %f, n.y = %f, n.z = %f\n",  p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
+    print_matrix(p->inv_matrix);
 }
 
 void parse_cylinder(t_rt *rt, t_token *token, int j)

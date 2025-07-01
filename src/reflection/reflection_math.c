@@ -1,5 +1,18 @@
 #include "minirt.h"
 
+/* void get_plane_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point)
+{
+    t_tuple     object_normal_local;
+    t_matrix    m_inverse;
+
+    create_vector(&object_normal_local,0 , 1, 0);
+    invert_matrix(&m_inverse, object->matrix);
+    transpose_matrix(&m_inverse);
+    mult_matrix_by_tuple(normal, m_inverse, object_normal_local);
+    normal->w = 0;
+    normalize_vector(normal);
+} */
+
 void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point)
 {
     t_tuple     object_point;

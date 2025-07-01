@@ -4,6 +4,8 @@ void    precompute_values(t_comps *comps, t_ray *ray)
 {
     t_tuple temp;
     t_tuple plane_normal;
+    t_tuple plane_normal_local;
+    t_tuple plane_normal_world;
 
     comps->value = ray->hit.value;
     comps->object = ray->hit.object;
@@ -11,8 +13,12 @@ void    precompute_values(t_comps *comps, t_ray *ray)
     create_vector(&comps->v_eye, ray->direction.x, ray->direction.y, ray->direction.z);
     negate_tuple(&comps->v_eye);
     normalize_vector(&comps->v_eye);
-    if (!ft_strcmp(comps->object->type, "pl"))
-        create_vector(&comps->v_normal, 0, 1, 0);
+     if (!ft_strcmp(comps->object->type, "pl"))
+     {
+        //get_plane_normal_at(&comps->v_normal, comps->object, comps->position);
+        create_vector(&comps->v_normal, comps->object->norm_vector.x, comps->object->norm_vector.y, comps->object->norm_vector.z);
+        //printf("n.x = %f, n.y = %f, n.z = %f\n",comps->v_normal.x, comps->v_normal.y, comps->v_normal.z);
+     }
     else
         get_normal_at(&comps->v_normal, comps->object, comps->position);
     if(dot_product(comps->v_normal, comps->v_eye) < 0)

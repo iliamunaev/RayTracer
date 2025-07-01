@@ -66,7 +66,7 @@ void    get_obj_intersec(t_ray *ray, t_primitive *object)
     //t_matrix inv_matrix;
     
     create_ray(&inv_ray, ray->origin, ray->direction);
-   // invert_matrix(&inv_matrix, object->matrix);
+   // invert_matrix(&inv_matrix, object->matrix);x
     ray_transform(&inv_ray, object->inv_matrix);
     a = dot_product(inv_ray.direction, inv_ray.direction);
     sub_tuples(&sphere_to_ray, inv_ray.origin, object->position);
