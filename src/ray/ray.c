@@ -36,24 +36,25 @@ void    sort_intersec_list(t_intersec_point *intersec_list, int count)
     }
 }
 
-void    get_ray_intersections(t_ray *ray, t_rt *minirt)
+void get_ray_intersections(t_ray *ray, t_rt *minirt)
 {
     uint8_t i;
 
-
     ray->intersections.counter = 0;
     i = 0;
-    while(i < minirt->obj_counted)
+    while (i < minirt->obj_counted)
     {   
-        if (!ft_strcmp(minirt->primitives_list[i].type, "sp"))
+        if (minirt->primitives_list[i].type == SPHERE)
             get_obj_intersec(ray, &minirt->primitives_list[i]);
-        else if (!ft_strcmp(minirt->primitives_list[i].type, "pl"))
+        else if (minirt->primitives_list[i].type == PLANE)
             intersect_plane(ray, &minirt->primitives_list[i]);
+        // Add CYLINDER etc. as needed
         i++;
     }    
 
     sort_intersec_list(ray->intersections.intersec_list, ray->intersections.counter);
 }
+
 
 void    get_obj_intersec(t_ray *ray, t_primitive *object)
 {

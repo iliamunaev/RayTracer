@@ -5,6 +5,12 @@
 typedef struct s_rt t_rt;
 typedef struct s_ray t_ray;
 
+typedef enum e_type
+{
+    SPHERE,
+    PLANE,
+    CYLINDER
+}   t_type;
 
 typedef struct s_material
 {
@@ -18,7 +24,8 @@ typedef struct s_material
 typedef struct s_primitive
 {
     int         id;
-    char        type[3];
+    // char        type[3];
+    t_type      type;
     t_tuple     position;
     t_tuple     norm_vector;
     float       diameter;
@@ -50,6 +57,7 @@ typedef struct s_cam
     t_matrix    inv_matrix;
 }   t_cam;
 
+
 typedef struct s_light
 {
     t_tuple     position;
@@ -64,10 +72,11 @@ void    create_sphere(t_primitive *sphere, t_tuple position);
 uint8_t generate_id();
 
 // primitive_utils.c
-t_primitive *find_primitive(t_rt *world, char *type);
+t_primitive *find_primitive(t_rt *world, t_type type);
 
 //transform_cam_view.c
 void transform_cam_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up);
+void rebuild_camera(t_rt *rt);
 
 //camera.c
 float get_pixel_size(t_rt *rt);

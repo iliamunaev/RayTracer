@@ -10,6 +10,7 @@ uint32_t float_to_hex(const t_tuple color)
     uint8_t b = (uint8_t)(fminf(fmaxf(color.b, 0.0f), 1.0f) * 255.0f);
     uint8_t a = (uint8_t)(fminf(fmaxf(color.a, 0.0f), 1.0f) * 255.0f);
     return ((r << 24) | (g << 16) | (b << 8) | a);
+
 }
 
 

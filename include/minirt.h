@@ -24,7 +24,10 @@
 #define MAX_PRIMITIVES 32
 #define SCREEN_WIDTH 600
 #define SCREEN_HEIGHT 600
-
+#define BLUE   0
+#define GREEN  1
+#define RED    2
+#define ALPHA  3
 
 typedef struct s_rt
 {
