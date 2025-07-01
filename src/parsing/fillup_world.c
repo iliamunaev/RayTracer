@@ -77,8 +77,6 @@ void parse_sphere(t_rt *rt, t_token *token, int j)
 {
     t_primitive *p;
     t_tuple scale_factor;
-    t_matrix scale_m;
-    t_matrix translate_m;
     t_transform transformer;
 
 
@@ -106,15 +104,13 @@ void parse_sphere(t_rt *rt, t_token *token, int j)
     p->position.x = 0.0f;
     p->position.y = 0.0f;
     p->position.z = 0.0f;
+    invert_matrix(&p->inv_matrix, p->matrix);
 }
 
 void parse_plane(t_rt *rt, t_token *token, int j)
 {
     t_primitive *p;
-    t_matrix translate_m;
-    t_matrix rotate_m;
     t_transform transformer;
-
 
     p = &rt->primitives_list[j];
     p->id = generate_id();
@@ -129,15 +125,20 @@ void parse_plane(t_rt *rt, t_token *token, int j)
     create_identity_matrix_4x4(&p->matrix);
 
     create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
-    create_point(&transformer.rotate, 0, 0, 0);
-    create_point(&transformer.scale, 0, 0, 0);
+    create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
+    //vector_to_euler(&transformer.rotate, p->norm_vector);
+    create_point(&transformer.scale, 1, 1, 1);
     transform(&p->matrix, transformer);
-
+    p->position.x = 0.0f;
+    p->position.y = 0.0f;
+    p->position.z = 0.0f;
+    invert_matrix(&p->inv_matrix, p->matrix);
 }
 
 void parse_cylinder(t_rt *rt, t_token *token, int j)
 {
     t_primitive *p;
+    t_transform transformer;
 
     p = &rt->primitives_list[j];
     p->id = generate_id();
@@ -151,7 +152,15 @@ void parse_cylinder(t_rt *rt, t_token *token, int j)
     p->diameter = ft_strtof(token->token[3]);
     p->height = ft_strtof(token->token[4]);
     parse_rgb(&p->color, token->token[5]);
-    create_identity_matrix_4x4(&p->matrix);    
+    create_identity_matrix_4x4(&p->matrix);
+    create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
+    create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
+    create_point(&transformer.scale, p->diameter, p->diameter, p->diameter);
+    transform(&p->matrix, transformer);
+    p->position.x = 0.0f;
+    p->position.y = 0.0f;
+    p->position.z = 0.0f;
+    invert_matrix(&p->inv_matrix, p->matrix);
 }
 
 void fillup_world(t_rt *rt, t_token *token, int j)

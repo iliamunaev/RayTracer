@@ -19,6 +19,7 @@ typedef struct s_comps
 }   t_comps;
 
 void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
+//void    get_plane_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
 void    reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
 void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple point, t_tuple v_eye, t_tuple v_normal, bool in_shadow, t_amb amb);
 bool    check_shadow(t_rt *world, t_tuple point);

@@ -30,7 +30,7 @@ void world_loop(mlx_key_data_t keydata, void *param);
 // //parsing_utils.c
 void parse_rgb(t_tuple *color, const char *str);
 void parse_coordinates(t_tuple *position, const char *str);
-void vectorToEuler(t_tuple *angles, t_tuple vector);
+void vector_to_euler(t_tuple *rotation, t_tuple normal);
 
 
 #endif // PARSING_H
