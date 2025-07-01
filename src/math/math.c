@@ -52,13 +52,19 @@ void dev_tuple(t_tuple *tuple, float scalar)
     tuple->z /= scalar;
 }
 
-float    magnitude_vector(const t_tuple vector)
-{
-    float magnitude;
+// float    magnitude_vector(const t_tuple vector)
+// {
+//     float magnitude;
 
-    magnitude = sqrt(pow(vector.x, 2) + pow(vector.y , 2) + pow(vector.z, 2));
-    return (magnitude);
+//     magnitude = sqrt(pow(vector.x, 2) + pow(vector.y , 2) + pow(vector.z, 2));
+//     return (magnitude);
+// }
+
+float magnitude_vector(const t_tuple v)
+{
+    return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
 }
+
 
 void    normalize_vector(t_tuple *vector)
 {

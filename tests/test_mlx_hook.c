@@ -15,7 +15,8 @@ int	main(int argc, char **argv)
 
     render(&world);
 
-	mlx_loop_hook(world.mlx, world_loop, &world);
+    mlx_key_hook(world.mlx, world_loop, &world);
+
     mlx_loop(world.mlx);
     mlx_terminate(world.mlx);
 

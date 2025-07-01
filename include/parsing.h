@@ -22,7 +22,10 @@ void    setup_mlx(t_rt *world);
 int parse(const char *map_file, t_rt *world);
 void fillup_world(t_rt *world, t_token *token, int j);
 void    create_material(t_rt *rt);
-void world_loop(t_rt *world);
+
+
+void world_loop(mlx_key_data_t keydata, void *param);
+
 
 // //parsing_utils.c
 void parse_rgb(t_tuple *color, const char *str);

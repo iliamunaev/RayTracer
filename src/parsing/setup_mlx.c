@@ -33,8 +33,7 @@ void setup_mlx(t_rt *world)
         exit(EXIT_FAILURE);
     }
 
-    mlx_image_to_window(world->mlx, world->scene, 0, 0);
+    ft_memset(world->scene->pixels, 255, world->scene->width * world->scene->height * BPP);
 
-    fprintf(stderr, "mlx_new_image SUCCESS\n");
-
+    // mlx_image_to_window(world->mlx, world->scene, 0, 0);
 }
