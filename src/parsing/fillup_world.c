@@ -84,9 +84,14 @@ void parse_sphere(t_rt *rt, t_token *token, int j)
 
     p = &rt->primitives_list[j];
     p->id = generate_id();
-    p->type[0] = 's';
-    p->type[1] = 'p';
-    p->type[2] = '\0';
+
+    p->type = SPHERE;
+
+    // p->type[0] = 's';
+    // p->type[1] = 'p';
+    // p->type[2] = '\0';
+
+
     parse_coordinates(&p->position, token->token[1]);
     p->diameter = ft_strtof(token->token[2]);
     parse_rgb(&p->color, token->token[3]);
@@ -113,9 +118,11 @@ void parse_plane(t_rt *rt, t_token *token, int j)
 
     p = &rt->primitives_list[j];
     p->id = generate_id();
-    p->type[0] = 'p';
-    p->type[1] = 'l';
-    p->type[2] = '\0';
+    p->type = PLANE;
+
+    // p->type[0] = 'p';
+    // p->type[1] = 'l';
+    // p->type[2] = '\0';
     parse_coordinates(&p->position, token->token[1]);
     parse_coordinates(&p->norm_vector, token->token[2]);
     parse_rgb(&p->color, token->token[3]);
@@ -134,9 +141,11 @@ void parse_cylinder(t_rt *rt, t_token *token, int j)
 
     p = &rt->primitives_list[j];
     p->id = generate_id();
-    p->type[0] = 'c';
-    p->type[1] = 'y';
-    p->type[2] = '\0';
+    p->type = CYLINDER;
+
+    // p->type[0] = 'c';
+    // p->type[1] = 'y';
+    // p->type[2] = '\0';
     parse_coordinates(&p->position, token->token[1]);
     parse_coordinates(&p->norm_vector, token->token[2]);
     p->diameter = ft_strtof(token->token[3]);

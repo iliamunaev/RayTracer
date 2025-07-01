@@ -12,7 +12,7 @@ void world_loop(t_rt *world)
     // t_rt *world = (t_rt *)param;
     bool moved = false;
 
-    mlx_image_to_window(world->mlx, world->scene, 0, 0);
+    // mlx_image_to_window(world->mlx, world->scene, 0, 0);
 
     // Y-axis up/down (arrow keys)
     if (mlx_is_key_down(world->mlx, MLX_KEY_UP))
