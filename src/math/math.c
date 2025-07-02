@@ -55,7 +55,7 @@ void dev_tuple(t_tuple *tuple, float scalar)
 
 float magnitude_vector(const t_tuple v)
 {
-    return sqrtf(v.x * v.x + v.y * v.y + v.z * v.z);
+    return (sqrtf(dot_product(v, v)));
 }
 
 

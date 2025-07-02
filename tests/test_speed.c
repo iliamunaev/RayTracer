@@ -1,6 +1,8 @@
 #include "minirt.h"
 #include <time.h>
 
+// Render time: 1.428597 seconds
+
 int	main(int argc, char **argv)
 {
     (void)argc;
