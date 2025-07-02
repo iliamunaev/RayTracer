@@ -3,7 +3,6 @@
 
 void transform_cam_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up)
 {
-    printf("\n---------------DEBUG: START transform_cam_view()\n");
 
     t_tuple forward;
     t_tuple left;
@@ -45,24 +44,9 @@ void transform_cam_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up)
     t_tuple neg_from = {-from.x, -from.y, -from.z, from.w};
     translate(&translation, neg_from);
 
-    // Debug info
-    printf("\nDEBUG: Orientation\n");
-    print_matrix(orientation);
-    printf("\nDEBUG: Translation\n");
-    print_matrix(translation);
-
-    printf("\nDEBUG: rt->cam.matrix BEFORE mult_matrices\n");
-    print_matrix(rt->cam.matrix);
-
-    printf("\nDEBUG: cam.norm_vector = (%f, %f, %f)\n", forward.x, forward.y, forward.z);
-
     // Final view matrix
     mult_matrices(&rt->cam.matrix, orientation, translation);
 
-    printf("\nDEBUG: rt->cam.matrix AFTER mult_matrices\n");
-    print_matrix(rt->cam.matrix);
-
-    printf("\n---------------DEBUG: END transform_cam_view()\n");
 }
 
 /**

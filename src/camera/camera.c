@@ -154,11 +154,6 @@ bool is_zero_vector(t_tuple v)
 
 void rebuild_camera(t_rt *rt)
 {
-    
-    printf("\n---------------DEBUG: START rebuild_camera()\n");
-   
-    printf("\nDEBUG: cam->matrix BEFOR transform_cam_view()\n");
-    print_matrix(rt->cam.matrix);
 
     if (is_zero_vector(rt->cam.norm_vector))
     {
@@ -177,20 +172,14 @@ void rebuild_camera(t_rt *rt)
 
     t_tuple up = {0.0f, 1.0f, 0.0f, 0.0f}; // world up
 
-    printf("DEBUG: cam.position = (%f, %f, %f)\n",
-       rt->cam.position.x, rt->cam.position.y, rt->cam.position.z);
 
 
     transform_cam_view(rt, from, to, up); // transform updates cam->matrix
 
-    printf("\nDEBUG: cam->matrix AFTER transform_cam_view()\n");
-    print_matrix(rt->cam.matrix);
 
 
 
     invert_matrix(&rt->cam.inv_matrix, rt->cam.matrix);
-    printf("\nDEBUG: cam->inv_matrix\n");
-    print_matrix(rt->cam.inv_matrix);
 
     if (rt->cam.fov == 0.0f)
         rt->cam.fov = 70.0f;
@@ -200,10 +189,5 @@ void rebuild_camera(t_rt *rt)
     rt->cam.half_height = get_half_height(rt) ;
     rt->cam.pix_size = get_pixel_size(rt);
 
-    printf("\nnDEBUG: rt->cam.half_view: %f\n", rt->cam.half_view);
-    printf("\nnDEBUG: rt->cam.half_height: %f\n", rt->cam.half_height);
-    printf("\nnDEBUG: rt->cam.pix_size: %f\n", rt->cam.pix_size);
-
-    printf("\n---------------DEBUG: END rebuild_camera()\n");
 }
 

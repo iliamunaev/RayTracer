@@ -27,56 +27,56 @@ void world_loop(mlx_key_data_t keydata, void *param)
     {
         float before = world->cam.position.y;
         world->cam.position.y += 1.0f;
-        debug_cam_pos("y", before, world->cam.position.y);
+        //debug_cam_pos("y", before, world->cam.position.y);
         moved = true;
     }
     else if (keydata.key == MLX_KEY_DOWN)
     {
         float before = world->cam.position.y;
         world->cam.position.y -= 1.0f;
-        debug_cam_pos("y", before, world->cam.position.y);
+        //debug_cam_pos("y", before, world->cam.position.y);
         moved = true;
     }
     else if (keydata.key == MLX_KEY_LEFT || keydata.key == MLX_KEY_A)
     {
         float before = world->cam.position.x;
         world->cam.position.x -= 1.0f;
-        debug_cam_pos("x", before, world->cam.position.x);
+        //debug_cam_pos("x", before, world->cam.position.x);
         moved = true;
     }
     else if (keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_D)
     {
         float before = world->cam.position.x;
         world->cam.position.x += 1.0f;
-        debug_cam_pos("x", before, world->cam.position.x);
+        //debug_cam_pos("x", before, world->cam.position.x);
         moved = true;
     }
     else if (keydata.key == MLX_KEY_W)
     {
         float before = world->cam.position.z;
         world->cam.position.z += 1.0f;
-        debug_cam_pos("z", before, world->cam.position.z);
+        //debug_cam_pos("z", before, world->cam.position.z);
         moved = true;
     }
     else if (keydata.key == MLX_KEY_S)
     {
         float before = world->cam.position.z;
         world->cam.position.z -= 1.0f;
-        debug_cam_pos("z", before, world->cam.position.z);
+        //debug_cam_pos("z", before, world->cam.position.z);
         moved = true;
     }
     else if (keydata.key == MLX_KEY_Q)
     {
         float before = world->cam.fov;
         world->cam.fov -= 1.0f;
-        debug_fov("-", before, world->cam.fov);
+        //debug_fov("-", before, world->cam.fov);
         moved = true;
     }
     else if (keydata.key == MLX_KEY_E)
     {
         float before = world->cam.fov;
         world->cam.fov += 1.0f;
-        debug_fov("+", before, world->cam.fov);
+        //debug_fov("+", before, world->cam.fov);
         moved = true;
     }
     // else if (keydata.key == MLX_KEY_R)
