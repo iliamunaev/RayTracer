@@ -20,7 +20,7 @@ SRCS	:=  test_mlx_hook.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/primitives/primitive_utils.c \
-			../src/primitives/plane.c \
+			../src/primitives/primitive_intersections.c \
 			../src/ray/ray.c \
 			../src/utils/utils.c\
 			../src/utils/color_utils.c \

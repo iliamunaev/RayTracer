@@ -3,9 +3,6 @@
 void precompute_values(t_comps *comps, t_ray *ray)
 {
     t_tuple temp;
-    t_tuple plane_normal;
-    t_tuple plane_normal_local;
-    t_tuple plane_normal_world;
 
     comps->value = ray->hit.value;
     comps->object = ray->hit.object;
@@ -13,15 +10,12 @@ void precompute_values(t_comps *comps, t_ray *ray)
     create_vector(&comps->v_eye, ray->direction.x, ray->direction.y, ray->direction.z);
     negate_tuple(&comps->v_eye);
     normalize_vector(&comps->v_eye);
-     if (comps->object->type == PLANE)
-     {
-        //get_plane_normal_at(&comps->v_normal, comps->object, comps->position);
+    if (comps->object->type == PLANE)
         create_vector(&comps->v_normal, comps->object->norm_vector.x, comps->object->norm_vector.y, comps->object->norm_vector.z);
-        //printf("n.x = %f, n.y = %f, n.z = %f\n",comps->v_normal.x, comps->v_normal.y, comps->v_normal.z);
-     }
-    else
+    else if (comps->object->type == SPHERE)
         get_normal_at(&comps->v_normal, comps->object, comps->position);
-
+    else if (comps->object->type == CYLINDER)
+        get_cylinder_normal_at(&comps->v_normal, comps->object, comps->position);
     if (dot_product(comps->v_normal, comps->v_eye) < 0)
     {
         comps->inside = true;

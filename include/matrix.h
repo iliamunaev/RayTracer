@@ -49,6 +49,7 @@ float get_matrix_determinant(const t_matrix m);
 
 // matrix_manipulations.c
 void transpose_matrix(t_matrix *matrix);
+void transpose_return_new_matrix(t_matrix *transposed_matrix, t_matrix original_matrix);
 void invert_matrix(t_matrix *inverted, const t_matrix matrix);
 void	translate(t_matrix *matrix, t_tuple translation);
 void	scale(t_matrix *matrix, t_tuple scaling);

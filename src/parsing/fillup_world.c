@@ -105,6 +105,7 @@ void parse_sphere(t_rt *rt, t_token *token, int j)
     p->position.y = 0.0f;
     p->position.z = 0.0f;
     invert_matrix(&p->inv_matrix, p->matrix);
+    transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
 
 void parse_plane(t_rt *rt, t_token *token, int j)
@@ -133,6 +134,7 @@ void parse_plane(t_rt *rt, t_token *token, int j)
     p->position.y = 0.0f;
     p->position.z = 0.0f;
     invert_matrix(&p->inv_matrix, p->matrix);
+    transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
 
 void parse_cylinder(t_rt *rt, t_token *token, int j)
@@ -151,6 +153,8 @@ void parse_cylinder(t_rt *rt, t_token *token, int j)
     parse_coordinates(&p->norm_vector, token->token[2]);
     p->diameter = ft_strtof(token->token[3]);
     p->height = ft_strtof(token->token[4]);
+    p->cylinder_min = 0 - p->height / 2;
+    p->cylinder_max = 0 + p->height / 2;
     parse_rgb(&p->color, token->token[5]);
     create_identity_matrix_4x4(&p->matrix);
     create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
@@ -161,6 +165,7 @@ void parse_cylinder(t_rt *rt, t_token *token, int j)
     p->position.y = 0.0f;
     p->position.z = 0.0f;
     invert_matrix(&p->inv_matrix, p->matrix);
+    transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
 
 void fillup_world(t_rt *rt, t_token *token, int j)

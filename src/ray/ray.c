@@ -48,7 +48,11 @@ void get_ray_intersections(t_ray *ray, t_rt *minirt)
             get_obj_intersec(ray, &minirt->primitives_list[i]);
         else if (minirt->primitives_list[i].type == PLANE)
             intersect_plane(ray, &minirt->primitives_list[i]);
-        // Add CYLINDER etc. as needed
+        else if (minirt->primitives_list[i].type == CYLINDER)
+        {
+            intersect_cylinder(ray, &minirt->primitives_list[i]);
+            intersect_caps(ray, &minirt->primitives_list[i]);
+        }
         i++;
     }    
 
@@ -64,10 +68,8 @@ void    get_obj_intersec(t_ray *ray, t_primitive *object)
     float   discriminant;
     t_tuple sphere_to_ray;
     t_ray   inv_ray;
-    //t_matrix inv_matrix;
     
     create_ray(&inv_ray, ray->origin, ray->direction);
-   // invert_matrix(&inv_matrix, object->matrix);x
     ray_transform(&inv_ray, object->inv_matrix);
     a = dot_product(inv_ray.direction, inv_ray.direction);
     sub_tuples(&sphere_to_ray, inv_ray.origin, object->position);
@@ -78,10 +80,8 @@ void    get_obj_intersec(t_ray *ray, t_primitive *object)
         return ;
 
     ray->intersections.intersec_list[ray->intersections.counter].object = object;
-
     ray->intersections.intersec_list[ray->intersections.counter].value = (float)((-b - sqrt (discriminant)) / (2 * a));
     ray->intersections.counter++;
-
     ray->intersections.intersec_list[ray->intersections.counter].object = object;
     ray->intersections.intersec_list[ray->intersections.counter].value = (float)((-b + sqrt (discriminant)) / (2 * a));
     ray->intersections.counter++;

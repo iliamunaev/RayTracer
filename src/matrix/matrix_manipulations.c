@@ -25,6 +25,25 @@ void transpose_matrix(t_matrix *matrix)
 	}
 }
 
+void transpose_return_new_matrix(t_matrix *transposed_matrix, t_matrix original_matrix)
+{
+    int i = 0;
+    int j;
+
+    transposed_matrix->size = original_matrix.size;
+
+    while (i < original_matrix.size)
+    {
+        j = 0;
+        while (j < original_matrix.size)
+        {
+            transposed_matrix->rows[j].cols[i] = original_matrix.rows[i].cols[j];
+            j++;
+        }
+        i++;
+    }
+}
+
 void invert_matrix(t_matrix *inverted, const t_matrix matrix)
 {
 	float det;

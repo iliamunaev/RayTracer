@@ -28,12 +28,15 @@ typedef struct s_primitive
     t_type      type;
     t_tuple     position;
     t_tuple     norm_vector;
+    t_tuple     color;
+    float     cylinder_min;
+    float     cylinder_max;
     float       diameter;
     float       height;
-    t_tuple     color;
     t_material  material;
     t_matrix    matrix;
     t_matrix    inv_matrix;
+    t_matrix    tran_matrix;
 } t_primitive;
 
 typedef struct s_amb
@@ -85,7 +88,8 @@ float get_half_width(t_rt *rt);
 float get_half_view(t_rt *rt);
 void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py);
 
-//plane.c
+//primitive_intersections.c
 void intersect_plane(t_ray *ray, t_primitive *plane);
+void intersect_cylinder(t_ray *ray, t_primitive *cylinder);
 
 # endif // PRIMITIVES_H

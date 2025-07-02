@@ -3,7 +3,7 @@
 /* static inline void ray_for_pixel(&ray, &rt->cam, x, y)
 static inline void color_at;
  */
-//ALL THE VERY HEAVY FUNCTIONS WE COULD PUT AS STATIC INLINE FUNCTIONS TO INCREASE PERFORMANCE
+//ALL THE VERY HEAVY FUNCTIONS WE COULD PUT AS STATIC INLINE FUNCTIONS TO INCREASE PERFORMANCEx
 
 void render(t_rt *rt)
 {
