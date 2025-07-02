@@ -78,12 +78,19 @@ t_primitive *find_primitive(t_rt *world, t_type type);
 void transform_cam_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up);
 void rebuild_camera(t_rt *rt);
 
-//camera.c
-float get_pixel_size(t_rt *rt);
+//CAMERA
+bool is_zero_vector(t_tuple v);
+float get_half_view(t_rt *rt);
 float get_half_height(t_rt *rt);
 float get_half_width(t_rt *rt);
-float get_half_view(t_rt *rt);
-void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py);
+float calculate_aspect(void);
+float calculate_half_width(float aspect, float half_view);
+float calculate_half_height(float aspect, float half_view);
+float calculate_pixel_size(float half_width);
+float get_pixel_size(t_rt *rt);
+
+
+// void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py);
 
 //plane.c
 void intersect_plane(t_ray *ray, t_primitive *plane);

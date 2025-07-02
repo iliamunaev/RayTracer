@@ -1,24 +1,34 @@
 #include "minirt.h"
 
-float get_half_width(t_rt *rt)
+float calculate_aspect(void)
 {
-    float aspect;
-    float half_view;
-
-    aspect = calculate_aspect();
-    half_view = get_half_view(rt);
-    return(calculate_half_width(aspect, half_view));
+    return (float)SCREEN_WIDTH / (float)SCREEN_HEIGHT;
 }
 
-float get_half_height(t_rt *rt)
-{
-    float aspect;
-    float half_view;
 
-    aspect = calculate_aspect();
-    half_view = get_half_view(rt);
-    return(calculate_half_height(aspect, half_view));
+float calculate_half_width(float aspect, float half_view)
+{
+    if (aspect >= 1.0f)
+        return (half_view);
+    else
+
+        return (half_view * aspect);
 }
+
+float calculate_half_height(float aspect, float half_view)
+{
+
+    if (aspect >= 1.0f)
+        return (half_view / aspect);
+    else
+        return (half_view);
+}
+
+float calculate_pixel_size(float half_width)
+{
+    return ((half_width * 2.0f) / SCREEN_WIDTH);
+}
+
 
 float get_pixel_size(t_rt *rt)
 {
@@ -28,7 +38,3 @@ float get_pixel_size(t_rt *rt)
     return (calculate_pixel_size(half_width));
 }
 
-bool is_zero_vector(t_tuple v)
-{
-    return (v.x == 0 && v.y == 0 && v.z == 0);
-}

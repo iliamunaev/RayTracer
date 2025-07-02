@@ -39,10 +39,12 @@ SRCS	:=  test_speed.c \
 			../src/parsing/parsing_utils.c \
 			../src/parsing/fillup_world.c \
 			../src/parsing/setup_mlx.c \
-			../src/parsing/world_loop.c \
+			../src/world_loop/world_loop.c \
 			../src/view_transformation/transform_cam_view.c \
-			../src/camera/camera.c \
-			../src/render.c
+			../src/primitives/camera/camera.c \
+			../src/primitives/camera/camera_utils_1.c \
+			../src/primitives/camera/camera_utils_2.c \
+			../src/render/render.c
 
 
 
