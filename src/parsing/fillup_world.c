@@ -51,17 +51,6 @@ void parse_camera(t_rt *rt, t_token *token)
     
 }
 
-
-
-/*
-typedef struct s_light
-{
-    t_tuple     position;
-    float       brightness;
-    t_tuple     color; 
-    t_matrix    matrix;
-}   t_light;
-*/
 void parse_light(t_rt *rt, t_token *token)
 {
 
@@ -75,37 +64,77 @@ void parse_light(t_rt *rt, t_token *token)
 
 void parse_sphere(t_rt *rt, t_token *token, int j)
 {
-    t_primitive *p;
-    t_tuple scale_factor;
-    t_transform transformer;
+    t_primitive *p = &rt->primitives_list[j];
 
-
-    p = &rt->primitives_list[j];
-    p->id = generate_id();
-
-    p->type = SPHERE;
-
-    // p->type[0] = 's';
-    // p->type[1] = 'p';
-    // p->type[2] = '\0';
-
-
-    parse_coordinates(&p->position, token->token[1]);
+    /* basic attributes */
+    p->id       = generate_id();
+    p->type     = SPHERE;
+    parse_coordinates(&p->position, token->token[1]);   /* world-space centre */
     p->diameter = ft_strtof(token->token[2]);
     parse_rgb(&p->color, token->token[3]);
-    create_identity_matrix_4x4(&p->matrix);
-    create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
-    create_point(&transformer.scale, p->diameter, p->diameter, p->diameter);
-    mult_tuple(&transformer.rotate, 0);
-    //vectorToEuler(&transformer.rotate, p->norm_vector);    
-    //translate(&translate_m, p->position);
-    //mult_matrices(&p->matrix, translate_m, p->matrix);
-    transform(&p->matrix, transformer);
-    p->position.x = 0.0f;
-    p->position.y = 0.0f;
-    p->position.z = 0.0f;
+
+    /* scale = radius */
+    float radius = p->diameter / 2.0f;
+    t_tuple scale_vec = { radius, radius, radius, 0.0f };
+
+    /* build matrices */
+    t_matrix scale_m, trans_m;
+    scale(&scale_m,     scale_vec);        /*  S  */
+    translate(&trans_m, p->position);      /*  T  */
+
+    mult_matrices(&p->matrix, trans_m, scale_m);   /*  M = T * S  */
     invert_matrix(&p->inv_matrix, p->matrix);
+
+    /* keep the real world position (DO NOT reset to 0,0,0 !) */
+    /*  p->position now holds centre in world space for later transforms  */
+
+    /* ---- debug (optional) ----
+    printf("Parsed sphere  id=%d  diam=%.2f  pos=(%.2f,%.2f,%.2f)\n",
+           p->id, p->diameter, p->position.x, p->position.y, p->position.z);
+    print_matrix(p->matrix);
+    */
 }
+
+
+// void parse_sphere(t_rt *rt, t_token *token, int j)
+// {
+//     t_primitive *p;
+//     t_tuple scale_factor;
+//     t_transform transformer;
+
+
+//     p = &rt->primitives_list[j];
+//     p->id = generate_id();
+//     p->type = SPHERE;
+
+//     parse_coordinates(&p->position, token->token[1]);
+//     p->diameter = ft_strtof(token->token[2]);
+//     parse_rgb(&p->color, token->token[3]);
+
+
+//     create_identity_matrix_4x4(&p->matrix);
+//     create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
+
+//     // create_point(&transformer.scale, p->diameter, p->diameter, p->diameter);
+//     float radius = p->diameter / 2.0f;
+//     create_point(&transformer.scale, radius, radius, radius);
+
+//     mult_tuple(&transformer.rotate, 0);
+//     //vectorToEuler(&transformer.rotate, p->norm_vector);    
+//     //translate(&translate_m, p->position);
+//     //mult_matrices(&p->matrix, translate_m, p->matrix);
+//     transform(&p->matrix, transformer);
+//     p->position.x = 0.0f;
+//     p->position.y = 0.0f;
+//     p->position.z = 0.0f;
+//     invert_matrix(&p->inv_matrix, p->matrix);
+//     printf("SPHERE inv matrix parsed\n");
+//     print_matrix(p->inv_matrix);
+
+//     printf("Parsed SPHERE #%d | diameter: %.2f | radius: %.2f\n", 
+//         p->id, p->diameter, radius); // Debug
+//         printf("Parsed SPHERE Position X: %f, Y: %f, Z: %f\n", p->position.x, p->position.y, p->position.z);
+// }
 
 void parse_plane(t_rt *rt, t_token *token, int j)
 {

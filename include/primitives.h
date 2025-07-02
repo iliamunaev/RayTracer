@@ -89,9 +89,12 @@ float calculate_pixel_size(float half_width);
 float get_pixel_size(t_rt *rt);
 
 
-// void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py);
+void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py);
 
 //plane.c
 void intersect_plane(t_ray *ray, t_primitive *plane);
+
+// SPHERE
+void resize_spere(t_rt *world, float factor);
 
 # endif // PRIMITIVES_H

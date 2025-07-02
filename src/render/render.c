@@ -4,7 +4,7 @@
 static inline void color_at;
  */
 //ALL THE VERY HEAVY FUNCTIONS WE COULD PUT AS STATIC INLINE FUNCTIONS TO INCREASE PERFORMANCE
-static inline  void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
+void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
 {
     float xoffset;
     float yoffset;

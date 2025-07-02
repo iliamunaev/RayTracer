@@ -30,65 +30,48 @@ static bool handle_fov_adjustment(t_rt *world, mlx_key_data_t keydata)
     return (true);
 }
 
-static void print_selected(int idx)
+static bool handle_resizing(t_rt *world, mlx_key_data_t keydata)
 {
-    char msg;
-
-    if (idx == 0)
-        msg = "SPHERE";
-    else if (idx == 1)
-        msg = "PLANE";
+    if (keydata.key == MLX_KEY_1)
+        resize_spere(world, 0.9f);
+    else if (keydata.key == MLX_KEY_2)
+        resize_spere(world, 1.1f);
     else
-        msg = "CYLINDER";
-    printf("You choose: %s\n", msg);
-}
-
-static bool select_primitive(t_rt *world, mlx_key_data_t keydata)
-{
-    t_primitive *selected;
-
-    if (keydata.key != MLX_KEY_C || world->obj_counted == 0)
         return (false);
-    world->selected_primitive_index = (world->selected_primitive_index + 1) % world->obj_counted;
-    selected = &world->primitives_list[world->selected_primitive_index];
-    print_selected(world->selected_primitive_index);
     return (true);
 }
 
 
 void world_loop(mlx_key_data_t keydata, void *param)
 {
-    t_rt *world;
-    bool moved;   
-    bool selected;   
-    
-    world = (t_rt *)param;
-    moved = false;
-    selected = false;
+    t_rt *world = (t_rt *)param;
+    bool moved = false;
+    bool changed = false;
+
     if (keydata.action != MLX_PRESS)
-        return ;
-    if (handle_camera_movement(world, keydata) || handle_fov_adjustment(world, keydata))
-    {
-        moved = true;
-    }
-    else if (choose_primitive(world, keydata))
-    {
-        selected = true;
-    }
-    else if (keydata.key == MLX_KEY_ESCAPE)
+        return;
+
+    if (keydata.key == MLX_KEY_ESCAPE)
     {
         printf("Exiting...\n");
         mlx_close_window(world->mlx);
+        return;
     }
+
+    if (handle_camera_movement(world, keydata))
+        moved = true;
+    else if (handle_fov_adjustment(world, keydata))
+        moved = true;
+    else if (handle_resizing(world, keydata))
+        changed = true;
+
     if (moved)
     {
         rebuild_camera(world);
+    }
+    if (moved || changed)
+    {
         render(world);
     }
-    if (selected)
-    {
-        printf("Success\n");
-        // render(world);
-    }
-
 }
+
