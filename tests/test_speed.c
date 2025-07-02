@@ -2,6 +2,8 @@
 #include <time.h>
 
 // Render time: 1.428597 seconds
+// Render time: 1.427026 seconds
+
 
 int	main(int argc, char **argv)
 {

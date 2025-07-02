@@ -1,11 +1,11 @@
 #include "minirt.h"
 
-float   get_radians(float degrees)
+inline float   get_radians(float degrees)
 {
     return (degrees * DEG_TO_RAD);
 }
 
-bool    is_equal(float a, float b)
+inline bool    is_equal(float a, float b)
 {
     return (fabsf(a - b) < EPSILON);
 }
@@ -53,13 +53,13 @@ void dev_tuple(t_tuple *tuple, float scalar)
 }
 
 
-float magnitude_vector(const t_tuple v)
+inline float magnitude_vector(const t_tuple v)
 {
-    return (sqrtf(dot_product(v, v)));
+    return sqrtf(dot_product(v, v));
 }
 
 
-void    normalize_vector(t_tuple *vector)
+inline void    normalize_vector(t_tuple *vector)
 {
     float m;
 
@@ -69,12 +69,9 @@ void    normalize_vector(t_tuple *vector)
     vector->z /= m;
 }
 
-float   dot_product(const t_tuple a, const t_tuple b)
+inline float dot_product(const t_tuple a, const t_tuple b)
 {
-    float   product;
-
-    product = a.x * b.x + a.y * b.y + a.z * b.z;
-    return (product);
+    return (a.x * b.x + a.y * b.y + a.z * b.z);
 }
 
 void cross_product(t_tuple *product, const t_tuple a, const t_tuple b)
@@ -89,15 +86,13 @@ float ft_strtof(const char *start)
     float result = 0.0f, fraction = 0.0f, divider = 10.0f;
     int dot_seen = 0, sign = 1;
 
-    // Skip leading spaces
-    while (*start == ' ') start++;
-
-    // Handle sign
-    if (*start == '-') {
+    while (*start == ' ') 
+        start++;
+    if (*start == '-')
+    {
         sign = -1;
         start++;
     }
-
     while (*start)
     {
         if (*start == '.')
@@ -106,7 +101,7 @@ float ft_strtof(const char *start)
                 break;
             dot_seen = 1;
             start++;
-            continue;
+            continue ;
         }
         if (*start >= '0' && *start <= '9')
         {
@@ -119,7 +114,7 @@ float ft_strtof(const char *start)
             }
         }
         else
-            break;
+            break ;
         start++;
     }
     return (sign * (result + fraction));
