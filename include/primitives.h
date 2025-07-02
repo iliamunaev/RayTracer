@@ -24,7 +24,6 @@ typedef struct s_material
 typedef struct s_primitive
 {
     int         id;
-    // char        type[3];
     t_type      type;
     t_tuple     position;
     t_tuple     norm_vector;

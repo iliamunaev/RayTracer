@@ -1,10 +1,10 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# include <MLX42/MLX42.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <MLX42/MLX42.h>
 # include <math.h>
 # include <stdbool.h>
 # include <fcntl.h>
@@ -38,6 +38,7 @@ typedef struct s_rt
 	t_amb		amb;
 	t_cam		cam;
 	t_light		light;
+	int         selected_primitive_index;
 }	t_rt;
 
 
