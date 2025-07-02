@@ -1,6 +1,9 @@
 #include "minirt.h"
 
-
+/* static inline void ray_for_pixel(&ray, &rt->cam, x, y)
+static inline void color_at;
+ */
+//ALL THE VERY HEAVY FUNCTIONS WE COULD PUT AS STATIC INLINE FUNCTIONS TO INCREASE PERFORMANCE
 
 void render(t_rt *rt)
 {
@@ -38,6 +41,5 @@ void render(t_rt *rt)
         y++;
     }
     mlx_image_to_window(rt->mlx, rt->scene, 0, 0);
-	fprintf(stderr, "\n********SUCCESS mlx_new_image()**********\n\n");
 }
 

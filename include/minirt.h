@@ -22,8 +22,8 @@
 
 #define BPP sizeof(int32_t)
 #define MAX_PRIMITIVES 32
-#define SCREEN_WIDTH 600
-#define SCREEN_HEIGHT 600
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
 #define BLUE   0
 #define GREEN  1
 #define RED    2
