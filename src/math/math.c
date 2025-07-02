@@ -2,7 +2,7 @@
 
 float   get_radians(float degrees)
 {
-    return (degrees * (M_PI / 180));
+    return (degrees * DEG_TO_RAD);
 }
 
 bool    is_equal(float a, float b)
@@ -52,13 +52,6 @@ void dev_tuple(t_tuple *tuple, float scalar)
     tuple->z /= scalar;
 }
 
-// float    magnitude_vector(const t_tuple vector)
-// {
-//     float magnitude;
-
-//     magnitude = sqrt(pow(vector.x, 2) + pow(vector.y , 2) + pow(vector.z, 2));
-//     return (magnitude);
-// }
 
 float magnitude_vector(const t_tuple v)
 {

@@ -16,7 +16,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 
-SRCS	:=  test_mlx_hook.c \
+SRCS	:=  test_speed.c \
 			print_matrix.c \
 			../src/primitives/sphere.c \
 			../src/primitives/primitive_utils.c \

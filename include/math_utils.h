@@ -1,15 +1,14 @@
 #ifndef MATH_UTILS_H
 # define MATH_UTILS_H
 
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-# endif // M_PI
+// #ifndef M_PI
+// # define M_PI 3.14159265358979323846
+// # endif // M_PI
+
+
 
 #define EPSILON 0.00002
-
-
-// # include "minirt.h"
-/*------FORWARD DECLARATIONS-----------------------------------------*/
+#define DEG_TO_RAD 0.01745329252f
 
 
 typedef struct s_tuple
