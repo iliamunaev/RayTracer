@@ -94,11 +94,13 @@ clean:
 	rm -rf $(OBJ_DIR)
 	rm -rf $(SRC_DIR)
 	rm -rf $(LIBMLX)/build
+	@make -C $(LIBFT) clean
 	@echo "$(BLUE)Cleaned object files and directories.$(RESET)"
 
 fclean: clean
 	@echo "$(GREEN)Removing executable: $(NAME)...$(RESET)"
 	rm -rf $(NAME)
+	@make -C $(LIBFT) fclean
 	@echo "$(GREEN)'$(NAME)' executable successfully removed!$(RESET)"
 
 re: fclean all
