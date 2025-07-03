@@ -24,27 +24,28 @@ void intersect_plane(t_ray *ray, t_primitive *plane)
 void    intersect_caps(t_ray *ray, t_primitive *cylinder)
 {
     t_ray   inv_ray;
-    float   t;
+    float   t0;
+    float   t1;
     float   check;
 
     create_ray(&inv_ray, ray->origin, ray->direction);
     ray_transform(&inv_ray, cylinder->inv_matrix);
-    if(fabsf(inv_ray.direction.y) < EPSILON)
-        return ;
-    t = (cylinder->cylinder_min - inv_ray.origin.y) / inv_ray.direction.y;
-    check = (pow((inv_ray.origin.x + t * inv_ray.direction.x), 2) + pow((inv_ray.origin.z + t * inv_ray.direction.z), 2));
+    if (fabs(inv_ray.direction.y) < EPSILON)
+        return;
+    t0 = (cylinder->cylinder_min - inv_ray.origin.y) / inv_ray.direction.y;
+    check = (pow((inv_ray.origin.x + t0 * inv_ray.direction.x), 2) + pow((inv_ray.origin.z + t0 * inv_ray.direction.z), 2));
     if (check <= 1)
     {
         ray->intersections.intersec_list[ray->intersections.counter].object = cylinder;
-        ray->intersections.intersec_list[ray->intersections.counter].value = t;
+        ray->intersections.intersec_list[ray->intersections.counter].value = t0;
         ray->intersections.counter++;
     }
-    t = (cylinder->cylinder_max - inv_ray.origin.y) / inv_ray.direction.y;
-    check = (pow((inv_ray.origin.x + t * inv_ray.direction.x), 2) + pow((inv_ray.origin.z + t * inv_ray.direction.z), 2));
+    t1 = (cylinder->cylinder_max - inv_ray.origin.y) / inv_ray.direction.y;
+    check = (pow((inv_ray.origin.x + t1 * inv_ray.direction.x), 2) + pow((inv_ray.origin.z + t1 * inv_ray.direction.z), 2));
     if (check <= 1)
     {
         ray->intersections.intersec_list[ray->intersections.counter].object = cylinder;
-        ray->intersections.intersec_list[ray->intersections.counter].value = t;
+        ray->intersections.intersec_list[ray->intersections.counter].value = t1;
         ray->intersections.counter++;
     }
 }

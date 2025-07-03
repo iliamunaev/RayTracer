@@ -11,10 +11,12 @@ typedef struct s_comps
 {
     t_primitive *object;
     float       value;
+    uint8_t     depth_counter;
     t_tuple     position;
     t_tuple     over_pos;
     t_tuple     v_eye;
     t_tuple     v_normal;
+    t_tuple     v_reflection;
     bool        inside;
 }   t_comps;
 

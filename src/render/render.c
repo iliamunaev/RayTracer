@@ -54,6 +54,7 @@ void render(t_rt *rt)
         while (x < rt->scene->width)
         {
             ray_for_pixel(&ray, &rt->cam, x, y);
+            comps.depth_counter = 4;
             color_at(&comps, &color, rt, &ray);
 
             if (ray.is_hit == true)
