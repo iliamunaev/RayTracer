@@ -18,14 +18,9 @@ LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 SRCS	:=  test_resize_sphere.c \
 			print_matrix.c \
-			../src/primitives/sphere/sphere.c \
-			../src/primitives/sphere/resize_sphere.c \
+			../src/primitives/resize_sphere.c \
 			../src/primitives/primitive_utils.c \
-<<<<<<< HEAD
 			../src/primitives/primitive_intersections.c \
-=======
-			../src/primitives/plane/plane.c \
->>>>>>> optimize
 			../src/ray/ray.c \
 			../src/utils/utils.c\
 			../src/utils/color_utils.c \
@@ -46,10 +41,10 @@ SRCS	:=  test_resize_sphere.c \
 			../src/parsing/setup_mlx.c \
 			../src/loop/world_loop.c \
 			../src/loop/mouse_loop.c \
-			../src/primitives/camera/transform_cam_view.c \
-			../src/primitives/camera/camera.c \
-			../src/primitives/camera/camera_utils_1.c \
-			../src/primitives/camera/camera_utils_2.c \
+			../src/camera/transform_cam_view.c \
+			../src/camera/camera.c \
+			../src/camera/camera_utils_1.c \
+			../src/camera/camera_utils_2.c \
 			../src/render/render.c
 
 

@@ -68,11 +68,13 @@ void    get_obj_intersec(t_ray *ray, t_primitive *object)
     float   discriminant;
     t_tuple sphere_to_ray;
     t_ray   inv_ray;
-    
+    t_tuple zero_pos;
+
+    create_point(&zero_pos, 0, 0, 0);    
     create_ray(&inv_ray, ray->origin, ray->direction);
     ray_transform(&inv_ray, object->inv_matrix);
     a = dot_product(inv_ray.direction, inv_ray.direction);
-    sub_tuples(&sphere_to_ray, inv_ray.origin, object->position);
+    sub_tuples(&sphere_to_ray, inv_ray.origin, zero_pos);
     b = 2 * dot_product(inv_ray.direction, sphere_to_ray);
     c = dot_product(sphere_to_ray, sphere_to_ray) - 1;
     discriminant = pow(b, 2) - 4 * a * c;
