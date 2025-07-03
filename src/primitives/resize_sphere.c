@@ -14,8 +14,6 @@ void resize_spere(t_rt *world, float factor)
     float new_diam = p->diameter * factor;
     if (new_diam < 0.10f) new_diam = 0.10f;
     if (new_diam > 5.00f) new_diam = 5.00f;
-
-    printf("Sphere #%d | %.2f  ->  %.2f\n", idx, p->diameter, new_diam);
     p->diameter = new_diam;
 
     /* rebuild matrix: same recipe  (T * S) */

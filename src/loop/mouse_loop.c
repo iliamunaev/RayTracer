@@ -20,7 +20,7 @@ void    handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t m
     if (action != MLX_PRESS || button != MLX_MOUSE_BUTTON_LEFT)
         return ;
 
-    printf("DEBUG: Mouse X: %.2f, Y: %.2f\n", world->mouse_x, world->mouse_y);
+    // printf("DEBUG: Mouse X: %.2f, Y: %.2f\n", world->mouse_x, world->mouse_y);
 
     ray_for_pixel(&ray, &world->cam, world->mouse_x, world->mouse_y);
     get_ray_intersections(&ray, world);
@@ -41,6 +41,5 @@ void    handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t m
         }
         world->selected_primitive_index = index;
         printf("DEBUG: Clicked and selected primitive #%d \n", index);
-        // render(world);
     }
 }

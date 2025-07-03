@@ -30,6 +30,15 @@
 #define RED    2
 #define ALPHA  3
 
+
+typedef enum e_mode
+{	
+	MODE_NONE,
+	MODE_SCALE,
+	MODE_ROTATE,
+	MODE_TRANSLATE
+} t_mode;
+
 typedef struct s_rt
 {
 	mlx_t		*mlx;
@@ -40,6 +49,7 @@ typedef struct s_rt
 	t_cam		cam;
 	t_light		light;
 	int         selected_primitive_index;
+	t_mode		mode;
 	double mouse_x;
     double mouse_y;
 }	t_rt;
