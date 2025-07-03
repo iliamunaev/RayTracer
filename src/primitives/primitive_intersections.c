@@ -29,7 +29,7 @@ void    intersect_caps(t_ray *ray, t_primitive *cylinder)
 
     create_ray(&inv_ray, ray->origin, ray->direction);
     ray_transform(&inv_ray, cylinder->inv_matrix);
-    if(inv_ray.direction.y < EPSILON)
+    if(fabsf(inv_ray.direction.y) < EPSILON)
         return ;
     t = (cylinder->cylinder_min - inv_ray.origin.y) / inv_ray.direction.y;
     check = (pow((inv_ray.origin.x + t * inv_ray.direction.x), 2) + pow((inv_ray.origin.z + t * inv_ray.direction.z), 2));
