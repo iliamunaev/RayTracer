@@ -9,7 +9,7 @@
 typedef struct s_rt t_rt;
 
 void scale_object(t_rt *world, float factor);
-
+void translate_object(t_rt *world, float factor_x, float factor_y, float factor_z );
 
 
 

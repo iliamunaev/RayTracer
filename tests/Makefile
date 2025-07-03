@@ -16,9 +16,9 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 
-SRCS	:=  test_resize_sphere.c \
+SRCS	:=  test_main.c \
 			print_matrix.c \
-			../src/primitives/resize_sphere.c \
+			../src/primitives/scale_object.c \
 			../src/primitives/primitive_utils.c \
 			../src/primitives/primitive_intersections.c \
 			../src/ray/ray.c \

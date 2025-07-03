@@ -126,6 +126,7 @@ void	parse_cylinder(t_rt *rt, t_token *token, int j)
 {
 	t_primitive	*p;
 	t_transform	transformer;
+	float		radius;
 
 	p = &rt->primitives_list[j];
 	p->id = generate_id();
@@ -133,6 +134,7 @@ void	parse_cylinder(t_rt *rt, t_token *token, int j)
 	parse_coordinates(&p->position, token->token[1]);
 	parse_coordinates(&p->norm_vector, token->token[2]);
 	p->diameter = ft_strtof(token->token[3]);
+	radius = p->diameter / 2.0f;
 	p->height = ft_strtof(token->token[4]);
 	p->cylinder_min = 0 - p->height / 2;
 	p->cylinder_max = 0 + p->height / 2;
@@ -140,7 +142,7 @@ void	parse_cylinder(t_rt *rt, t_token *token, int j)
 	create_identity_matrix_4x4(&p->matrix);
 	create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
 	create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
-	create_point(&transformer.scale, p->diameter, p->diameter, p->diameter);
+	create_point(&transformer.scale, radius, radius, radius);
 	transform(&p->matrix, transformer);
 	p->position.x = 0.0f;
 	p->position.y = 0.0f;
