@@ -11,7 +11,7 @@ typedef struct s_rt t_rt;
 
 
 // SPHERE
-void resize_spere(t_rt *world, float factor);
+void resize_object(t_rt *world, float factor);
 
 // CYLINDER
 

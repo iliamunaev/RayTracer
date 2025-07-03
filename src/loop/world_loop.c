@@ -23,83 +23,25 @@ static bool handle_cam(t_rt *world, mlx_key_data_t keydata)
     return (true);
 }
 
-static bool handle_sphere(t_rt *world, mlx_key_data_t keydata)
+static bool handle_object(t_rt *world, mlx_key_data_t keydata)
 {
-    if (keydata.key == MLX_KEY_2)
-        resize_spere(world, RESIZING_FACTOR_DEC);
-    else if (keydata.key == MLX_KEY_3)
-        resize_spere(world, RESIZING_FACTOR_INC);
-    else
-        return (false);
+    if(world->mode == MODE_SCALE)
+    {
+        if (keydata.key == MLX_KEY_2)
+            resize_object(world, RESIZING_FACTOR_DEC);
+        else if (keydata.key == MLX_KEY_3)
+            resize_object(world, RESIZING_FACTOR_INC);
+        else
+            return (false);
+    }
     return (true);
-}
-
-
-// static bool handle_cylinder(t_rt *world, mlx_key_data_t keydata)
-// {
-//     if (keydata.key == MLX_KEY_3)
-//         resize_cylinder_hight(world, RESIZING_FACTOR_DEC);
-//     else if (keydata.key == MLX_KEY_4)
-//         resize_cylinder_hight(world, RESIZING_FACTOR_INC);
-//     else if (keydata.key == MLX_KEY_5)
-//         resize_cylinder_width(world, RESIZING_FACTOR_INC);
-//     else if (keydata.key == MLX_KEY_6)
-//         resize_cylinder_width(world, RESIZING_FACTOR_INC);
-//     else
-//         return (false);
-//     return (true);
-// }
-
-// static bool key_acton(t_rt *world, mlx_key_data_t keydata, bool *moved, bool *changed)
-// {
-
-//     if (keydata.key == MLX_KEY_ESCAPE)
-//     {
-//         printf("Exiting...\n");
-//         mlx_close_window(world->mlx);
-//         return (false);
-//     }
-//     if (handle_cam(world, keydata))
-//     {
-//         *moved = true;
-//         return (true);
-//     }
-//     else if (handle_sphere(world, keydata))
-//     {
-//         *changed = true;
-//         return (true);
-//     }
-//     else if (handle_cylinder(world, keydata))
-//     {
-//         *changed = true;
-//         return (true);
-//     }
-
-// }
-
-
-static void scale_primitive(t_rt *world, mlx_key_data_t keydata)
-{
-    int i = world->selected_primitive_index;
-
-    if (i < 0 || i >= world->obj_counted)
-        return;
-
-    t_primitive *prim = &world->primitives_list[i];
-
-    if (prim->type == SPHERE)
-        handle_sphere(world, keydata);
-
-        
-    // else if (prim->type == CYLINDER)
-    //     handle_cylinder(world, keydata);
-    // else if (prim->type == CUBE)
-    //     handle_cube(world, keydata);
-    // Add more primitives here
 }
 
 static bool key_acton(t_rt *world, mlx_key_data_t keydata, bool *moved, bool *changed)
 {
+    int i;
+
+    i = world->selected_primitive_index;
     if (keydata.key == MLX_KEY_ESCAPE)
     {
         if (world->mode != MODE_NONE)
@@ -118,7 +60,8 @@ static bool key_acton(t_rt *world, mlx_key_data_t keydata, bool *moved, bool *ch
         *moved = true;
         return (true);
     }
-    if (keydata.key == MLX_KEY_1 && world->selected_primitive_index > -1)
+
+    if (keydata.key == MLX_KEY_1 && i > -1)
     {
         if (world->mode == MODE_SCALE)
         {
@@ -129,19 +72,18 @@ static bool key_acton(t_rt *world, mlx_key_data_t keydata, bool *moved, bool *ch
         {
             world->mode = MODE_SCALE;
             printf("Start SCALE mode\n");
-
         }
         return (true);
     }
-    if (world->mode == MODE_SCALE)
+    if (world->mode != MODE_NONE && i >= 0 && i < world->obj_counted)
     {
-        scale_primitive(world, keydata);
+        handle_object(world, keydata);
         *changed = true;
         return (true);
     }
+
     return (false);
 }
-
 
 void world_loop(mlx_key_data_t keydata, void *param)
 {

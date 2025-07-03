@@ -1,6 +1,6 @@
 #include "minirt.h"
 
-void resize_spere(t_rt *world, float factor)
+void resize_object(t_rt *world, float factor)
 {
     int idx = world->selected_primitive_index;
     if (idx < 0 || idx >= world->obj_counted)
