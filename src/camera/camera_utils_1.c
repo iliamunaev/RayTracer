@@ -1,36 +1,42 @@
 #include "minirt.h"
 
-bool is_zero_vector(t_tuple v)
+static inline float	calculate_aspect(void)
 {
-    return (v.x == 0 && v.y == 0 && v.z == 0);
+	return ((float)SCREEN_WIDTH / (float)SCREEN_HEIGHT);
 }
 
-float get_half_view(t_rt *rt)
+static inline float	calculate_half_width(float aspect, float half_view)
 {
-    float fov_rad;
-
-    fov_rad = get_radians(rt->cam.fov);
-    return (tanf(fov_rad / 2.0f));
+	if (aspect >= 1.0f)
+		return (half_view);
+	else
+		return (half_view * aspect);
 }
 
-float get_half_height(t_rt *rt)
+static inline float	calculate_half_height(float aspect, float half_view)
 {
-    float aspect;
-    float half_view;
-
-    aspect = calculate_aspect();
-    half_view = get_half_view(rt);
-    return(calculate_half_height(aspect, half_view));
+	if (aspect >= 1.0f)
+		return (half_view / aspect);
+	else
+		return (half_view);
 }
 
-float get_half_width(t_rt *rt)
+float	get_half_height(t_rt *rt)
 {
-    float aspect;
-    float half_view;
+	float	aspect;
+	float	half_view;
 
-    aspect = calculate_aspect();
-    half_view = get_half_view(rt);
-    return(calculate_half_width(aspect, half_view));
+	aspect = calculate_aspect();
+	half_view = get_half_view(rt);
+	return (calculate_half_height(aspect, half_view));
 }
 
+float	get_half_width(t_rt *rt)
+{
+	float	aspect;
+	float	half_view;
 
+	aspect = calculate_aspect();
+	half_view = get_half_view(rt);
+	return (calculate_half_width(aspect, half_view));
+}

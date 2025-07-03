@@ -1,5 +1,10 @@
 #include "minirt.h"
 
+static inline bool	is_zero_vector(t_tuple v)
+{
+	return (v.x == 0 && v.y == 0 && v.z == 0);
+}
+
 void	rebuild_camera(t_rt *rt)
 {
 	t_tuple	from;
