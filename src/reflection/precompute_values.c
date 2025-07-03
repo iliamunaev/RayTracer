@@ -26,5 +26,6 @@ void precompute_values(t_comps *comps, t_ray *ray)
     create_vector(&temp, comps->v_normal.x, comps->v_normal.y, comps->v_normal.z);
     mult_tuple(&temp, EPSILON);
     add_tuples(&comps->over_pos, comps->position, temp);
+    reflect_vec(&comps->v_reflection,ray->direction, comps->v_normal);
 }
 
