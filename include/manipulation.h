@@ -8,7 +8,7 @@
 /*------FORWARD DECLARATIONS-----------------------------------------*/
 typedef struct s_rt t_rt;
 
-void resize_object(t_rt *world, float factor);
+void scale_object(t_rt *world, float factor);
 
 
 

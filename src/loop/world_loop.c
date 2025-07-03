@@ -33,8 +33,9 @@ static bool handle_object(t_rt *world, mlx_key_data_t keydata)
         factor = FACTOR_INC;
     else
         return (false);
+    if (world->mode == MODE_SCALE)
+        scale_object(world, factor);
 
-    resize_object(world, factor);
 
     // rotate_object(world, factor);
 
@@ -65,7 +66,7 @@ static bool key_acton(t_rt *world, mlx_key_data_t keydata, bool *moved, bool *ch
         if (world->mode == MODE_SCALE)
         {
             world->mode = MODE_NONE;
-            printf("Exited SCALE mode\n");
+            printf("End SCALE mode\n");
         }
         else
         {

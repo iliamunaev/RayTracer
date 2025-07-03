@@ -214,7 +214,7 @@ void	transform(t_matrix *matrix, t_transform transform)
 	
     t_matrix tmp_m;
 
-
+	create_identity_matrix_4x4(matrix);
 	// Rotation
 	if (fabsf(transform.rotate.x) > EPSILON ||
     	fabsf(transform.rotate.y) > EPSILON ||
