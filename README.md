@@ -14,3 +14,4 @@ valgrind --suppressions=mlx.supp ./miniRT
 ```bash
 cc -I ../include -I ../lib/MLX42/include  test_func.c 
 ```
+

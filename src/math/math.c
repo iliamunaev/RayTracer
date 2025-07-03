@@ -1,9 +1,9 @@
 #include "minirt.h"
 
-inline float   get_radians(float degrees)
-{
-    return (degrees * DEG_TO_RAD);
-}
+// inline float   get_radians(float degrees)
+// {
+//     return (degrees * DEG_TO_RAD);
+// }
 
 inline bool    is_equal(float a, float b)
 {
