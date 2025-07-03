@@ -19,9 +19,6 @@ void    handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t m
     world = (t_rt *)param;
     if (action != MLX_PRESS || button != MLX_MOUSE_BUTTON_LEFT)
         return ;
-
-    // printf("DEBUG: Mouse X: %.2f, Y: %.2f\n", world->mouse_x, world->mouse_y);
-
     ray_for_pixel(&ray, &world->cam, world->mouse_x, world->mouse_y);
     get_ray_intersections(&ray, world);
     get_hit(&ray);

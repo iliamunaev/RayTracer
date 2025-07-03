@@ -1,5 +1,6 @@
 #include "minirt.h"
 
+
 void resize_object(t_rt *world, float factor)
 {
     int idx = world->selected_primitive_index;
@@ -21,9 +22,9 @@ void resize_object(t_rt *world, float factor)
     t_tuple scale_vec = { radius, radius, radius, 0.0f };
 
     t_matrix scale_m, trans_m;
-    scale(&scale_m,     scale_vec);     /*  S  */
-    translate(&trans_m, p->position);   /*  T  */
+    scale(&scale_m,     scale_vec);
+    translate(&trans_m, p->position);
 
-    mult_matrices(&p->matrix, trans_m, scale_m);   /*  M = T * S  */
+    mult_matrices(&p->matrix, trans_m, scale_m);
     invert_matrix(&p->inv_matrix, p->matrix);
 }

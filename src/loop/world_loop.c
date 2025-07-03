@@ -3,21 +3,21 @@
 static bool handle_cam(t_rt *world, mlx_key_data_t keydata)
 {
     if (keydata.key == MLX_KEY_UP)
-        world->cam.position.y -= RESIZING_FACTOR_STBL;
+        world->cam.position.y -= FACTOR_STBL;
     else if (keydata.key == MLX_KEY_DOWN)
-        world->cam.position.y += RESIZING_FACTOR_STBL;
+        world->cam.position.y += FACTOR_STBL;
     else if (keydata.key == MLX_KEY_LEFT || keydata.key == MLX_KEY_A)
-        world->cam.position.x -= RESIZING_FACTOR_STBL;
+        world->cam.position.x -= FACTOR_STBL;
     else if (keydata.key == MLX_KEY_RIGHT || keydata.key == MLX_KEY_D)
-        world->cam.position.x += RESIZING_FACTOR_STBL;
+        world->cam.position.x += FACTOR_STBL;
     else if (keydata.key == MLX_KEY_W)
-        world->cam.position.z += RESIZING_FACTOR_STBL;
+        world->cam.position.z += FACTOR_STBL;
     else if (keydata.key == MLX_KEY_S)
-        world->cam.position.z -= RESIZING_FACTOR_STBL;
+        world->cam.position.z -= FACTOR_STBL;
     else if (keydata.key == MLX_KEY_Q)
-        world->cam.fov -= RESIZING_FACTOR_STBL;
+        world->cam.fov -= FACTOR_STBL;
     else if (keydata.key == MLX_KEY_E)
-        world->cam.fov += RESIZING_FACTOR_STBL;
+        world->cam.fov += FACTOR_STBL;
     else
         return (false);
     return (true);
@@ -25,15 +25,21 @@ static bool handle_cam(t_rt *world, mlx_key_data_t keydata)
 
 static bool handle_object(t_rt *world, mlx_key_data_t keydata)
 {
-    if(world->mode == MODE_SCALE)
-    {
-        if (keydata.key == MLX_KEY_2)
-            resize_object(world, RESIZING_FACTOR_DEC);
-        else if (keydata.key == MLX_KEY_3)
-            resize_object(world, RESIZING_FACTOR_INC);
-        else
-            return (false);
-    }
+    float factor;
+
+    if (keydata.key == MLX_KEY_9)
+        factor = FACTOR_DEC;
+    else if (keydata.key == MLX_KEY_0)
+        factor = FACTOR_INC;
+    else
+        return (false);
+
+    resize_object(world, factor);
+
+    // rotate_object(world, factor);
+
+    // translate_object(world, factor);
+
     return (true);
 }
 
@@ -44,12 +50,6 @@ static bool key_acton(t_rt *world, mlx_key_data_t keydata, bool *moved, bool *ch
     i = world->selected_primitive_index;
     if (keydata.key == MLX_KEY_ESCAPE)
     {
-        if (world->mode != MODE_NONE)
-        {
-            world->mode = MODE_NONE;
-            printf("Exited transformation mode\n");
-            return (true);
-        }
         printf("Exiting app...\n");
         mlx_close_window(world->mlx);
         return (false);
@@ -60,7 +60,6 @@ static bool key_acton(t_rt *world, mlx_key_data_t keydata, bool *moved, bool *ch
         *moved = true;
         return (true);
     }
-
     if (keydata.key == MLX_KEY_1 && i > -1)
     {
         if (world->mode == MODE_SCALE)
@@ -75,15 +74,44 @@ static bool key_acton(t_rt *world, mlx_key_data_t keydata, bool *moved, bool *ch
         }
         return (true);
     }
+    else if (keydata.key == MLX_KEY_2 && i > -1)
+    {
+        if (world->mode == MODE_ROTATE)
+        {
+            world->mode = MODE_ROTATE;
+            printf("Exited ROTATE mode\n");
+        }
+        else
+        {
+            world->mode = MODE_ROTATE;
+            printf("Start ROTATE mode\n");
+        }
+        return (true);
+    }
+    else if (keydata.key == MLX_KEY_3 && i > -1)
+    {
+        if (world->mode == MODE_TRANSLATE)
+        {
+            world->mode = MODE_TRANSLATE;
+            printf("Exited TRANSLATE mode\n");
+        }
+        else
+        {
+            world->mode = MODE_TRANSLATE;
+            printf("Start TRANSLATE mode\n");
+        }
+        return (true);
+    }
     if (world->mode != MODE_NONE && i >= 0 && i < world->obj_counted)
     {
         handle_object(world, keydata);
         *changed = true;
         return (true);
     }
-
     return (false);
 }
+
+
 
 void world_loop(mlx_key_data_t keydata, void *param)
 {

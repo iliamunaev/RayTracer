@@ -18,7 +18,7 @@
 # include "parsing.h"
 # include "validation.h"
 # include "reflection.h"
-# include "resizing.h"
+# include "manipulation.h"
 
 
 #define BPP sizeof(int32_t)
