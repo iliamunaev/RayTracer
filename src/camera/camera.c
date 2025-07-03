@@ -23,6 +23,7 @@ void rebuild_camera(t_rt *rt)
     if (rt->cam.fov == 0.0f)
         rt->cam.fov = 70.0f;
 
+        
     rt->cam.half_view = get_half_view(rt);
     rt->cam.half_height = get_half_height(rt) ;
     rt->cam.pix_size = get_pixel_size(rt);
