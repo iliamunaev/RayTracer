@@ -77,3 +77,48 @@ void translate_object(t_rt *world, float factor_x, float factor_y, float factor_
     invert_matrix(&p->inv_matrix, p->matrix);
     transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
+
+void rotate_object(t_rt *world, float factor_x, float factor_y, float factor_z)
+{
+    int idx = world->selected_primitive_index;
+
+    if (idx < 0 || idx >= world->obj_counted)
+        return;
+        
+        t_primitive *p = &world->primitives_list[idx];
+        
+        
+    if (p->type == SPHERE)
+            return ;
+
+    float new_rot_x = p->norm_vector.x + factor_x;
+    float new_rot_y = p->norm_vector.y + factor_y;
+    float new_rot_z = p->norm_vector.z + factor_z;
+
+
+
+    p->norm_vector.x = new_rot_x;
+    p->norm_vector.y = new_rot_y;
+    p->norm_vector.z = new_rot_z;
+   
+
+
+
+    normalize_vector(&p->norm_vector);
+
+    float radius = p->diameter / 2.0f;
+
+    printf("\nmatrix = \n");
+    print_matrix(p->matrix);
+
+    t_transform transformer;
+    create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
+    create_point(&transformer.scale, radius, radius, radius);
+    create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
+    transform(&p->matrix, transformer);
+
+    printf("\nmatrix new = \n");
+    print_matrix(p->matrix);
+    invert_matrix(&p->inv_matrix, p->matrix);
+    transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
+}

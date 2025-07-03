@@ -31,8 +31,7 @@ static bool handle_object(t_rt *world, mlx_key_data_t keydata)
         factor = FACTOR_DEC;
     else if (keydata.key == MLX_KEY_0)
         factor = FACTOR_INC;
-    // else
-    //     return (false);
+
     if (world->mode == MODE_SCALE)
         scale_object(world, factor);
     if (world->mode == MODE_TRANSLATE)
@@ -68,11 +67,40 @@ static bool handle_object(t_rt *world, mlx_key_data_t keydata)
         
         translate_object(world, factor_x, factor_y, factor_z );
     }
+    if (world->mode == MODE_ROTATE)
+    {
+        float factor_x = 0;
+        float factor_y = 0;
+        float factor_z = 0;
 
-
-    // rotate_object(world, factor);
-
-    // translate_object(world, factor);
+        if (keydata.key == MLX_KEY_Z)
+        {
+            factor_x = 0.1;
+        }
+        else if (keydata.key == MLX_KEY_X)
+        {
+            factor_x = -0.1;
+        }
+        else if (keydata.key == MLX_KEY_C)
+        {
+            factor_y = -0.1;
+        }
+        else if (keydata.key == MLX_KEY_V)
+        {
+            factor_y = 0.1;
+        }
+        else if (keydata.key == MLX_KEY_B)
+        {
+            factor_z = 0.2;
+        }
+        else if (keydata.key == MLX_KEY_N)
+        {
+            factor_z = -0.2;
+        }        
+        rotate_object(world, factor_x, factor_y, factor_z );
+    }
+    else
+        return (false);
 
     return (true);
 }
