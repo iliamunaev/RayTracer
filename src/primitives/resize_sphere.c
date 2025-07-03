@@ -1,4 +1,5 @@
 #include "minirt.h"
+
 void resize_spere(t_rt *world, float factor)
 {
     int idx = world->selected_primitive_index;

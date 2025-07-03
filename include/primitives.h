@@ -99,6 +99,5 @@ void intersect_plane(t_ray *ray, t_primitive *plane);
 void intersect_cylinder(t_ray *ray, t_primitive *cylinder);
 
 // SPHERE
-void resize_spere(t_rt *world, float factor);
 
 # endif // PRIMITIVES_H
