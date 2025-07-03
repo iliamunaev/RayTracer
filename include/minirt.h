@@ -1,10 +1,10 @@
 #ifndef MINIRT_H
 # define MINIRT_H
 
+# include <MLX42/MLX42.h>
 # include <stdio.h>
 # include <unistd.h>
 # include <stdlib.h>
-# include <MLX42/MLX42.h>
 # include <math.h>
 # include <stdbool.h>
 # include <fcntl.h>
@@ -38,6 +38,9 @@ typedef struct s_rt
 	t_amb		amb;
 	t_cam		cam;
 	t_light		light;
+	int         selected_primitive_index;
+	double mouse_x;
+    double mouse_y;
 }	t_rt;
 
 
@@ -59,5 +62,8 @@ void        mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
 
 // render.c
 void	render(t_rt *rt);
+void handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
+void handle_mouse_move(double x, double y, void *param);
+
 
 #endif // MINIRT_H

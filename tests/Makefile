@@ -16,11 +16,16 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 
-SRCS	:=  test_mlx_hook.c \
+SRCS	:=  test_resize_sphere.c \
 			print_matrix.c \
-			../src/primitives/sphere.c \
+			../src/primitives/sphere/sphere.c \
+			../src/primitives/sphere/resize_sphere.c \
 			../src/primitives/primitive_utils.c \
+<<<<<<< HEAD
 			../src/primitives/primitive_intersections.c \
+=======
+			../src/primitives/plane/plane.c \
+>>>>>>> optimize
 			../src/ray/ray.c \
 			../src/utils/utils.c\
 			../src/utils/color_utils.c \
@@ -39,10 +44,13 @@ SRCS	:=  test_mlx_hook.c \
 			../src/parsing/parsing_utils.c \
 			../src/parsing/fillup_world.c \
 			../src/parsing/setup_mlx.c \
-			../src/parsing/world_loop.c \
-			../src/view_transformation/transform_cam_view.c \
-			../src/camera/camera.c \
-			../src/render.c
+			../src/loop/world_loop.c \
+			../src/loop/mouse_loop.c \
+			../src/primitives/camera/transform_cam_view.c \
+			../src/primitives/camera/camera.c \
+			../src/primitives/camera/camera_utils_1.c \
+			../src/primitives/camera/camera_utils_2.c \
+			../src/render/render.c
 
 
 
@@ -94,11 +102,13 @@ clean:
 	rm -rf $(OBJ_DIR)
 	rm -rf $(SRC_DIR)
 	rm -rf $(LIBMLX)/build
+	@make -C $(LIBFT) clean
 	@echo "$(BLUE)Cleaned object files and directories.$(RESET)"
 
 fclean: clean
 	@echo "$(GREEN)Removing executable: $(NAME)...$(RESET)"
 	rm -rf $(NAME)
+	@make -C $(LIBFT) fclean
 	@echo "$(GREEN)'$(NAME)' executable successfully removed!$(RESET)"
 
 re: fclean all

@@ -4,10 +4,12 @@ void parse_rgb(t_tuple *color, const char *str)
 {
     int rgb[3] = {0};
     int i = 0;
+    float inv_255;
+
+    inv_255 = 1.0f / 255.0f;
 
     while (*str && i < 3)
     {
-        // Skip spaces
         while (*str == ' ')
             str++;
 
@@ -17,17 +19,15 @@ void parse_rgb(t_tuple *color, const char *str)
             rgb[i] = rgb[i] * 10 + (*str - '0');
             str++;
         }
-        // Skip spaces before comma
         while (*str == ' ')
             str++;
         if (*str == ',')
             str++;
         i++;
     }
-
-    color->r = rgb[0] / 255.0f;
-    color->g = rgb[1] / 255.0f;
-    color->b = rgb[2] / 255.0f;
+    color->r = rgb[0] * inv_255;
+    color->g = rgb[1] * inv_255;
+    color->b = rgb[2] * inv_255;
     color->a = 1.0f;
 }
 

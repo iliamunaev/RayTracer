@@ -1,15 +1,14 @@
 #ifndef MATH_UTILS_H
 # define MATH_UTILS_H
 
-#ifndef M_PI
-# define M_PI 3.14159265358979323846
-# endif // M_PI
+// #ifndef M_PI
+// # define M_PI 3.14159265358979323846
+// # endif // M_PI
+
+
 
 #define EPSILON 0.00002
-
-
-// # include "minirt.h"
-/*------FORWARD DECLARATIONS-----------------------------------------*/
+#define DEG_TO_RAD 0.01745329252f
 
 
 typedef struct s_tuple
@@ -36,16 +35,6 @@ typedef struct s_tuple
     };
 }   t_tuple;
 
-// typedef struct s_vector {
-//     float x, y, z, w;
-// } t_vector;
-
-// typedef struct s_color {
-//     float r;
-//     float g;
-//     float b;
-//     float a;
-// } t_color;
 
 float   get_radians(float degrees);
 bool    is_equal(float a, float b);
@@ -56,8 +45,8 @@ void mult_tuple(t_tuple *tuple, float scalar);
 float    magnitude_vector(const t_tuple vector);
 void    normalize_vector(t_tuple *vector);
 float   dot_product(const t_tuple a, const t_tuple b);
-void cross_product(t_tuple *product, const t_tuple a, const t_tuple b);
-float ft_strtof(const char *start);
+void    cross_product(t_tuple *product, const t_tuple a, const t_tuple b);
+float   ft_strtof(const char *start);
 
 
 
