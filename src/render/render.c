@@ -40,7 +40,6 @@ void render(t_rt *rt)
     int			x;
     int			y;
     t_tuple		color;
-    t_comps		comps;
     t_ray		ray;
     uint8_t		*pixels;
     uint32_t	packed_color;
@@ -54,8 +53,7 @@ void render(t_rt *rt)
         while (x < rt->scene->width)
         {
             ray_for_pixel(&ray, &rt->cam, x, y);
-            comps.depth_counter = 4;
-            color_at(&comps, &color, rt, &ray);
+            color_at(&color, rt, &ray, 5);
 
             if (ray.is_hit == true)
                 packed_color = float_to_hex(color);

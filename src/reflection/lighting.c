@@ -135,45 +135,40 @@ bool    check_shadow(t_rt *world, t_tuple point)
         return (false);
 }
 
-void    reflection( t_tuple *reflect_col, t_rt *world, t_comps *comps)
+void    reflection( t_tuple *reflect_col, t_rt *world, t_comps *comps, uint8_t remaining_depth)
 {
     t_ray reflect_ray;
-    float reflection_value;
 
 
-    if (comps->depth_counter <= 0)
+    if (remaining_depth <= 0 || comps->object->material.reflection == 0)
     {
         create_color(reflect_col, 0, 0, 0);
         return ;
     }
     create_ray(&reflect_ray, comps->over_pos, comps->v_reflection);
-    color_at(comps, reflect_col, world, &reflect_ray);
-    if (comps->object->type == PLANE)
-        reflection_value = 0.5;
-    else
-        reflection_value = 0;
-    mult_tuple(reflect_col, reflection_value);
-    
+    color_at(reflect_col, world, &reflect_ray, remaining_depth - 1);
+    mult_tuple(reflect_col, comps->object->material.reflection);
 }
 
-void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray)
+void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray, uint8_t remaining_depth)
 {
     bool    is_shaded;
     t_tuple reflect_col;
     
     is_shaded = check_shadow(world, comps->over_pos);
     lighting(color, comps->object, world->light, comps->position, comps->v_eye, comps->v_normal, is_shaded, world->amb);
-    reflection(&reflect_col, world, comps);
+    reflection(&reflect_col, world, comps, remaining_depth);
     add_colors(color, reflect_col, *color);
 }
 
-void    color_at(t_comps *comps, t_tuple *color, t_rt *world, t_ray *ray)
+void    color_at(t_tuple *color, t_rt *world, t_ray *ray, uint8_t remaining_depth)
 {
-    comps->depth_counter --;
+    t_comps comps;
+
     get_ray_intersections(ray, world);
     get_hit(ray);
     if (ray->is_hit == false)
         return;
-    precompute_values(comps, ray);
-    shade_hit(color, world, comps, ray);
+    precompute_values(&comps, ray);
+    shade_hit(color, world, &comps, ray, remaining_depth);
 }
