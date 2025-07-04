@@ -135,7 +135,7 @@ bool    check_shadow(t_rt *world, t_tuple point)
         return (false);
 }
 
-void    reflection(t_tuple *color, t_rt *world, t_comps *comps, t_tuple *reflect_col)
+void    reflection( t_tuple *reflect_col, t_rt *world, t_comps *comps)
 {
     t_ray reflect_ray;
     float reflection_value;
@@ -163,7 +163,7 @@ void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray)
     
     is_shaded = check_shadow(world, comps->over_pos);
     lighting(color, comps->object, world->light, comps->position, comps->v_eye, comps->v_normal, is_shaded, world->amb);
-    reflection(color, world, comps, &reflect_col);
+    reflection(&reflect_col, world, comps);
     add_colors(color, reflect_col, *color);
 }
 
