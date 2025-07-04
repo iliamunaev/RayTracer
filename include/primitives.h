@@ -19,6 +19,9 @@ typedef struct s_material
     float   diffuse;
     float   specular;
     float   shininess; // between 10 and 200
+    float   reflection;
+    float   transparency;
+    float   refraction;
 }   t_material;
 
 typedef struct s_primitive
