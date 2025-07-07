@@ -43,6 +43,7 @@ SRCS	:=  test_validation.c \
 			../src/parsing/parse_cam_light.c \
 			../src/parsing/parse_primitives.c \
 			../src/parsing/setup_mlx.c \
+			../src/validation/validate_file.c \
 			../src/validation/validation_1.c \
 			../src/validation/validation_2.c \
 			../src/validation/validation_3.c \

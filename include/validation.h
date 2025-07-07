@@ -1,6 +1,10 @@
 #ifndef VALIDATION_H
 # define VALIDATION_H
 
+
+// validate_file.c
+bool	validate_input_args(int argc, char **argv);
+
 // validation_1.c
 bool	is_line_valid(const t_token *tokens, t_validation_state *vstate);
 

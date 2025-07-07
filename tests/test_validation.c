@@ -3,13 +3,10 @@
 int	main(int argc, char **argv)
 {
 
-    // remove on production
-    (void)argc;
-
     t_rt world;
 
-    /* validation stage */
-    // validate num of arguments, file name, file extention
+	if (!validate_input_args(argc, argv))
+		return (EXIT_FAILURE);
 
 	if (parse(argv[1], &world) == EXIT_FAILURE)
     {
