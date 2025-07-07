@@ -241,10 +241,8 @@ void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray, uint8
     is_shaded = check_shadow(world, comps->over_pos);
     lighting(color, comps->object, world->light, comps->position, comps->v_eye, comps->v_normal, is_shaded, world->amb);
     mult_color(color, 1.0f - comps->object->material.transparency);
-
     reflection(&reflect_col, world, comps, remaining_depth);
     refracted_color(&refract_col, world, comps, remaining_depth);
-
     if (comps->object->material.reflection > 0 && comps->object->material.transparency > 0)
     {
         schlick(&reflectance, comps);
