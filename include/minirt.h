@@ -32,7 +32,7 @@
 
 
 typedef enum e_mode
-{	
+{
 	MODE_NONE,
 	MODE_SCALE,
 	MODE_ROTATE,
@@ -43,7 +43,7 @@ typedef struct s_rt
 {
 	mlx_t		*mlx;
 	mlx_image_t	*scene;
-    uint8_t     obj_counted;	
+    uint8_t     obj_counted;
     t_primitive primitives_list[MAX_PRIMITIVES];
 	t_amb		amb;
 	t_cam		cam;
@@ -75,6 +75,6 @@ void        mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
 void	render(t_rt *rt);
 void handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 void handle_mouse_move(double x, double y, void *param);
-
+void world_loop(mlx_key_data_t keydata, void *param);
 
 #endif // MINIRT_H
