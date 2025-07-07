@@ -82,6 +82,7 @@ void containers_append(t_primitive **containers, int *count, t_primitive *obj)
  void precompute_values(t_comps *comps, t_ray *ray)
 {
     t_tuple temp;
+    t_tuple temp2;
     t_primitive *containers[MAX_CONTAINERS];
     t_intersec_point *ix;
     int container_count;
@@ -108,8 +109,10 @@ void containers_append(t_primitive **containers, int *count, t_primitive *obj)
     else
         comps->inside = false;
     create_vector(&temp, comps->v_normal.x, comps->v_normal.y, comps->v_normal.z);
-    mult_tuple(&temp, EPSILON * 2);
+    mult_tuple(&temp, SHADOW_BIAS);
     add_tuples(&comps->over_pos, comps->position, temp);
+    create_vector(&temp2, comps->v_normal.x, comps->v_normal.y, comps->v_normal.z);
+    mult_tuple(&temp2, EPSILON);
     sub_tuples(&comps->under_pos, comps->position, temp);
     reflect_vec(&comps->v_reflection, ray->direction, comps->v_normal);
     i = 0;

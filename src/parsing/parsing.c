@@ -88,7 +88,7 @@ void    create_material(t_rt *rt)
         }
         else
         {
-            rt->primitives_list[i].material.reflection = 0;
+            rt->primitives_list[i].material.reflection = 0.0;
             rt->primitives_list[i].material.transparency = 0;
             rt->primitives_list[i].material.refraction = 1;
         }

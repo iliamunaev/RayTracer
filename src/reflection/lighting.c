@@ -70,15 +70,30 @@ void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple poi
     t_tuple specular;
     t_tuple reflect_v;
     t_tuple negated_light_v;
+    t_tuple checker_color2;
     float   light_dot_normal;
     float   reflect_dot_eye;
     float   factor;
 
-    //create_color(&effective_color,object->color.r, object->color.g, object->color.b);
-    //mult_tuple(&effective_color, light.brightness);
-    mult_colors(&effective_color, object->color, light.color_component);
-    //create_color(&ambient, 0, 0, effective_color.b);
-    //mult_tuple(&ambient, object->material.ambient);
+    if (object->type == PLANE)
+    {
+        if ((int)(floorf(point.x) + floorf(point.y) + floorf(point.z)) % 2 == 0)
+            mult_colors(&effective_color, object->color, light.color_component);
+        else
+        {
+            checker_color2.r = fmax(0.0f, fmin(1.0f, object->color.r * 0.9 + object->color.g * 0.1));
+            checker_color2.g = fmax(0.0f, fmin(1.0f, object->color.g * 0.9 + object->color.b * 0.1));
+            checker_color2.b = fmax(0.0f, fmin(1.0f, object->color.b * 0.9 + object->color.r * 0.1));
+
+            checker_color2.r *= 0.85;
+            checker_color2.g *= 0.85;
+            checker_color2.b *= 0.85;
+            mult_colors(&effective_color, checker_color2, light.color_component);
+
+        }
+    }
+    else
+        mult_colors(&effective_color, object->color, light.color_component);
     mult_colors(&ambient, effective_color, amb.amb_component);
     sub_tuples(&light_v, light.position, point);
     normalize_vector(&light_v);

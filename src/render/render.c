@@ -53,13 +53,10 @@ void render(t_rt *rt)
         while (x < rt->scene->width)
         {
             ray_for_pixel(&ray, &rt->cam, x, y);
-            color_at(&color, rt, &ray, 5);
+            color_at(&color, rt, &ray, 6);
 
             if (ray.is_hit == true)
-            {
-                //printf("r = %f, g = %f, b = %f\n", color.r, color.g, color.b);
                 packed_color = float_to_hex(color);
-            }
             else
                 packed_color = 0x000000FF;
 

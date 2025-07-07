@@ -99,6 +99,7 @@ void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py);
 
 //primitive_intersections.c
 void intersect_plane(t_ray *ray, t_primitive *plane);
+void    intersect_caps(t_ray *ray, t_primitive *cylinder);
 void intersect_cylinder(t_ray *ray, t_primitive *cylinder);
 
 // SPHERE
