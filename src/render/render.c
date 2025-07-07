@@ -53,12 +53,12 @@ void render(t_rt *rt)
         while (x < rt->scene->width)
         {
             ray_for_pixel(&ray, &rt->cam, x, y);
-            color_at(&color, rt, &ray, 5);
+            color_at(&color, rt, &ray, 6);
 
             if (ray.is_hit == true)
                 packed_color = float_to_hex(color);
             else
-                packed_color = 0x58c0dc;
+                packed_color = 0x000000FF;
 
             idx = (y * rt->scene->width + x) * BPP;
 			pixels[idx + BLUE] = (packed_color >>  24) & 0xFF;
