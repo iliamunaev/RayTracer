@@ -56,9 +56,12 @@ void render(t_rt *rt)
             color_at(&color, rt, &ray, 5);
 
             if (ray.is_hit == true)
+            {
+                //printf("r = %f, g = %f, b = %f\n", color.r, color.g, color.b);
                 packed_color = float_to_hex(color);
+            }
             else
-                packed_color = 0x58c0dc;
+                packed_color = 0x000000FF;
 
             idx = (y * rt->scene->width + x) * BPP;
 			pixels[idx + BLUE] = (packed_color >>  24) & 0xFF;

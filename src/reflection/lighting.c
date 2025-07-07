@@ -145,30 +145,14 @@ void    refracted_color(t_tuple *refract_col, t_rt *world, t_comps *comps, uint8
     t_tuple direction_term2;
     t_tuple refract_direction;
     t_ray refract_ray;
-    t_tuple effective_normal_for_refraction;
-    float actual_n1;
-    float actual_n2; 
 
-    if (remaining_depth <= 0 || comps->object->material.transparency <= 0.01)
+    if (remaining_depth <= 0 || comps->object->material.transparency <= 0.001)
     {
         create_color(refract_col, 0, 0, 0);
         return;
     }
-    actual_n1 = comps->n1;
-    actual_n2 = comps->n2;
-    if (comps->inside == true)
-    {
-        create_vector(&effective_normal_for_refraction, comps->v_normal.x, comps->v_normal.y, comps->v_normal.z);
-        negate_tuple(&effective_normal_for_refraction);
-        actual_n1 = comps->n2;
-        actual_n2 = comps->n1;
-    }
-    else
-    {
-        create_vector(&effective_normal_for_refraction, comps->v_normal.x, comps->v_normal.y, comps->v_normal.z);
-    }
-    n_ratio = actual_n1 / actual_n2;
-    cos_i = dot_product(comps->v_eye, effective_normal_for_refraction);
+    n_ratio = comps->n1 / comps->n2;
+    cos_i = dot_product(comps->v_eye, comps->v_normal);
     sin2_t = n_ratio * n_ratio * (1.0 - cos_i * cos_i);
 
     if (sin2_t > 1.0)
@@ -179,15 +163,15 @@ void    refracted_color(t_tuple *refract_col, t_rt *world, t_comps *comps, uint8
 
     cos_t = sqrtf(1.0 - sin2_t);
 
-    create_vector(&direction_term1, effective_normal_for_refraction.x, effective_normal_for_refraction.y, effective_normal_for_refraction.z);
-    mult_tuple(&direction_term1, (n_ratio * cos_i - cos_t));
+    create_vector(&direction_term1, comps->v_normal.x, comps->v_normal.y, comps->v_normal.z);
+    mult_color(&direction_term1, (n_ratio * cos_i - cos_t));
     create_vector(&direction_term2, comps->v_eye.x, comps->v_eye.y, comps->v_eye.z);
-    mult_tuple(&direction_term2, n_ratio);
-    sub_tuples(&refract_direction, direction_term2, direction_term1);
+    mult_color(&direction_term2, n_ratio);
+    sub_tuples(&refract_direction, direction_term1, direction_term2);
 
     create_ray(&refract_ray, comps->under_pos, refract_direction);
     color_at(refract_col, world, &refract_ray, remaining_depth - 1);
-    mult_tuple(refract_col, comps->object->material.transparency);
+    mult_color(refract_col, comps->object->material.transparency);
 }
 
 void    schlick(float *reflectance, t_comps *comps)
@@ -197,7 +181,6 @@ void    schlick(float *reflectance, t_comps *comps)
     float sin2_t;
     float cos_t;
     float r0;
-
 
     cos = dot_product(comps->v_eye, comps->v_normal);
     if (comps->n1 > comps->n2)
@@ -228,7 +211,7 @@ void    reflection( t_tuple *reflect_col, t_rt *world, t_comps *comps, uint8_t r
     }
     create_ray(&reflect_ray, comps->over_pos, comps->v_reflection);
     color_at(reflect_col, world, &reflect_ray, remaining_depth - 1);
-    mult_tuple(reflect_col, comps->object->material.reflection);
+    mult_color(reflect_col, comps->object->material.reflection);
 }
 
 void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray, uint8_t remaining_depth)
@@ -238,8 +221,12 @@ void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray, uint8
     t_tuple refract_col;
     float   reflectance;
     
+    create_color(&reflect_col, 0, 0 ,0);
+    create_color(&refract_col, 0, 0 ,0);
     is_shaded = check_shadow(world, comps->over_pos);
     lighting(color, comps->object, world->light, comps->position, comps->v_eye, comps->v_normal, is_shaded, world->amb);
+    mult_color(color, 1.0f - comps->object->material.transparency);
+
     reflection(&reflect_col, world, comps, remaining_depth);
     refracted_color(&refract_col, world, comps, remaining_depth);
 
@@ -247,15 +234,11 @@ void    shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray, uint8
     {
         schlick(&reflectance, comps);
         mult_color(&reflect_col, reflectance);
-        mult_color(&refract_col, 1 - reflectance);
-        add_colors(color, reflect_col, *color);
-        add_colors(color, *color, refract_col);
+        mult_color(&refract_col, 1.0 - reflectance);       
     }
-    else
-    {
-        add_colors(color, reflect_col, *color);
-        add_colors(color, refract_col, *color);
-    }
+    add_colors(color, *color, reflect_col);
+    add_colors(color, *color, refract_col);
+ 
 }
 
 void    color_at(t_tuple *color, t_rt *world, t_ray *ray, uint8_t remaining_depth)
