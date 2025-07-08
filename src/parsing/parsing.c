@@ -1,68 +1,82 @@
 #include "minirt.h"
 
-int	read_file(const char *map_file)
+static void	parse_line(char *line, t_token *tokens)
 {
-	int	fd;
+	char	*start;
+	size_t	len;
+	size_t	i;
 
-	fd = open(map_file, O_RDONLY);
-	if (fd < 0)
-		err("Error");
-	return (fd);
+	i = 0;
+	while (*line && i < MAX_NUM_TOKENS)
+	{
+		skip_spaces(&line);
+		if (*line == '\0' || *line == '\n')
+			break ;
+		start = line;
+		while (*line && !ft_isspace(*line))
+			line++;
+		len = line - start;
+		if (len >= MAX_TOKEN_LENGTH)
+			len = MAX_TOKEN_LENGTH - 1;
+		copy_token(tokens->token[i], start, len);
+		i++;
+	}
+	while (i < MAX_NUM_TOKENS)
+		tokens->token[i++][0] = '\0';
 }
 
-static void skip_spaces(char **line)
+static int	process_line(char *line, t_token *tokens,
+			t_validation_state *vstate, t_rt *world, int *obj_count)
 {
-    while (ft_isspace(**line))
-        (*line)++;
+	parse_line(line, tokens);
+	printf("VALIDATING LINE: \"%s\"\n", line); // DEBUG
+	if (!is_line_valid(tokens, vstate))
+	{
+		err("Error: Invalid line in scene file");
+		free(line);
+		return (EXIT_FAILURE);
+	}
+	fillup_world(world, tokens, *obj_count);
+	if (ft_strcmp(tokens->token[0], "sp") == 0 ||
+		ft_strcmp(tokens->token[0], "pl") == 0 ||
+		ft_strcmp(tokens->token[0], "cy") == 0)
+		(*obj_count)++;
+	free(line);
+	return (EXIT_SUCCESS);
 }
 
-void parse_line(char *line, t_token *tokens)
+static int	check_singletons(t_validation_state *vstate)
 {
-    char    *start;
-    size_t  len;
-    size_t  i;
-    size_t  j;
-
-    i = 0;
-    while (*line && i < MAX_NUM_TOKENS)
-    {
-        skip_spaces(&line);
-        if (*line == '\0' || *line == '\n')
-            break ;
-        start = line;
-        while (*line && !ft_isspace(*line))
-            line++;
-        len = line - start;
-        if (len >= MAX_TOKEN_LENGTH)
-            len = MAX_TOKEN_LENGTH - 1;
-        ft_memset(tokens->token[i], 0, MAX_TOKEN_LENGTH);
-        j = 0;
-        while (j < len)
-        {
-            tokens->token[i][j] = start[j];
-            j++;
-        }
-        tokens->token[i][len] = '\0';
-        i++;
-    }
-    while (i < MAX_NUM_TOKENS)
-        tokens->token[i++][0] = '\0';
-}
-static bool is_line_empty(const char *line)
-{
-    while (*line)
-    {
-        if (!ft_isspace(*line) && *line != '\n')
-            return (false);
-        line++;
-    }
-    return (true);
+	if (!vstate->seen_ambient)
+		return (err("Error: Missing ambient light (A)"), EXIT_FAILURE);
+	if (!vstate->seen_camera)
+		return (err("Error: Missing camera (C)"), EXIT_FAILURE);
+	if (!vstate->seen_light)
+		return (err("Error: Missing light (L)"), EXIT_FAILURE);
+	return (EXIT_SUCCESS);
 }
 
-void    create_material(t_rt *rt)
+static int	process_file_lines(int fd, t_rt *world,
+			t_validation_state *vstate, int *obj_count)
 {
-    int i;
-    float amb_light;
+	char	*line;
+	t_token	tokens;
+	int		line_num;
+
+
+	line_num = 0;
+	while ((line = get_next_line(fd)))
+	{
+		if (is_line_empty(line))
+		{
+			free(line);
+			continue ;
+		}
+		if (process_line(line, &tokens, vstate, world, obj_count))
+			return (EXIT_FAILURE);
+		line_num++;
+	}
+	return (EXIT_SUCCESS);
 
     amb_light = rt->amb.brightness;
 
@@ -98,54 +112,30 @@ void    create_material(t_rt *rt)
         }
         i++;
     }
+
 }
 
-
-int parse(const char *map_file, t_rt *world)
+int	parse(const char *map_file, t_rt *world)
 {
-    int     fd;
-	char    *line;
-    t_token tokens;
-    int       i;
-    int       j;
+	int					fd;
+	t_validation_state	vstate;
+	int					obj_count;
 
-    fd = read_file(map_file); // open map file for reading
+	obj_count = 0;
+	ft_memset(&vstate, 0, sizeof(t_validation_state));
+	fd = read_file(map_file);
 	if (fd < 0)
-        return (EXIT_FAILURE);
-    i = 0;
-    j = 0;
-    while (line = get_next_line(fd)) // read line by line, add mamory clininig if malloc fails in get next line
+		return (EXIT_FAILURE);
+	if (process_file_lines(fd, world, &vstate, &obj_count) == EXIT_FAILURE)
 	{
-        // add validation
-        /*
-        if(!is_line_valid(line)) // validate line
-        {
-            free(line);
-            close(fd);
-            return (EXIT_FAILURE);
-        }
-        */
-        if (is_line_empty(line))
-        {
-            free(line);
-            continue;
-        }
-        parse_line(line, &tokens);
-           
-        fillup_world(world, &tokens, j);
-        
-        if (ft_strcmp(tokens.token[0], "sp") == 0 ||
-        ft_strcmp(tokens.token[0], "pl") == 0 ||
-        ft_strcmp(tokens.token[0], "cy") == 0)
-        {
-            j++;
-        }
-        free(line);
-        i++;
-    }    
-    world->obj_counted = j;
-
-    create_material(world);
+		close(fd);
+		return (EXIT_FAILURE);
+	}
 	close(fd);
-    return (EXIT_SUCCESS);
+	world->obj_counted = obj_count;
+	create_material(world);
+	if (check_singletons(&vstate) == EXIT_FAILURE)
+		return (EXIT_FAILURE);
+	printf("SUCCESS: map validation\n");
+	return (EXIT_SUCCESS);
 }

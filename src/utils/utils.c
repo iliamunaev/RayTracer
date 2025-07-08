@@ -1,6 +1,25 @@
 #include "minirt.h"
 
 /**
+ * free_split - Frees a null-terminated array of strings.
+ * @split: Array of strings to free.
+ */
+void free_split(char **split)
+{
+	int i;
+
+	if (!split)
+		return;
+
+	i = 0;
+	while (split[i])
+	{
+		free(split[i]);
+		i++;
+	}
+	free(split);
+}
+/**
  * @brief Fills a memory area with a specified byte.
  *
  * This function sets the first `n` bytes of the memory area pointed to
@@ -13,19 +32,19 @@
  * @param n The number of bytes to fill.
  * @return void* A pointer to the memory area `s`.
  */
-void	*ft_memset(void *s, int c, size_t n)
-{
-	unsigned char	*buffer;
+// void	*ft_memset(void *s, int c, size_t n)
+// {
+// 	unsigned char	*buffer;
 
-	buffer = (unsigned char *)s;
-	while (n > 0)
-	{
-		*buffer = (unsigned char)c;
-		buffer++;
-		n--;
-	}
-	return (s);
-}
+// 	buffer = (unsigned char *)s;
+// 	while (n > 0)
+// 	{
+// 		*buffer = (unsigned char)c;
+// 		buffer++;
+// 		n--;
+// 	}
+// 	return (s);
+// }
 
 void create_vector(t_tuple *vector, float x, float y, float z)
 {

@@ -72,7 +72,7 @@ static bool handle_object(t_rt *world, mlx_key_data_t keydata)
         {
             factor_z = -0.1;
         }
-        
+
         translate_object(world, factor_x, factor_y, factor_z );
     }
     if (world->mode == MODE_ROTATE)
@@ -197,14 +197,12 @@ static bool key_acton(t_rt *world, mlx_key_data_t keydata, bool *moved, bool *ch
     return (false);
 }
 
-
-
 void world_loop(mlx_key_data_t keydata, void *param)
 {
     t_rt *world = (t_rt *)param;
     bool moved;
     bool changed;
-    
+
     moved = false;
     changed = false;
     if (keydata.action != MLX_PRESS)

@@ -3,16 +3,13 @@
 int	main(int argc, char **argv)
 {
 
-    // remove on production
-    (void)argc;
-
     t_rt world;
     uint32_t  w = 0;
     uint32_t  h = 0;
-    
-    /* validation stage */
-    // validate num of arguments, file name, file extention
 
+	if (!validate_input_args(argc, argv))
+		return (EXIT_FAILURE);
+        
 	if (parse(argv[1], &world) == EXIT_FAILURE)
     {
         err("Error");
@@ -28,7 +25,7 @@ int	main(int argc, char **argv)
 
     world.scene = mlx_new_image(world.mlx, 512, 512);
 
-    // Set the channels of each pixel in our image to the maximum byte value of 255. 
+    // Set the channels of each pixel in our image to the maximum byte value of 255.
     //ft_memset(rt.scene->pixels, 255, rt.scene->width * rt.scene->height * BPP);
     while (h < 512)
     {
@@ -41,12 +38,12 @@ int	main(int argc, char **argv)
         h++;
     }
 
-    //IF YOU WANT TO SEE THE PROJECTILE_LAUNCHER, COPY PASTE CODE FROM "projectile_launcher.c" 
+    //IF YOU WANT TO SEE THE PROJECTILE_LAUNCHER, COPY PASTE CODE FROM "projectile_launcher.c"
     //AND USE INSTEAD OF THIS MAIN
 
     mlx_image_to_window(world.mlx, world.scene, 0, 0);
 
-    // Run the main loop and terminate on quit.  
+    // Run the main loop and terminate on quit.
     mlx_loop(world.mlx);
     mlx_terminate(world.mlx);
 

@@ -16,7 +16,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 
-SRCS	:=  test_main.c \
+SRCS	:=  test_validation.c \
 			print_matrix.c \
 			../src/primitives/scale_object.c \
 			../src/primitives/primitive_utils.c \
@@ -35,10 +35,21 @@ SRCS	:=  test_main.c \
 			../src/reflection/lighting.c \
 			../src/reflection/precompute_values.c \
 			../src/parsing/parsing.c \
+			../src/parsing/create_matireal.c \
 			../src/parsing/init_world.c \
-			../src/parsing/parsing_utils.c \
+			../src/parsing/parsing_utils_1.c \
+			../src/parsing/parsing_utils_2.c \
 			../src/parsing/fillup_world.c \
+			../src/parsing/parse_cam_light.c \
+			../src/parsing/parse_primitives.c \
 			../src/parsing/setup_mlx.c \
+			../src/validation/validate_file.c \
+			../src/validation/validation_1.c \
+			../src/validation/validation_2.c \
+			../src/validation/validation_3.c \
+			../src/validation/validation_utils.c \
+			../src/validation/validate_primitives.c \
+			../src/validation/validate_cam_light.c \
 			../src/loop/world_loop.c \
 			../src/loop/mouse_loop.c \
 			../src/camera/transform_cam_view.c \

@@ -93,13 +93,15 @@ float ft_strtof(const char *start)
     float result = 0.0f, fraction = 0.0f, divider = 10.0f;
     int dot_seen = 0, sign = 1;
 
-    while (*start == ' ') 
+    while (*start == ' ')
         start++;
     if (*start == '-')
     {
         sign = -1;
         start++;
     }
+    else if (*start == '+')
+        start++;
     while (*start)
     {
         if (*start == '.')
