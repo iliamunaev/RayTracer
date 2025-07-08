@@ -23,8 +23,7 @@ SRCS	:=  test_main.c \
 			../src/primitives/primitive_intersections.c \
 			../src/ray/ray.c \
 			../src/utils/utils.c\
-			../src/utils/color_utils.c \
-			../src/utils/colors.c \
+			../src/colors/colors.c \
 			../src/math/math.c \
 			../src/matrix/shear.c \
 			../src/matrix/math_matrix.c \
@@ -46,12 +45,14 @@ SRCS	:=  test_main.c \
 			../src/validation/validate_file.c \
 			../src/validation/validation_1.c \
 			../src/validation/validation_2.c \
-			../src/validation/validation_3.c \
 			../src/validation/validation_utils.c \
 			../src/validation/validate_primitives.c \
 			../src/validation/validate_cam_light.c \
 			../src/loop/world_loop.c \
 			../src/loop/mouse_loop.c \
+			../src/loop/loop_utils.c \
+			../src/loop/key_action.c \
+			../src/loop/cam_action.c \
 			../src/camera/transform_cam_view.c \
 			../src/camera/camera.c \
 			../src/camera/camera_utils_1.c \

@@ -57,11 +57,8 @@ void invert_matrix(t_matrix *inverted, const t_matrix matrix)
 	det = get_matrix_determinant(matrix);
 	if (!is_invertible(det))
 	{
-		print_matrix(matrix);
-
 		err("Error: matrix not invertible");
-		exit(3);
-		return;
+		return ;
 	}
 	i = 0;
 	y = 0;
