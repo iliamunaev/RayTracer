@@ -82,8 +82,12 @@ void    create_material(t_rt *rt)
         }
         else if (rt->primitives_list[i].type == SPHERE)
         {
-            rt->primitives_list[i].material.reflection = 0.7;
-            rt->primitives_list[i].material.transparency = 1.0;
+            rt->primitives_list[i].material.diffuse = 0.1;
+            rt->primitives_list[i].material.ambient = 0.1;
+            rt->primitives_list[i].material.specular = 1.0;
+            rt->primitives_list[i].material.shininess = 250;
+            rt->primitives_list[i].material.reflection = 0.95;
+            rt->primitives_list[i].material.transparency = 0.95;
             rt->primitives_list[i].material.refraction = 1.52;
         }
         else

@@ -8,7 +8,7 @@
 
 
 #define EPSILON 0.00002f
-#define SHADOW_BIAS 0.01f
+#define SHADOW_BIAS 0.001f
 #define DEG_TO_RAD 0.01745329252f
 
 
