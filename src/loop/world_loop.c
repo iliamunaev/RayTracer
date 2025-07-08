@@ -1,5 +1,14 @@
 #include "minirt.h"
 
+/**
+ * @brief Translate the selected object based on arrow key input.
+ *
+ * If Control is held with UP/DOWN, translates along the Z axis.
+ * Otherwise translates along the X or Y axis.
+ *
+ * @param world The rendering world context.
+ * @param keydata The input key event from MLX.
+ */
 static void	handle_translate(t_rt *world, mlx_key_data_t keydata)
 {
 	float	x;
@@ -24,6 +33,15 @@ static void	handle_translate(t_rt *world, mlx_key_data_t keydata)
 	translate_object(world, x, y, z);
 }
 
+/**
+ * @brief Rotate the selected object based on arrow key input.
+ *
+ * Applies incremental rotation along X, Y, or Z axis.
+ * Holding Control allows Z-axis rotation.
+ *
+ * @param world The rendering world context.
+ * @param keydata The input key event from MLX.
+ */
 static void	handle_rotate(t_rt *world, mlx_key_data_t keydata)
 {
 	float	x;
@@ -48,6 +66,14 @@ static void	handle_rotate(t_rt *world, mlx_key_data_t keydata)
 	rotate_object(world, x, y, z);
 }
 
+/**
+ * @brief Scale the selected object using keypad add/subtract.
+ *
+ * Increase or decrease scale by a fixed factor.
+ *
+ * @param world The rendering world context.
+ * @param keydata The input key event from MLX.
+ */
 static void	handle_scale(t_rt *world, mlx_key_data_t keydata)
 {
 	float	factor;
@@ -60,6 +86,15 @@ static void	handle_scale(t_rt *world, mlx_key_data_t keydata)
 	scale_object(world, factor);
 }
 
+/**
+ * @brief Handle object manipulation based on current world mode.
+ *
+ * Delegates to camera, scale, translate, or rotate handlers.
+ *
+ * @param world The rendering world context.
+ * @param keydata The input key event from MLX.
+ * @return true if the event was handled, false otherwise.
+ */
 bool	handle_object(t_rt *world, mlx_key_data_t keydata)
 {
 	if (world->mode == MODE_CAM)
@@ -75,6 +110,15 @@ bool	handle_object(t_rt *world, mlx_key_data_t keydata)
 	return (true);
 }
 
+/**
+ * @brief Main MLX loop hook for processing key input.
+ *
+ * Handles key presses and triggers camera or object updates.
+ * Re-renders the scene if needed.
+ *
+ * @param keydata The key event data from MLX.
+ * @param param Pointer to the t_rt world context.
+ */
 void	world_loop(mlx_key_data_t keydata, void *param)
 {
 	t_rt	*world;
