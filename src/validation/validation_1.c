@@ -1,6 +1,7 @@
 #include "minirt.h"
 
-static bool	validate_cam_light(const char *id, const t_token *tokens, t_validation_state *v)
+static bool	validate_cam_light(const char *id, const t_token *tokens,
+	t_validation_state *v)
 {
 	if (ft_strcmp(id, "A") == 0)
 		return (validate_ambient(tokens, v));
@@ -11,7 +12,6 @@ static bool	validate_cam_light(const char *id, const t_token *tokens, t_validati
 	else
 		return (false);
 }
-
 
 static bool	validate_primitive(const char *id, const t_token *tokens)
 {
@@ -27,17 +27,20 @@ static bool	validate_primitive(const char *id, const t_token *tokens)
 		return (false);
 	}
 }
+
 /**
  * is_line_valid - Validate a single line of the .rt scene file.
  * @tokens: Parsed token list from one line of input.
  * @vstate: Validation state for enforcing unique elements (A, C, L).
  *
- * Return: true if the line is syntactically and semantically valid, false otherwise.
+ * Return: true if the line is syntactically and semantically valid, 
+ * false otherwise.
  */
 bool	is_line_valid(const t_token *tokens, t_validation_state *vstate)
 {
-	char *id = tokens->token[0];
+	char	*id;
 
+	id = tokens->token[0];
 	if (has_too_many_tokens(tokens))
 		return (false);
 	if (!is_identifier_valid(id))
