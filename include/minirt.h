@@ -36,7 +36,8 @@ typedef enum e_mode
 	MODE_NONE,
 	MODE_SCALE,
 	MODE_ROTATE,
-	MODE_TRANSLATE
+	MODE_TRANSLATE,
+	MODE_CAM
 } t_mode;
 
 typedef struct s_rt

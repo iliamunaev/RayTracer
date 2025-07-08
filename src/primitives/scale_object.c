@@ -26,17 +26,12 @@ void scale_object(t_rt *world, float factor)
     t_tuple scale_vec = { radius, radius, radius, 0.0f };
     t_matrix scale_m, trans_m, temp;
 
-    printf("\nmatrix = \n");
-    print_matrix(p->matrix);
-
     t_transform transformer;
     create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
     create_point(&transformer.scale, radius, radius, radius);
     create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
     transform(&p->matrix, transformer);
 
-    printf("\nmatrix new = \n");
-    print_matrix(p->matrix);
     invert_matrix(&p->inv_matrix, p->matrix);
     transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
@@ -63,17 +58,12 @@ void translate_object(t_rt *world, float factor_x, float factor_y, float factor_
 
     float radius = p->diameter / 2.0f;
 
-    printf("\nmatrix = \n");
-    print_matrix(p->matrix);
-
     t_transform transformer;
     create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
     create_point(&transformer.scale, radius, radius, radius);
     create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
     transform(&p->matrix, transformer);
 
-    printf("\nmatrix new = \n");
-    print_matrix(p->matrix);
     invert_matrix(&p->inv_matrix, p->matrix);
     transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }

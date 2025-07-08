@@ -92,9 +92,6 @@ void	parse_sphere(t_rt *rt, t_token *token, int j)
 	create_point(&transformer.scale, radius, radius, radius);
 	mult_tuple(&transformer.rotate, 0);
 	transform(&p->matrix, transformer);
-	// p->position.x = 0.0f;
-	// p->position.y = 0.0f;
-	// p->position.z = 0.0f;
 	invert_matrix(&p->inv_matrix, p->matrix);
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
@@ -115,9 +112,6 @@ void	parse_plane(t_rt *rt, t_token *token, int j)
 	create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
 	create_point(&transformer.scale, 1, 1, 1);
 	transform(&p->matrix, transformer);
-	p->position.x = 0.0f;
-	p->position.y = 0.0f;
-	p->position.z = 0.0f;
 	invert_matrix(&p->inv_matrix, p->matrix);
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
@@ -144,9 +138,6 @@ void	parse_cylinder(t_rt *rt, t_token *token, int j)
 	create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
 	create_point(&transformer.scale, radius, radius, radius);
 	transform(&p->matrix, transformer);
-	p->position.x = 0.0f;
-	p->position.y = 0.0f;
-	p->position.z = 0.0f;
 	invert_matrix(&p->inv_matrix, p->matrix);
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
