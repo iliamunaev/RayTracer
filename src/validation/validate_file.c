@@ -24,8 +24,9 @@ static bool	is_valid_argc(int argc)
  */
 static bool	has_rt_extension(const char *filename)
 {
-	size_t	len = ft_strlen(filename);
+	size_t	len;
 
+	len = ft_strlen(filename);
 	if (len < 4)
 		return (false);
 	return (ft_strcmp(filename + len - 3, ".rt") == 0);
