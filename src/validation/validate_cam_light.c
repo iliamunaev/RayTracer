@@ -1,10 +1,15 @@
 #include "minirt.h"
 
 /**
- * is_validate_ambient - Validate ambient light parameters.
- * @token: Token list for the ambient line. Expected format: A ratio R,G,B.
+ * @brief Validate ambient light parameters from a `.rt` scene line.
  *
- * Return: true if valid, false otherwise.
+ * Expected format: `A <ratio> <R,G,B>`
+ *
+ * - ratio: float in range [0.0, 1.0]
+ * - color: RGB values in range [0, 255]
+ *
+ * @param token Parsed token list representing the ambient line.
+ * @return true if the parameters are valid, false otherwise.
  */
 bool	is_validate_ambient(t_token *token)
 {
@@ -18,11 +23,16 @@ bool	is_validate_ambient(t_token *token)
 }
 
 /**
- * is_validate_camera - Validate camera parameters.
- * @token: Token list for the camera line. Expected format: 
- * C position orientation FOV.
+ * @brief Validate camera parameters from a `.rt` scene line.
  *
- * Return: true if valid, false otherwise.
+ * Expected format: `C <position> <orientation> <FOV>`
+ *
+ * - position: 3D vector (x,y,z)
+ * - orientation: normalized 3D vector, each component ∈ [-1, 1]
+ * - FOV: float in range [0.0, 180.0]
+ *
+ * @param token Parsed token list representing the camera line.
+ * @return true if the parameters are valid, false otherwise.
  */
 bool	is_validate_camera(t_token *token)
 {
@@ -47,11 +57,16 @@ bool	is_validate_camera(t_token *token)
 }
 
 /**
- * is_validate_light - Validate light parameters.
- * @token: Token list for the light line. Expected format: 
- * L position brightness R,G,B.
+ * @brief Validate light parameters from a `.rt` scene line.
  *
- * Return: true if valid, false otherwise.
+ * Expected format: `L <position> <brightness> <R,G,B>`
+ *
+ * - position: 3D vector (x,y,z)
+ * - brightness: float in range [0.0, 1.0]
+ * - color: RGB values in range [0, 255]
+ *
+ * @param token Parsed token list representing the light line.
+ * @return true if the parameters are valid, false otherwise.
  */
 bool	is_validate_light(t_token *token)
 {

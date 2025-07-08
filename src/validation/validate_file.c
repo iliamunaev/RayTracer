@@ -1,10 +1,13 @@
 #include "minirt.h"
 
 /**
- * is_valid_argc - Check if program receives exactly one argument.
- * @argc: Argument count.
+ * @brief Check if the program received the correct number
+ * of command-line arguments.
  *
- * Return: true if argc == 2 (program name + 1 file), false otherwise.
+ * The program expects exactly one argument: the path to a `.rt` scene file.
+ *
+ * @param argc The argument count passed to main().
+ * @return true if argc == 2, false otherwise.
  */
 static bool	is_valid_argc(int argc)
 {
@@ -17,10 +20,10 @@ static bool	is_valid_argc(int argc)
 }
 
 /**
- * has_rt_extension - Check if filename ends with ".rt".
- * @filename: File name string.
+ * @brief Check if a file name ends with the ".rt" extension.
  *
- * Return: true if file has .rt extension, false otherwise.
+ * @param filename The name of the file to check.
+ * @return true if the file ends with ".rt", false otherwise.
  */
 static bool	has_rt_extension(const char *filename)
 {
@@ -33,10 +36,10 @@ static bool	has_rt_extension(const char *filename)
 }
 
 /**
- * is_valid_filename - Validate filename is not NULL and has .rt extension.
- * @filename: File name to validate.
+ * @brief Validate that the file name is non-empty and has a `.rt` extension.
  *
- * Return: true if valid, false otherwise.
+ * @param filename The name of the file to validate.
+ * @return true if the file name is valid and ends with ".rt", false otherwise.
  */
 static bool	is_valid_filename(const char *filename)
 {
@@ -54,10 +57,13 @@ static bool	is_valid_filename(const char *filename)
 }
 
 /**
- * is_file_readable - Check if a file can be opened for reading.
- * @filename: File name to test.
+ * @brief Check if a file is readable by attempting to open it.
  *
- * Return: true if file can be opened, false otherwise.
+ * This helps verify that the file exists and the user
+ * has read permissions.
+ *
+ * @param filename The name of the file to open.
+ * @return true if the file can be opened for reading, false otherwise.
  */
 static bool	is_file_readable(const char *filename)
 {
@@ -74,11 +80,16 @@ static bool	is_file_readable(const char *filename)
 }
 
 /**
- * validate_input_args - Validate CLI arguments and input file.
- * @argc: Argument count.
- * @argv: Argument vector.
+ * @brief Perform full validation of command-line input arguments.
  *
- * Return: true if all validations pass, false otherwise.
+ * This function checks that:
+ * - The correct number of arguments is provided.
+ * - The file name is not empty and ends with ".rt".
+ * - The file exists and can be opened for reading.
+ *
+ * @param argc The argument count from main().
+ * @param argv The argument vector from main().
+ * @return true if all input validations pass, false otherwise.
  */
 bool	validate_input_args(int argc, char **argv)
 {

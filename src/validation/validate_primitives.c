@@ -1,11 +1,16 @@
 #include "minirt.h"
 
 /**
- * is_validate_sphere - Validate sphere object parameters.
- * @token: Token list for the sphere line. 
- * Expected format: sp center diameter R,G,B.
+ * @brief Validate sphere object parameters from the .rt scene line.
  *
- * Return: true if valid, false otherwise.
+ * Expected format: `sp <center> <diameter> <R,G,B>`
+ *
+ * - center: a 3D vector ("x,y,z")
+ * - diameter: a float ≥ 0
+ * - color: RGB values in range [0, 255]
+ *
+ * @param token Parsed token list for the sphere line.
+ * @return true if all parameters are valid, false otherwise.
  */
 bool	is_validate_sphere(t_token *token)
 {
@@ -21,10 +26,16 @@ bool	is_validate_sphere(t_token *token)
 }
 
 /**
- * is_validate_plane - Validate plane object parameters.
- * @token: Token list for the plane line. Expected format: pl point normal R,G,B.
+ * @brief Validate plane object parameters from the .rt scene line.
  *
- * Return: true if valid, false otherwise.
+ * Expected format: `pl <point> <normal> <R,G,B>`
+ *
+ * - point: a 3D vector representing a point on the plane
+ * - normal: a normalized 3D vector ("x,y,z"), each in [-1, 1]
+ * - color: RGB values in range [0, 255]
+ *
+ * @param token Parsed token list for the plane line.
+ * @return true if all parameters are valid, false otherwise.
  */
 bool	is_validate_plane(t_token *token)
 {
@@ -41,11 +52,17 @@ bool	is_validate_plane(t_token *token)
 }
 
 /**
- * is_validate_cylinder - Validate cylinder object parameters.
- * @token: Token list for the cylinder line. 
- * Expected format: cy center axis diameter height R,G,B.
+ * @brief Validate cylinder object parameters from the .rt scene line.
  *
- * Return: true if valid, false otherwise.
+ * Expected format: `cy <center> <axis> <diameter> <height> <R,G,B>`
+ *
+ * - center: a 3D vector representing the base position
+ * - axis: a normalized 3D vector ("x,y,z"), each in [-1, 1]
+ * - diameter and height: float values ≥ 0
+ * - color: RGB values in range [0, 255]
+ *
+ * @param token Parsed token list for the cylinder line.
+ * @return true if all parameters are valid, false otherwise.
  */
 bool	is_validate_cylinder(t_token *token)
 {
