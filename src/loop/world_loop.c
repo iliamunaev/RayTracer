@@ -48,7 +48,16 @@ static bool handle_object(t_rt *world, mlx_key_data_t keydata)
         float factor_y = 0;
         float factor_z = 0;
 
-        if (keydata.key == MLX_KEY_RIGHT)
+        if (keydata.key == MLX_KEY_UP && (keydata.modifier & MLX_CONTROL))
+        {
+            factor_z = 0.1;
+        }
+        else if (keydata.key == MLX_KEY_DOWN && (keydata.modifier & MLX_CONTROL))
+        {
+            factor_z = -0.1;
+        }
+
+        else if (keydata.key == MLX_KEY_RIGHT)
         {
             factor_x = 0.1;
         }
@@ -64,14 +73,7 @@ static bool handle_object(t_rt *world, mlx_key_data_t keydata)
         {
             factor_y = 0.1;
         }
-        else if (keydata.key == MLX_KEY_UP && (keydata.modifier & MLX_CONTROL))
-        {
-            factor_z = 0.1;
-        }
-        else if (keydata.key == MLX_KEY_DOWN && (keydata.modifier & MLX_CONTROL))
-        {
-            factor_z = -0.1;
-        }
+
 
         translate_object(world, factor_x, factor_y, factor_z );
     }

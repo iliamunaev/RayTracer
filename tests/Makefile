@@ -16,7 +16,7 @@ HEADERS := -I../include -I../lib/MLX42/include -I../include
 LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
 
 
-SRCS	:=  test_validation.c \
+SRCS	:=  test_main.c \
 			print_matrix.c \
 			../src/primitives/scale_object.c \
 			../src/primitives/primitive_utils.c \

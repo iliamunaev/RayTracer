@@ -39,9 +39,6 @@ void	parse_plane(t_rt *rt, t_token *token, int j)
 	create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
 	create_point(&transformer.scale, 1, 1, 1);
 	transform(&p->matrix, transformer);
-	p->position.x = 0.0f;
-	p->position.y = 0.0f;
-	p->position.z = 0.0f;
 	invert_matrix(&p->inv_matrix, p->matrix);
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
@@ -52,7 +49,9 @@ void	parse_cylinder(t_rt *rt, t_token *token, int j)
 	t_transform	transformer;
 	float		radius;
 
-	p = &rt->primitives_list[j];
+	p = &rt->primitives_list[j];	p->position.x = 0.0f;
+	p->position.y = 0.0f;
+	p->position.z = 0.0f;
 	p->id = generate_id();
 	p->type = CYLINDER;
 	parse_coordinates(&p->position, token->token[1]);
@@ -67,10 +66,7 @@ void	parse_cylinder(t_rt *rt, t_token *token, int j)
 	create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
 	create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
 	create_point(&transformer.scale, radius, radius, radius);
-	transform(&p->matrix, transformer);
-	p->position.x = 0.0f;
-	p->position.y = 0.0f;
-	p->position.z = 0.0f;
+	transform(&p->matrix, transformer);	p->position.x = 0.0f;
 	invert_matrix(&p->inv_matrix, p->matrix);
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
