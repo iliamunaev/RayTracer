@@ -38,8 +38,8 @@ bool	is_line_valid(const t_token *tokens, t_validation_state *vstate)
 {
 	char *id = tokens->token[0];
 
-	if (has_too_many_tokens(tokens))
-		return (false);
+	// if (has_too_many_tokens(tokens))
+	// 	return (false);
 	if (!is_identifier_valid(id))
 		return (false);
 	if (validate_cam_light(id, tokens, vstate))

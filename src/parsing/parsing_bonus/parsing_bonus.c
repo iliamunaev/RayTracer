@@ -77,41 +77,32 @@ static int	process_file_lines(int fd, t_rt *world,
 			return (EXIT_FAILURE);
 		line_num++;
 	}
-	return (EXIT_SUCCESS);
     amb_light = world->amb.brightness;
-
-
-   int i = 0;
-    while(i < world->obj_counted)
+   	int i = 0;
+    while(i < *obj_count)
     {
         world->primitives_list[i].material.ambient = amb_light;
         world->primitives_list[i].material.diffuse = 0.9;
         world->primitives_list[i].material.specular = 0.1;
         world->primitives_list[i].material.shininess = 50;
-        if (world->primitives_list[i].type == PLANE)
-        {
-            world->primitives_list[i].material.reflection = 0.6;
-            world->primitives_list[i].material.transparency = 0.0;
-            world->primitives_list[i].material.refraction = 1;
-        }
-        else if (world->primitives_list[i].type == SPHERE)
+		world->primitives_list[i].material.reflection = 0.0;
+		world->primitives_list[i].material.transparency = 0;
+		world->primitives_list[i].material.refraction = 1;
+        if (world->primitives_list[i].bonus_type == GLASS)
         {
             world->primitives_list[i].material.diffuse = 0.1;
             world->primitives_list[i].material.ambient = 0.1;
-            world->primitives_list[i].material.specular = 1.0;
+            world->primitives_list[i].material.specular = 3.0;
             world->primitives_list[i].material.shininess = 250;
             world->primitives_list[i].material.reflection = 0.95;
             world->primitives_list[i].material.transparency = 0.95;
             world->primitives_list[i].material.refraction = 1.52;
         }
-        else
-        {
-            world->primitives_list[i].material.reflection = 0.0;
-            world->primitives_list[i].material.transparency = 0;
-            world->primitives_list[i].material.refraction = 1;
-        }
+		if (world->primitives_list[i].bonus_type == CHECKER)
+			world->primitives_list[i].material.reflection = 0.95;
         i++;
     }
+	return (EXIT_SUCCESS);
 
 }
 
@@ -133,7 +124,7 @@ int	parse(const char *map_file, t_rt *world)
 	}
 	close(fd);
 	world->obj_counted = obj_count;
-	create_material(world);
+	//create_material(world);
 	if (check_singletons(&vstate) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
 	printf("SUCCESS: map validation\n");
