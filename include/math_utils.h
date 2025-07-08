@@ -7,7 +7,8 @@
 
 
 
-#define EPSILON 0.00002
+#define EPSILON 0.00002f
+#define SHADOW_BIAS 0.001f
 #define DEG_TO_RAD 0.01745329252f
 
 
@@ -42,6 +43,7 @@ void add_tuples(t_tuple *c, const t_tuple a, const t_tuple b);
 void sub_tuples(t_tuple *c, const t_tuple a, const t_tuple b);
 void negate_tuple(t_tuple *tuple);
 void mult_tuple(t_tuple *tuple, float scalar);
+void mult_color(t_tuple *tuple, float scalar);
 float    magnitude_vector(const t_tuple vector);
 void    normalize_vector(t_tuple *vector);
 float   dot_product(const t_tuple a, const t_tuple b);

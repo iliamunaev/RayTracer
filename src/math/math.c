@@ -45,6 +45,13 @@ void mult_tuple(t_tuple *tuple, float scalar)
     tuple->z *= scalar;
 }
 
+void mult_color(t_tuple *tuple, float scalar)
+{
+    tuple->r *= scalar;
+    tuple->g *= scalar;
+    tuple->b *= scalar;
+}
+
 void dev_tuple(t_tuple *tuple, float scalar)
 {
     tuple->x /= scalar;

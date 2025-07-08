@@ -1,6 +1,9 @@
 #ifndef REFLECTION_H
 # define REFLECTION_H
 
+
+#define MAX_CONTAINERS 8
+
 // # include "minirt.h"
 /*------FORWARD DECLARATIONS-----------------------------------------*/
 typedef struct s_primitive t_primitive;
@@ -11,9 +14,12 @@ typedef struct s_comps
 {
     t_primitive *object;
     float       value;
+    float       n1;
+    float       n2;
     uint8_t     depth_counter;
     t_tuple     position;
     t_tuple     over_pos;
+    t_tuple     under_pos;
     t_tuple     v_eye;
     t_tuple     v_normal;
     t_tuple     v_reflection;

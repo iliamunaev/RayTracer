@@ -63,6 +63,7 @@ static int	process_file_lines(int fd, t_rt *world,
 	t_token	tokens;
 	int		line_num;
 
+
 	line_num = 0;
 	while ((line = get_next_line(fd)))
 	{
@@ -76,6 +77,42 @@ static int	process_file_lines(int fd, t_rt *world,
 		line_num++;
 	}
 	return (EXIT_SUCCESS);
+
+    amb_light = rt->amb.brightness;
+
+
+    i = 0;
+    while(i < rt->obj_counted)
+    {
+        rt->primitives_list[i].material.ambient = amb_light;
+        rt->primitives_list[i].material.diffuse = 0.9;
+        rt->primitives_list[i].material.specular = 0.1;
+        rt->primitives_list[i].material.shininess = 50;
+        if (rt->primitives_list[i].type == PLANE)
+        {
+            rt->primitives_list[i].material.reflection = 0.6;
+            rt->primitives_list[i].material.transparency = 0.0;
+            rt->primitives_list[i].material.refraction = 1;
+        }
+        else if (rt->primitives_list[i].type == SPHERE)
+        {
+            rt->primitives_list[i].material.diffuse = 0.1;
+            rt->primitives_list[i].material.ambient = 0.1;
+            rt->primitives_list[i].material.specular = 1.0;
+            rt->primitives_list[i].material.shininess = 250;
+            rt->primitives_list[i].material.reflection = 0.95;
+            rt->primitives_list[i].material.transparency = 0.95;
+            rt->primitives_list[i].material.refraction = 1.52;
+        }
+        else
+        {
+            rt->primitives_list[i].material.reflection = 0.0;
+            rt->primitives_list[i].material.transparency = 0;
+            rt->primitives_list[i].material.refraction = 1;
+        }
+        i++;
+    }
+
 }
 
 int	parse(const char *map_file, t_rt *world)
