@@ -3,12 +3,12 @@
 
 void	create_material(t_rt *rt)
 {
-	int i;
-	float amb_light;
+	int		i;
+	float	amb_light;
 
 	amb_light = rt->amb.brightness;
 	i = 0;
-	while(i < rt->obj_counted)
+	while (i < rt->obj_counted)
 	{
 		rt->primitives_list[i].material.ambient = amb_light;
 		rt->primitives_list[i].material.diffuse = 0.9;

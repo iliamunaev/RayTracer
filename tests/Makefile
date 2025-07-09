@@ -36,14 +36,14 @@ SRCS	:=  test_main.c \
 			../src/reflection/reflection_math.c \
 			../src/reflection/lighting.c \
 			../src/reflection/precompute_values.c \
-			../src/parsing/parsing.c \
+			../src/parsing/parsing_bonus/parsing_bonus.c \
+			../src/parsing/parsing_bonus/parse_primitives_bonus.c \
 			../src/parsing/create_matireal.c \
 			../src/parsing/init_world.c \
 			../src/parsing/parsing_utils_1.c \
 			../src/parsing/parsing_utils_2.c \
 			../src/parsing/fillup_world.c \
 			../src/parsing/parse_cam_light.c \
-			../src/parsing/parse_primitives.c \
 			../src/parsing/setup_mlx.c \
 			../src/validation/validate_file.c \
 			../src/validation/validation_1.c \
@@ -62,6 +62,7 @@ SRCS	:=  test_main.c \
 			../src/camera/camera_utils_2.c \
 			../src/render/render.c
 
+SRC_DIR := src
 OBJ_DIR := obj
 OBJS    := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

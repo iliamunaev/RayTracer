@@ -12,6 +12,13 @@ typedef enum e_type
     CYLINDER
 }   t_type;
 
+typedef enum e_bonus
+{
+    GLASS,
+    CHECKER,
+    DEFAULT
+}   t_bonus;
+
 typedef struct s_material
 {
     t_tuple color;
@@ -28,6 +35,7 @@ typedef struct s_primitive
 {
     int         id;
     t_type      type;
+    t_bonus     bonus_type;
     t_tuple     position;
     t_tuple     norm_vector;
     t_tuple     color;

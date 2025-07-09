@@ -1,7 +1,7 @@
 #ifndef PARSING_H
 # define PARSING_H
 
-# define MAX_NUM_TOKENS 7
+# define MAX_NUM_TOKENS 9
 # define MAX_TOKEN_LENGTH 32
 
 typedef struct s_validation_state {
@@ -14,6 +14,7 @@ typedef struct s_validation_state {
 typedef struct s_token
 {
     char token[MAX_NUM_TOKENS][MAX_TOKEN_LENGTH];
+	t_validation_state vstate;
 } t_token;
 
 // typedef struct s_pars

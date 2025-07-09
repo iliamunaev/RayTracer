@@ -1,9 +1,9 @@
 #ifndef MATH_UTILS_H
 # define MATH_UTILS_H
 
-# define EPSILON 0.00002f
-# define SHADOW_BIAS 0.001f
-# define DEG_TO_RAD 0.01745329252f
+#define EPSILON 0.00002f
+#define SHADOW_BIAS 0.0001f
+#define DEG_TO_RAD 0.01745329252f
 
 typedef struct s_tuple
 {

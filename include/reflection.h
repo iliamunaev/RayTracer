@@ -2,7 +2,7 @@
 # define REFLECTION_H
 
 
-#define MAX_CONTAINERS 8
+#define MAX_CONTAINERS 10
 
 // # include "minirt.h"
 /*------FORWARD DECLARATIONS-----------------------------------------*/
@@ -26,10 +26,18 @@ typedef struct s_comps
     bool        inside;
 }   t_comps;
 
+typedef struct s_refrac_terms
+{
+    	float	cos_t;
+	float	n_ratio;
+	float	cos_i;
+	float	sin2_t;
+}   t_refrac_terms;
+
 void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
 void    get_cylinder_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
 void    reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
-void    lighting(t_tuple *color, t_primitive *object, t_light light, t_tuple point, t_tuple v_eye, t_tuple v_normal, bool in_shadow, t_amb amb);
+void    lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow);
 bool    check_shadow(t_rt *world, t_tuple point);
 void    precompute_values(t_comps *comps, t_ray *ray);
 void    color_at(t_tuple *color, t_rt *world, t_ray *ray, uint8_t remaining_depth);
