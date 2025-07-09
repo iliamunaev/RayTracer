@@ -1,13 +1,25 @@
 #include "minirt.h"
 
+static inline void assign_values(t_tuple *color, int rgb[])
+{
+	float	inv_255;
+
+	inv_255 = 1.0f / 255.0f;
+	color->r = rgb[0] * inv_255;
+	color->g = rgb[1] * inv_255;
+	color->b = rgb[2] * inv_255;
+	color->a = 1.0f;
+}
+
 void	parse_rgb(t_tuple *color, const char *str)
 {
-	int rgb[3] = {0};
-	int i;
-	float inv_255;
+	int		rgb[3];
+	int		i;
 
 	i = 0;
-	inv_255 = 1.0f / 255.0f;
+	rgb[0] = 0;
+	rgb[1] = 0;
+	rgb[2] = 0;
 	while (*str && i < 3)
 	{
 		while (*str == ' ')
@@ -24,10 +36,7 @@ void	parse_rgb(t_tuple *color, const char *str)
 			str++;
 		i++;
 	}
-	color->r = rgb[0] * inv_255;
-	color->g = rgb[1] * inv_255;
-	color->b = rgb[2] * inv_255;
-	color->a = 1.0f;
+	assign_values(color, rgb);
 }
 
 void	parse_coordinates(t_tuple *position, const char *str)
@@ -54,13 +63,6 @@ void	parse_coordinates(t_tuple *position, const char *str)
 	position->z = vals[2];
 	position->w = 1.0f;
 }
-
-// void vector_to_euler(t_tuple *rotation, t_tuple normal)
-// {
-// 	rotation->y = atan2f(normal.x, normal.z);
-// 	rotation->x = asinf(-normal.y);
-// 	rotation->z = 0;
-// }
 
 bool	is_line_empty(const char *line)
 {

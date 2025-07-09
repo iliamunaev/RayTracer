@@ -37,7 +37,7 @@ typedef struct s_ray
 
 void    create_ray(t_ray *ray, const t_tuple point, const t_tuple vector);
 void    get_position(t_tuple *position, t_ray *ray, float time);
-void    get_obj_intersec(t_ray *ray, t_primitive *object);
+void    get_obj_intersec(t_ray *ray, t_primitive *object, float a, float b);
 void    get_ray_intersections(t_ray *ray, t_rt *minirt);
 void    get_hit(t_ray *ray);
 void	ray_transform(t_ray *ray, t_matrix matrix);

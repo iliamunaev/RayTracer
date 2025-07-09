@@ -14,6 +14,7 @@ typedef struct s_validation_state {
 typedef struct s_token
 {
     char token[MAX_NUM_TOKENS][MAX_TOKEN_LENGTH];
+	t_validation_state vstate;
 } t_token;
 
 // typedef struct s_pars

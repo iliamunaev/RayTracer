@@ -1,15 +1,15 @@
 #include "minirt.h"
 
-void    init_world(t_rt *world)
+void	init_world(t_rt *world)
 {
-    int i;
+	int	i;
 
-    i = 0;
-    ft_memset(world, 0, sizeof(t_rt));
-    while (i < MAX_PRIMITIVES)
-    {
-        ft_memset(&world->primitives_list[i], 0, sizeof(t_primitive));
-        i++;
-    }
-    world->selected_primitive_index = -1;    
+	i = 0;
+	ft_memset(world, 0, sizeof(t_rt));
+	while (i < MAX_PRIMITIVES)
+	{
+		ft_memset(&world->primitives_list[i], 0, sizeof(t_primitive));
+		i++;
+	}
+	world->selected_primitive_index = -1;
 }

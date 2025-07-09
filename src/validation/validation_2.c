@@ -10,14 +10,14 @@
  * @param v Pointer to the validation state tracking duplicates.
  * @return true if the ambient light is valid and unique, false otherwise.
  */
-bool	validate_ambient(const t_token *tokens, t_validation_state *v)
+bool	validate_ambient(t_token *tokens)
 {
-	if (v->seen_ambient || !is_validate_ambient(tokens))
+	if (tokens->vstate.seen_ambient || !is_validate_ambient(tokens))
 	{
 		err("Error: Duplicate ambient detected");
 		return (false);
 	}
-	v->seen_ambient = true;
+	tokens->vstate.seen_ambient = true;
 	return (true);
 }
 
@@ -30,14 +30,14 @@ bool	validate_ambient(const t_token *tokens, t_validation_state *v)
  * @param v Pointer to the validation state tracking duplicates.
  * @return true if the camera is valid and unique, false otherwise.
  */
-bool	validate_camera(const t_token *tokens, t_validation_state *v)
+bool	validate_camera(t_token *tokens)
 {
-	if (v->seen_camera || !is_validate_camera(tokens))
+	if (tokens->vstate.seen_camera || !is_validate_camera(tokens))
 	{
 		err("Error: Duplicate camera detected");
 		return (false);
 	}
-	v->seen_camera = true;
+	tokens->vstate.seen_camera = true;
 	return (true);
 }
 
@@ -51,13 +51,13 @@ bool	validate_camera(const t_token *tokens, t_validation_state *v)
  * @param v Pointer to the validation state tracking duplicates.
  * @return true if the light is valid and unique, false otherwise.
  */
-bool	validate_light(const t_token *tokens, t_validation_state *v)
+bool	validate_light(t_token *tokens)
 {
-	if (v->seen_light || !is_validate_light(tokens))
+	if (tokens->vstate.seen_light || !is_validate_light(tokens))
 	{
 		err("Error: Duplicate light detected");
 		return (false);
 	}
-	v->seen_light = true;
+	tokens->vstate.seen_light = true;
 	return (true);
 }

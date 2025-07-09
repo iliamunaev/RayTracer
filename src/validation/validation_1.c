@@ -29,15 +29,14 @@ static bool	is_identifier_valid(const char *id)
  * @param v Pointer to the validation state.
  * @return true if the element is valid and not duplicated, false otherwise.
  */
-static bool	validate_cam_light(const char *id, const t_token *tokens,
-	t_validation_state *v)
+static bool	validate_cam_light(const char *id, const t_token *tokens)
 {
 	if (ft_strcmp(id, "A") == 0)
-		return (validate_ambient(tokens, v));
+		return (validate_ambient(tokens));
 	else if (ft_strcmp(id, "C") == 0)
-		return (validate_camera(tokens, v));
+		return (validate_camera(tokens));
 	else if (ft_strcmp(id, "L") == 0)
-		return (validate_light(tokens, v));
+		return (validate_light(tokens));
 	else
 		return (false);
 }
@@ -78,14 +77,14 @@ static bool	validate_primitive(const char *id, const t_token *tokens)
  * @return true if the line is syntactically and semantically valid, 
  * false otherwise.
  */
-bool	is_line_valid(const t_token *tokens, t_validation_state *vstate)
+bool	is_line_valid(t_token *tokens)
 {
 	char	*id;
 
 	id = tokens->token[0];
 	if (!is_identifier_valid(id))
 		return (false);
-	if (validate_cam_light(id, tokens, vstate))
+	if (validate_cam_light(id, tokens))
 		return (true);
 	return (validate_primitive(id, tokens));
 }

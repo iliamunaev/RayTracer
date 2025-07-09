@@ -1,20 +1,22 @@
 #include "minirt.h"
 
-void	create_checkerboard(t_tuple *effective_color, t_tuple point,
-		t_primitive *object, t_light light)
+void	create_checkerboard(t_tuple *effective_color, t_comps *comps,
+		t_light light)
 {
 	t_tuple	checker_color2;
 
-	if ((int)(floorf(point.x) + floorf(point.y) + floorf(point.z)) % 2 == 0)
-		mult_colors(effective_color, object->color, light.color_component);
+	if ((int)(floorf(comps->position.x) + floorf(comps->position.y)
+		+ floorf(comps->position.z)) % 2 == 0)
+		mult_colors(effective_color, comps->object->color,
+			light.color_component);
 	else
 	{
-		checker_color2.r = fmax(0.0f, fmin(1.0f, object->color.r * 0.9
-					+ object->color.g * 0.1));
-		checker_color2.g = fmax(0.0f, fmin(1.0f, object->color.g * 0.9
-					+ object->color.b * 0.1));
-		checker_color2.b = fmax(0.0f, fmin(1.0f, object->color.b * 0.9
-					+ object->color.r * 0.1));
+		checker_color2.r = fmax(0.0f, fmin(1.0f, comps->object->color.r * 0.9
+					+ comps->object->color.g * 0.1));
+		checker_color2.g = fmax(0.0f, fmin(1.0f, comps->object->color.g * 0.9
+					+ comps->object->color.b * 0.1));
+		checker_color2.b = fmax(0.0f, fmin(1.0f, comps->object->color.b * 0.9
+					+ comps->object->color.r * 0.1));
 		checker_color2.r *= 0.85;
 		checker_color2.g *= 0.85;
 		checker_color2.b *= 0.85;
@@ -63,8 +65,7 @@ void	lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow)
 	float	factor;
 
 	if (comps->object->bonus_type == CHECKER)
-		create_checkerboard(&effective_color, comps->position, comps->object,
-			world->light);
+		create_checkerboard(&effective_color, comps, world->light);
 	else
 		mult_colors(&effective_color, comps->object->color,
 			world->light.color_component);
@@ -102,30 +103,29 @@ bool	check_shadow(t_rt *world, t_tuple point)
 void	refracted_color(t_tuple *refract_col, t_rt *world, t_comps *comps,
 		uint8_t remaining_depth)
 {
-	float	cos_t;
-	float	n_ratio;
-	float	cos_i;
-	float	sin2_t;
-	t_tuple	direction_term1;
-	t_tuple	direction_term2;
-	t_tuple	refract_direction;
-	t_ray	refract_ray;
+	t_refrac_terms	refrac;
+	t_tuple			dir_t1;
+	t_tuple			dir_t2;
+	t_tuple			refract_direction;
+	t_ray			refract_ray;
 
 	if (remaining_depth <= 0 || comps->object->material.transparency <= 0.001)
 		return (create_color(refract_col, 0, 0, 0));
-	n_ratio = comps->n1 / comps->n2;
-	cos_i = dot_product(comps->v_eye, comps->v_normal);
-	sin2_t = n_ratio * n_ratio * (1.0 - cos_i * cos_i);
-	if (sin2_t > 1.0)
+	refrac.n_ratio = comps->n1 / comps->n2;
+	refrac.cos_i = dot_product(comps->v_eye, comps->v_normal);
+	refrac.sin2_t = refrac.n_ratio * refrac.n_ratio * (1.0 - refrac.cos_i
+			* refrac.cos_i);
+	if (refrac.sin2_t > 1.0)
 		return (create_color(refract_col, 0, 0, 0));
-	cos_t = sqrtf(1.0 - sin2_t);
-	create_vector(&direction_term1, comps->v_normal.x, comps->v_normal.y,
+	refrac.cos_t = sqrtf(1.0 - refrac.sin2_t);
+	create_vector(&dir_t1, comps->v_normal.x, comps->v_normal.y,
 		comps->v_normal.z);
-	mult_color(&direction_term1, (n_ratio * cos_i - cos_t));
-	create_vector(&direction_term2, comps->v_eye.x, comps->v_eye.y,
+	mult_color(&dir_t1, (refrac.n_ratio * refrac.cos_i
+			- refrac.cos_t));
+	create_vector(&dir_t2, comps->v_eye.x, comps->v_eye.y,
 		comps->v_eye.z);
-	mult_color(&direction_term2, n_ratio);
-	sub_tuples(&refract_direction, direction_term1, direction_term2);
+	mult_color(&dir_t2, refrac.n_ratio);
+	sub_tuples(&refract_direction, dir_t1, dir_t2);
 	create_ray(&refract_ray, comps->under_pos, refract_direction);
 	color_at(refract_col, world, &refract_ray, remaining_depth - 1);
 	mult_color(refract_col, comps->object->material.transparency);
@@ -200,7 +200,7 @@ void	shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray,
 void	color_at(t_tuple *color, t_rt *world, t_ray *ray,
 		uint8_t remaining_depth)
 {
-	t_comps comps;
+	t_comps	comps;
 
 	get_ray_intersections(ray, world);
 	get_hit(ray);

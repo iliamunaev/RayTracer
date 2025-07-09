@@ -2,7 +2,7 @@
 # define REFLECTION_H
 
 
-#define MAX_CONTAINERS 8
+#define MAX_CONTAINERS 10
 
 // # include "minirt.h"
 /*------FORWARD DECLARATIONS-----------------------------------------*/
@@ -25,6 +25,14 @@ typedef struct s_comps
     t_tuple     v_reflection;
     bool        inside;
 }   t_comps;
+
+typedef struct s_refrac_terms
+{
+    	float	cos_t;
+	float	n_ratio;
+	float	cos_i;
+	float	sin2_t;
+}   t_refrac_terms;
 
 void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
 void    get_cylinder_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);

@@ -8,7 +8,6 @@ void	setup_mlx(t_rt *world)
 		err("Error: mlx_init failed");
 		exit(EXIT_FAILURE);
 	}
-
 	world->scene = mlx_new_image(world->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!world->scene)
 	{
@@ -16,5 +15,6 @@ void	setup_mlx(t_rt *world)
 		mlx_terminate(world->mlx);
 		exit(EXIT_FAILURE);
 	}
-	ft_memset(world->scene->pixels, 255, world->scene->width * world->scene->height * BPP);
+	ft_memset(world->scene->pixels, 255, world->scene->width
+		* world->scene->height * BPP);
 }
