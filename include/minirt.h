@@ -20,18 +20,16 @@
 # include "reflection.h"
 # include "manipulation.h"
 
-
-#define BPP sizeof(int32_t)
-#define MAX_PRIMITIVES 32
-#define SCREEN_WIDTH 1920
-#define SCREEN_HEIGHT 1080
-#define BLUE   0
-#define GREEN  1
-#define RED    2
-#define ALPHA  3
-#define ZERO_CAM_FOV 0.0f
-#define DEFAILT_CAM_FOV 70.0f
-
+# define BPP 4UL
+# define MAX_PRIMITIVES 32
+# define SCREEN_WIDTH 1920
+# define SCREEN_HEIGHT 1080
+# define BLUE   0
+# define GREEN  1
+# define RED	2
+# define ALPHA  3
+# define ZERO_CAM_FOV 0.0f
+# define DEFAILT_CAM_FOV 70.0f
 
 typedef enum e_mode
 {
@@ -40,55 +38,46 @@ typedef enum e_mode
 	MODE_ROTATE,
 	MODE_TRANSLATE,
 	MODE_CAM
-} t_mode;
+}	t_mode;
 
 typedef struct s_rt
 {
 	mlx_t		*mlx;
 	mlx_image_t	*scene;
-    uint8_t     obj_counted;
-    t_primitive primitives_list[MAX_PRIMITIVES];
+	uint8_t		obj_counted;
+	t_primitive	primitives_list[MAX_PRIMITIVES];
 	t_amb		amb;
 	t_cam		cam;
 	t_light		light;
-	int         selected_primitive_index;
+	int			selected_primitive_index;
 	t_mode		mode;
-	double mouse_x;
-    double mouse_y;
+	double		mouse_x;
+	double		mouse_y;
 }	t_rt;
-
 
 typedef struct s_transform
 {
 	t_tuple	rotate;
-	t_tuple scale;
-	t_tuple translate;
-} t_transform;
-
-
-//COLORS
-void        create_color(t_tuple *color, float r, float g, float b);
-uint32_t    float_to_hex(const t_tuple color);
-void        sub_colors(t_tuple *c, const t_tuple a, const t_tuple b);
-void        add_colors(t_tuple *c, const t_tuple a, const t_tuple b);
-void        mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
-
+	t_tuple	scale;
+	t_tuple	translate;
+}	t_transform;
 
 // render.c
 void	render(t_rt *rt);
-void handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
-void handle_mouse_move(double x, double y, void *param);
-void world_loop(mlx_key_data_t keydata, void *param);
+void	handle_mouse_click(mouse_key_t button, action_t action,
+			modifier_key_t mods, void	*param);
+void	handle_mouse_move(double x, double y, void	*param);
+void	world_loop(mlx_key_data_t keydata, void	*param);
 
 // loop/world_loop.c
 bool	handle_object(t_rt *world, mlx_key_data_t keydata);
 
 // loop/key_action.c
 bool	key_action(t_rt *world, mlx_key_data_t keydata,
-	bool *moved, bool *changed);
+			bool *moved, bool *changed);
 
 // loop/lop_utils.c
-void    print_mode(int mode_1, int mode_2);
+void	print_mode(int mode_1, int mode_2);
 
 // loop/cam_action.c
 bool	handle_cam(t_rt *world, mlx_key_data_t keydata);
