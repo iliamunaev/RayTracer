@@ -137,6 +137,6 @@ int	parse(const char *map_file, t_rt *world)
 	create_material(world);
 	if (check_singletons(&vstate) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	printf("SUCCESS: map validation\n");
+	printf("Success: map validation\n");
 	return (EXIT_SUCCESS);
 }

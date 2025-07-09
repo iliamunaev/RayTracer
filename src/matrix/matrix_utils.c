@@ -1,6 +1,22 @@
 #include "minirt.h"
 
 /**
+ * @brief Compare two floating-point numbers for approximate equality.
+ *
+ * This function checks if the absolute difference between two floats
+ * is smaller than a defined epsilon value, treating them as equal
+ * within that small tolerance.
+ *
+ * @param a First float to compare.
+ * @param b Second float to compare.
+ * @return true if the values are approximately equal, false otherwise.
+ */
+static inline bool	is_equal(float a, float b)
+{
+	return (fabsf(a - b) < EPSILON);
+}
+
+/**
  * @brief Compares two matrices for element-wise equality.
  *
  * Each corresponding element in matrices `a` and `b` is 
