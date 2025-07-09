@@ -25,7 +25,7 @@ static inline float	get_dot_product_row_tuple(const float row[NUM_MAT_COLS],
  * @param col Column index of matrix B.
  * @return The scalar dot product result.
  */
-static float	get_dot_prod_r_c(const float row[NUM_MAT_COLS],
+static inline float	get_dot_prod_r_c(const float row[NUM_MAT_COLS],
 	const t_matrix matrix, int col)
 {
 	return (row[0] * matrix.rows[0].cols[col]
