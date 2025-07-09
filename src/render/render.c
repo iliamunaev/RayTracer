@@ -1,74 +1,68 @@
 #include "minirt.h"
 
-/* static inline void ray_for_pixel(&ray, &rt->cam, x, y)
-static inline void color_at;
- */
-//ALL THE VERY HEAVY FUNCTIONS WE COULD PUT AS STATIC INLINE FUNCTIONS TO INCREASE PERFORMANCE
 void ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
 {
-    float xoffset;
-    float yoffset;
-    float world_x;
-    float world_y;
-    
-    xoffset = (px + 0.5) * cam->pix_size;
-    yoffset = (py + 0.5) * cam->pix_size;
-    
-    world_x = cam->half_view - xoffset;
-    world_y = cam->half_height - yoffset;
-    
-    t_tuple pixel_point = {world_x, world_y, -1.0f, 1.0f,};
-
+    float   xoffset;
+    float   yoffset;
+    t_tuple pixel_point;
     t_tuple pixel;
-    mult_matrix_by_tuple(&pixel, cam->matrix, pixel_point);
-
     t_tuple origin;
-    t_tuple point = {0, 0, 0, 1.0f,};    
-    mult_matrix_by_tuple(&origin, cam->matrix, point);
-
     t_tuple direction;
+
+    xoffset = (px + 0.5f) * cam->pix_size;
+    yoffset = (py + 0.5f) * cam->pix_size;
+    pixel_point.x = cam->half_view - xoffset;
+    pixel_point.y = cam->half_height - yoffset;
+    pixel_point.z = -1.0f;
+    pixel_point.w = 1.0f;
+    mult_matrix_by_tuple(&pixel, cam->matrix, pixel_point);
+    origin.x = 0.0f;
+    origin.y = 0.0f;
+    origin.z = 0.0f;
+    origin.w = 1.0f;
+    mult_matrix_by_tuple(&origin, cam->matrix, origin);
     sub_tuples(&direction, pixel, origin);
-
     normalize_vector(&direction);
-
     ray->origin = origin;
     ray->direction = direction;
 }
 
-void render(t_rt *rt)
+void	put_pixel(size_t idx, uint8_t *pixels, t_tuple color)
 {
-    int			x;
-    int			y;
-    t_tuple		color;
-    t_ray		ray;
-    uint8_t		*pixels;
-    uint32_t	packed_color;
-    size_t		idx;
+	uint32_t	packed_color;
 
-	pixels = rt->scene->pixels;
-    y = 0;
-    while (y < rt->scene->height)
-    {
-        x = 0;
-        while (x < rt->scene->width)
-        {
-            ray_for_pixel(&ray, &rt->cam, x, y);
-            color_at(&color, rt, &ray, 6);
-
-            if (ray.is_hit == true)
-                packed_color = float_to_hex(color);
-            else
-                packed_color = 0x000000FF;
-
-            idx = (y * rt->scene->width + x) * BPP;
-			pixels[idx + BLUE] = (packed_color >>  24) & 0xFF;
-			pixels[idx + GREEN] = (packed_color >> 16) & 0xFF;
-			pixels[idx + RED] = (packed_color >> 8) & 0xFF;
-			pixels[idx + ALPHA] =  packed_color        & 0xFF;
-            x++;
-        }
-        y++;
-    }
-    mlx_image_to_window(rt->mlx, rt->scene, 0, 0);
+	packed_color = float_to_hex(color);
+	pixels[idx + BLUE] = (packed_color >> 24) & 0xFF;
+	pixels[idx + GREEN] = (packed_color >> 16) & 0xFF;
+	pixels[idx + RED] = (packed_color >> 8) & 0xFF;
+	pixels[idx + ALPHA] = packed_color & 0xFF;
 }
 
+void	render(t_rt *rt)
+{
+	uint32_t	x;
+	uint32_t	y;
+	t_tuple		color;
+	t_ray		ray;
+	uint8_t		*pixels;
+	size_t		idx;
+
+	pixels = rt->scene->pixels;
+	y = 0;
+	while (y < rt->scene->height)
+	{
+		x = 0;
+		while (x < rt->scene->width)
+		{
+			ray_for_pixel(&ray, &rt->cam, x, y);
+			color_at(&color, rt, &ray, 6);
+			if (ray.is_hit == false)
+				create_color(&color, 0, 0, 0);
+			idx = (y * rt->scene->width + x) * BPP;
+			put_pixel(idx, pixels, color);
+			x++;
+		}
+		y++;
+	}
+	mlx_image_to_window(rt->mlx, rt->scene, 0, 0);
+}

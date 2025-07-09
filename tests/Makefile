@@ -2,7 +2,7 @@
 NAME    := test
 
 CC      := cc
-CFLAGS  := -O3 -flto -ffast-math -march=native -g -Wextra -Wall -Werror
+CFLAGS  := -O3 -flto -ffast-math -march=native -g #-Wextra -Wall -Werror
 
 LIBDIR  := ../lib
 # LIBDIR  := lib  // for production
