@@ -68,7 +68,7 @@ bool	is_validate_cylinder(t_token *token)
 {
 	if (!token->token[1] || !token->token[2] || !token->token[3]
 		|| !token->token[4] || !token->token[5])
-		return (err("Cylinder: Missing one or more arguments"), false);
+		return (err("Error: Cylinder: Missing one or more arguments"), false);
 	if (!is_vec3_unbounded(token->token[1]))
 		return (err("Error: Cylinder: Invalid center position"), false);
 	if (!is_vec3_normalized(token->token[2]))

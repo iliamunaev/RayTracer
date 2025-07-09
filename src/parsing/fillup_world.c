@@ -18,5 +18,5 @@ void	fillup_world(t_rt *rt, t_token *token, int j)
 	else if (ft_strcmp(id, "cy") == 0)
 		parse_cylinder(rt, token, j);
 	else
-		err("Unknown identifier");
+		err("Error: Unknown identifier");
 }

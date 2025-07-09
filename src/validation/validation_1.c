@@ -8,11 +8,11 @@
  * @param id Pointer to the identifier string.
  * @return true if the identifier is valid, false otherwise.
  */
-static bool	is_identifier_valid(const char *id)
+static bool	is_identifier_valid(char *id)
 {
 	if (!id || id[0] == '\0')
 	{
-		err("Empty identifier");
+		err("Error: Empty identifier");
 		return (false);
 	}
 	return (true);
@@ -51,7 +51,7 @@ static bool	validate_cam_light(const char *id, const t_token *tokens)
  * @param tokens The parsed tokens for the line.
  * @return true if the primitive is valid, false otherwise.
  */
-static bool	validate_primitive(const char *id, const t_token *tokens)
+static bool	validate_primitive(char *id, t_token *tokens)
 {
 	if (ft_strcmp(id, "sp") == 0)
 		return (is_validate_sphere(tokens));
@@ -61,7 +61,7 @@ static bool	validate_primitive(const char *id, const t_token *tokens)
 		return (is_validate_cylinder(tokens));
 	else
 	{
-		err("Unknown identifier");
+		err("Error: Unknown identifier");
 		return (false);
 	}
 }
