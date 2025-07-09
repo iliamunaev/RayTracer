@@ -1,20 +1,16 @@
-
 # --------------------------- Executable and Library ------------------------- #
 NAME    := test
 
 CC      := cc
-CFLAGS  := -O3 -flto -ffast-math -march=native -g #-Wextra -Wall -Werror
+CFLAGS  := -O3 -flto -ffast-math -march=native -g -Wextra -Wall -Werror
 
-LIBMLX  := ../lib/MLX42
-LIBFT   := ../lib/libft
+LIBDIR  := ../lib
+# LIBDIR  := lib  // for production
+LIBMLX  := $(LIBDIR)/MLX42
+LIBFT   := $(LIBDIR)/libft
 
-
-HEADERS := -I../include -I../lib/MLX42/include -I../include
-
-# lglfw: OpenGL graphics library
-# ldl: Dynamic linking library for runtime symbol resolution
-LIBS    := ../lib/MLX42/build/libmlx42.a ../lib/libft/libft.a -ldl -lglfw -lm
-
+HEADERS := -I../include -I$(LIBMLX)/include -I../include
+LIBS    := $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a -ldl -lglfw -lm
 
 SRCS	:=  test_main.c \
 			print_matrix.c \
@@ -22,12 +18,19 @@ SRCS	:=  test_main.c \
 			../src/primitives/primitive_utils.c \
 			../src/primitives/primitive_intersections.c \
 			../src/ray/ray.c \
-			../src/utils/utils.c\
+			../src/utils/utils.c \
 			../src/colors/colors.c \
-			../src/math/math.c \
-			../src/matrix/shear.c \
-			../src/matrix/math_matrix.c \
-			../src/matrix/matrix_manipulations.c \
+			../src/math/color_ops.c \
+			../src/math/tuple_ops.c \
+			../src/math/vector_math.c \
+			../src/math/ft_strtof.c \
+			../src/matrix/matrix_determinant.c \
+			../src/matrix/matrix_div.c \
+			../src/matrix/matrix_inverse.c \
+			../src/matrix/matrix_mult.c \
+			../src/matrix/matrix_rotation.c \
+			../src/matrix/matrix_transform.c \
+			../src/matrix/matrix_transpose.c \
 			../src/matrix/matrix_utils.c \
 			../src/matrix/matrix.c \
 			../src/reflection/reflection_math.c \
@@ -59,14 +62,8 @@ SRCS	:=  test_main.c \
 			../src/camera/camera_utils_2.c \
 			../src/render/render.c
 
-
-
-SRC_DIR := src
 OBJ_DIR := obj
-
-#OBJ_TEST := $(patsubst %.c, $(OBJ_DIR)/%.o, $(SRCS))
-OBJS := $(SRCS:%.c=$(OBJ_DIR)/%.o)
-OBJ := $(patsubst $(SRC_DIR)/%.c, $(OBJ_DIR)/%.o, $(SRCS))
+OBJS    := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
 # ------------------------------ Colors -------------------------------------- #
 RESET   := \033[0m
@@ -74,49 +71,59 @@ GREEN   := \033[32m
 BLUE    := \033[34m
 RED     := \033[31m
 
-# ------------------------------- Targets ------------------------------------ #
-all: libmlx libft $(NAME)
-	@echo "$(GREEN)Program $(NAME) compiled successfully!$(RESET)"
+# ------------------------------ Targets ------------------------------------- #
 
-# Build MLX42
-libmlx:
-	@echo "$(BLUE)[LIBMLX] Building MLX42 library...$(RESET)"
-	cmake $(LIBMLX) -B $(LIBMLX)/build
-	make -C $(LIBMLX)/build -j4
+all: $(LIBDIRS) $(LIBMLX)/build/libmlx42.a $(LIBFT)/libft.a $(NAME)
+	@echo "$(GREEN)➤➤➤ Program $(NAME) compiled successfully!$(RESET)"
 
-libft:
-	@echo "$(BLUE)[LIBFT] Building Libft library...$(RESET)"
-	make -C $(LIBFT)
+$(NAME): $(OBJS)
+	@echo "$(BLUE)🔗 Linking executable: $(NAME)$(RESET)"
+	$(CC) $(CFLAGS) $(OBJS) $(LIBS) -o $(NAME)
 
-
-$(NAME): $(OBJS) $(OBJ_TEST)
-	@echo "$(BLUE)Linking executable: $(NAME)$(RESET)"
-	$(CC) $(CFLAGS) $(OBJS) $(OBJ_TEST) $(LIBS) -o $(NAME)
-
-# Rule to compile .c files into .o and store them in obj/
 $(OBJ_DIR)/%.o: %.c
 	@mkdir -p $(dir $@)
 	@echo "$(BLUE)Compiling: $(notdir $<)...$(RESET)"
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
+# ----------------------------- External Libraries --------------------------- #
 
-# Create obj directory if it doesn't exist
-$(OBJ_DIR):
-	@mkdir -p $(OBJ_DIR)
+$(LIBMLX)/build/libmlx42.a:
+	@echo "$(BLUE)Checking MLX42...$(RESET)"
+	@if [ ! -d "$(LIBMLX)" ]; then \
+		echo "$(RED)➤ Cloning MLX42...$(RESET)"; \
+		git clone https://github.com/codam-coding-college/MLX42.git $(LIBMLX); \
+	fi
+	@echo "$(BLUE)Building MLX42...$(RESET)"
+	cmake -S $(LIBMLX) -B $(LIBMLX)/build
+	make -C $(LIBMLX)/build -j4
+
+$(LIBFT)/libft.a:
+	@echo "$(BLUE)Checking Libft...$(RESET)"
+	@if [ ! -d "$(LIBFT)" ]; then \
+		echo "$(RED)➤ Cloning Libft...$(RESET)"; \
+		git clone https://github.com/iliamunaev/libft-C-library.git $(LIBFT); \
+	fi
+	@echo "$(BLUE)Building Libft...$(RESET)"
+	make -C $(LIBFT)
 
 clean:
 	@echo "$(GREEN)Removing object files...$(RESET)"
 	rm -rf $(OBJ_DIR)
-	rm -rf $(SRC_DIR)
 	rm -rf $(LIBMLX)/build
-	@make -C $(LIBFT) clean
-	@echo "$(BLUE)Cleaned object files and directories.$(RESET)"
+	@if [ -d "$(LIBFT)" ]; then \
+		$(MAKE) -C $(LIBFT) clean; \
+	fi
+	@echo "$(GREEN)➤➤➤ Objects files removed$(RESET)"
 
 fclean: clean
 	@echo "$(GREEN)Removing executable: $(NAME)...$(RESET)"
 	rm -rf $(NAME)
-	@make -C $(LIBFT) fclean
-	@echo "$(GREEN)'$(NAME)' executable successfully removed!$(RESET)"
+	@make -C $(LIBFT) fclean || true
+	rm -rf $(LIBMLX)/build
+	rm -rf $(LIBMLX)
+	rm -rf $(LIBFT)
+	@echo "$(GREEN)➤➤➤ All built files and libraries removed!$(RESET)"
+
 
 re: fclean all
 
