@@ -9,7 +9,7 @@
  *
  * Return: true if valid float within range, false otherwise.
  */
-bool	is_float_in_range(const char *s, float min, float max)
+bool	is_float_in_range(char *s, float min, float max)
 {
 	float	val;
 
@@ -23,7 +23,7 @@ bool	is_float_in_range(const char *s, float min, float max)
  *
  * Return: true if it contains exactly 3 valid float values, false otherwise.
  */
-bool	is_vec3_unbounded(const char *s)
+bool	is_vec3_unbounded(char *s)
 {
 	char	**parts;
 	int		count;
@@ -51,7 +51,7 @@ bool	is_vec3_unbounded(const char *s)
  *
  * Return: true if valid normalized vector, false otherwise.
  */
-bool	is_vec3_normalized(const char *s)
+bool	is_vec3_normalized(char *s)
 {
 	char	**parts;
 	int		count;
@@ -82,7 +82,7 @@ bool	is_vec3_normalized(const char *s)
  *
  * Return: true if valid RGB color, false otherwise.
  */
-bool	is_color_rgb(const char *s)
+bool	is_color_rgb(char *s)
 {
 	char	**parts;
 	int		count;

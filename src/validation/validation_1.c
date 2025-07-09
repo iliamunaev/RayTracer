@@ -8,7 +8,7 @@
  * @param id Pointer to the identifier string.
  * @return true if the identifier is valid, false otherwise.
  */
-static bool	is_identifier_valid(const char *id)
+static bool	is_identifier_valid(char *id)
 {
 	if (!id || id[0] == '\0')
 	{
@@ -29,7 +29,7 @@ static bool	is_identifier_valid(const char *id)
  * @param v Pointer to the validation state.
  * @return true if the element is valid and not duplicated, false otherwise.
  */
-static bool	validate_cam_light(const char *id, const t_token *tokens,
+static bool	validate_cam_light(char *id, t_token *tokens,
 	t_validation_state *v)
 {
 	if (ft_strcmp(id, "A") == 0)
@@ -52,7 +52,7 @@ static bool	validate_cam_light(const char *id, const t_token *tokens,
  * @param tokens The parsed tokens for the line.
  * @return true if the primitive is valid, false otherwise.
  */
-static bool	validate_primitive(const char *id, const t_token *tokens)
+static bool	validate_primitive(char *id, t_token *tokens)
 {
 	if (ft_strcmp(id, "sp") == 0)
 		return (is_validate_sphere(tokens));
@@ -78,7 +78,7 @@ static bool	validate_primitive(const char *id, const t_token *tokens)
  * @return true if the line is syntactically and semantically valid, 
  * false otherwise.
  */
-bool	is_line_valid(const t_token *tokens, t_validation_state *vstate)
+bool	is_line_valid(t_token *tokens, t_validation_state *vstate)
 {
 	char	*id;
 

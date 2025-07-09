@@ -25,7 +25,7 @@ static bool	is_valid_argc(int argc)
  * @param filename The name of the file to check.
  * @return true if the file ends with ".rt", false otherwise.
  */
-static bool	has_rt_extension(const char *filename)
+static bool	has_rt_extension(char *filename)
 {
 	size_t	len;
 
@@ -41,7 +41,7 @@ static bool	has_rt_extension(const char *filename)
  * @param filename The name of the file to validate.
  * @return true if the file name is valid and ends with ".rt", false otherwise.
  */
-static bool	is_valid_filename(const char *filename)
+static bool	is_valid_filename(char *filename)
 {
 	if (!filename || filename[0] == '\0')
 	{
@@ -65,7 +65,7 @@ static bool	is_valid_filename(const char *filename)
  * @param filename The name of the file to open.
  * @return true if the file can be opened for reading, false otherwise.
  */
-static bool	is_file_readable(const char *filename)
+static bool	is_file_readable(char *filename)
 {
 	int	fd;
 
