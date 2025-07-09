@@ -14,7 +14,7 @@ bool	validate_ambient(const t_token *tokens, t_validation_state *v)
 {
 	if (v->seen_ambient || !is_validate_ambient(tokens))
 	{
-		err("Error: Duplicate ambient detected");
+		err("Error: ambient");
 		return (false);
 	}
 	v->seen_ambient = true;
@@ -34,7 +34,7 @@ bool	validate_camera(const t_token *tokens, t_validation_state *v)
 {
 	if (v->seen_camera || !is_validate_camera(tokens))
 	{
-		err("Error: Duplicate camera detected");
+		err("Error: camera");
 		return (false);
 	}
 	v->seen_camera = true;
@@ -55,7 +55,7 @@ bool	validate_light(const t_token *tokens, t_validation_state *v)
 {
 	if (v->seen_light || !is_validate_light(tokens))
 	{
-		err("Error: Duplicate light detected");
+		err("Error: light");
 		return (false);
 	}
 	v->seen_light = true;

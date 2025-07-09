@@ -45,12 +45,12 @@ static bool	is_valid_filename(const char *filename)
 {
 	if (!filename || filename[0] == '\0')
 	{
-		err("Filename is empty or null");
+		err("Error: Filename is empty or null");
 		return (false);
 	}
 	if (!has_rt_extension(filename))
 	{
-		err("File must have a .rt extension");
+		err("Error: File must have a .rt extension");
 		return (false);
 	}
 	return (true);

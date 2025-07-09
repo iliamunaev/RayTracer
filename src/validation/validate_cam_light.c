@@ -40,17 +40,17 @@ bool	is_validate_camera(t_token *token)
 		return (false);
 	if (!is_vec3_unbounded(token->token[1]))
 	{
-		err("Invalid camera position vector");
+		err("Error: Invalid camera position vector");
 		return (false);
 	}
 	if (!is_vec3_normalized(token->token[2]))
 	{
-		err("Invalid camera orientation vector (must be in [-1,1])");
+		err("Error: Invalid camera orientation vector (must be in [-1,1])");
 		return (false);
 	}
 	if (!is_float_in_range(token->token[3], 0.0f, 180.0f))
 	{
-		err("Invalid FOV value");
+		err("Error: Invalid FOV value");
 		return (false);
 	}
 	return (true);
@@ -72,22 +72,22 @@ bool	is_validate_light(t_token *token)
 {
 	if (!token->token[1] || !token->token[2] || !token->token[3])
 	{
-		err("Light: Missing one or more arguments");
+		err("Error: Light: Missing one or more arguments");
 		return (false);
 	}
 	if (!is_vec3_unbounded(token->token[1]))
 	{
-		err("Light: Invalid position vector");
+		err("Error: Light: Invalid position vector");
 		return (false);
 	}
 	if (!is_float_in_range(token->token[2], 0.0f, 1.0f))
 	{
-		err("Light: Brightness must be in [0.0, 1.0]");
+		err("Error: Light: Brightness must be in [0.0, 1.0]");
 		return (false);
 	}
 	if (!is_color_rgb(token->token[3]))
 	{
-		err("Light: Invalid RGB color");
+		err("Error: Light: Invalid RGB color");
 		return (false);
 	}
 	return (true);

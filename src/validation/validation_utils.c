@@ -47,7 +47,7 @@ bool	is_vec3_unbounded(const char *s)
 
 /**
  * is_vec3_normalized - Validate if a string represents a normalized 3D vector.
- * @s: String in the format "x,y,z" where each float ∈ [-1.0, 1.0].
+ * @s: String in the format "x,y,z" where each float [-1.0, 1.0].
  *
  * Return: true if valid normalized vector, false otherwise.
  */
