@@ -30,7 +30,12 @@ typedef struct s_tuple
 }	t_tuple;
 
 // color_ops.c
-void	mult_color(t_tuple *tuple, float scalar);
+void	mult_color_scal(t_tuple *tuple, float scalar);
+void	add_colors(t_tuple *c, const t_tuple a, const t_tuple b);
+void	sub_colors(t_tuple *c, const t_tuple a, const t_tuple b);
+void	mult_colors(t_tuple *tuple, const t_tuple a, const t_tuple b);
+uint32_t	float_to_hex(const t_tuple color);
+void	create_color(t_tuple *color, float r, float g, float b);
 
 // vector_math.c
 float	magnitude_vector(const t_tuple vector);

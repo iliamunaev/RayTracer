@@ -29,7 +29,7 @@ static bool	is_identifier_valid(char *id)
  * @param v Pointer to the validation state.
  * @return true if the element is valid and not duplicated, false otherwise.
  */
-static bool	validate_cam_light(const char *id, const t_token *tokens)
+static bool	validate_cam_light(char *id, t_token *tokens)
 {
 	if (ft_strcmp(id, "A") == 0)
 		return (validate_ambient(tokens));

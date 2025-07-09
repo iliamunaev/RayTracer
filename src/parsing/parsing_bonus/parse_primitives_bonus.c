@@ -13,7 +13,6 @@ void	parse_bonus_type(int i, t_token *token, t_primitive *p)
 void	parse_sphere(t_rt *rt, t_token *token, int j)
 {
 	t_primitive	*p;
-	t_tuple		scale_factor;
 	t_transform	transformer;
 
 	p = &rt->primitives_list[j];

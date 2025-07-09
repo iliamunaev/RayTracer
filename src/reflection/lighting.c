@@ -62,7 +62,6 @@ void	lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow)
 	t_tuple	ambient;
 	t_tuple	diffuse;
 	t_tuple	specular;
-	float	factor;
 
 	if (comps->object->bonus_type == CHECKER)
 		create_checkerboard(&effective_color, comps, world->light);
@@ -120,15 +119,15 @@ void	refracted_color(t_tuple *refract_col, t_rt *world, t_comps *comps,
 	refrac.cos_t = sqrtf(1.0 - refrac.sin2_t);
 	create_vector(&dir_t1, comps->v_normal.x, comps->v_normal.y,
 		comps->v_normal.z);
-	mult_color(&dir_t1, (refrac.n_ratio * refrac.cos_i
+	mult_color_scal(&dir_t1, (refrac.n_ratio * refrac.cos_i
 			- refrac.cos_t));
 	create_vector(&dir_t2, comps->v_eye.x, comps->v_eye.y,
 		comps->v_eye.z);
-	mult_color(&dir_t2, refrac.n_ratio);
+	mult_color_scal(&dir_t2, refrac.n_ratio);
 	sub_tuples(&refract_direction, dir_t1, dir_t2);
 	create_ray(&refract_ray, comps->under_pos, refract_direction);
 	color_at(refract_col, world, &refract_ray, remaining_depth - 1);
-	mult_color(refract_col, comps->object->material.transparency);
+	mult_color_scal(refract_col, comps->object->material.transparency);
 }
 
 void	schlick(float *reflectance, t_comps *comps)
@@ -169,10 +168,10 @@ void	reflection(t_tuple *reflect_col, t_rt *world, t_comps *comps,
 	}
 	create_ray(&reflect_ray, comps->over_pos, comps->v_reflection);
 	color_at(reflect_col, world, &reflect_ray, remaining_depth - 1);
-	mult_color(reflect_col, comps->object->material.reflection);
+	mult_color_scal(reflect_col, comps->object->material.reflection);
 }
 
-void	shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray,
+void	shade_hit(t_tuple *color, t_rt *world, t_comps *comps,
 		uint8_t remaining_depth)
 {
 	bool	is_shaded;
@@ -190,8 +189,8 @@ void	shade_hit(t_tuple *color, t_rt *world, t_comps *comps, t_ray *ray,
 		&& comps->object->material.transparency > 0)
 	{
 		schlick(&reflectance, comps);
-		mult_color(&reflect_col, reflectance);
-		mult_color(&refract_col, 1.0 - reflectance);
+		mult_color_scal(&reflect_col, reflectance);
+		mult_color_scal(&refract_col, 1.0 - reflectance);
 	}
 	add_colors(color, *color, reflect_col);
 	add_colors(color, *color, refract_col);
@@ -207,5 +206,5 @@ void	color_at(t_tuple *color, t_rt *world, t_ray *ray,
 	if (ray->is_hit == false)
 		return ;
 	precompute_values(&comps, ray);
-	shade_hit(color, world, &comps, ray, remaining_depth);
+	shade_hit(color, world, &comps, remaining_depth);
 }
