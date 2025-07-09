@@ -1,21 +1,22 @@
 #include "minirt.h"
 
 /**
- * @brief Compares two matrices for equality.
+ * @brief Compares two matrices for element-wise equality.
  *
- * This function checks that both matrices have the same number of rows
- * (`size`) and that each corresponding element is equal using `is_equal()`.
+ * Each corresponding element in matrices `a` and `b` is 
+ * compared using `is_equal()`.
+ * Matrices must be the same size to be considered equal.
  *
- * @param a First matrix.
- * @param b Second matrix.
- * @return true if matrices are equal; false otherwise.
+ * @param a First matrix to compare.
+ * @param b Second matrix to compare.
+ * @return true if all elements match; false otherwise.
  */
-bool are_matrices_equal(const t_matrix a, const t_matrix b)
+bool	are_matrices_equal(const t_matrix a, const t_matrix b)
 {
-	int i;
-	int j;
+	int	i;
+	int	j;
 
-	if(a.size != b.size)
+	if (a.size != b.size)
 		return (false);
 	i = 0;
 	while (i < a.size)
@@ -32,24 +33,31 @@ bool are_matrices_equal(const t_matrix a, const t_matrix b)
 	return (true);
 }
 
-void swap_values(float *a, float *b)
+/**
+ * @brief Swap the values of two float variables.
+ *
+ * @param a Pointer to the first float.
+ * @param b Pointer to the second float.
+ */
+void	swap_values(float *a, float *b)
 {
-	float tmp;
+	float	tmp;
 
 	tmp = *a;
 	*a = *b;
 	*b = tmp;
 }
-bool is_invertible(const float det)
+
+/**
+ * @brief Check if a matrix (or value) is invertible based on its determinant.
+ *
+ * A matrix is invertible if its determinant is not approximately zero,
+ * using a defined `EPSILON` tolerance to account for floating-point precision.
+ *
+ * @param det The determinant value to check.
+ * @return true if invertible; false otherwise.
+ */
+bool	is_invertible(const float det)
 {
 	return (fabs(det) > EPSILON);
-}
-
-void	fill_data_arr(float *data, const float x, const float y, const float z, const float w)
-{
-	ft_memset(data, 0, 16 * sizeof(float));
-	data[0] = x;
-	data[5] = y;
-	data[10] = z;
-	data[15] = w;
 }

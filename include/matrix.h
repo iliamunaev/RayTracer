@@ -63,8 +63,6 @@ void	transform(t_matrix *matrix, t_transform transform);
 // matrix_utils.c
 void swap_values(float *a, float *b);
 bool is_invertible(const float det);
-void	fill_data_arr(float *data, const float x, const float y, const float z, const float w);
-
 
 // For testing
 // Delete on production

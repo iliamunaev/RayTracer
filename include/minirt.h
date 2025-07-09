@@ -29,6 +29,8 @@
 #define GREEN  1
 #define RED    2
 #define ALPHA  3
+#define ZERO_CAM_FOV 0.0f
+#define DEFAILT_CAM_FOV 70.0f
 
 
 typedef enum e_mode
@@ -77,5 +79,18 @@ void	render(t_rt *rt);
 void handle_mouse_click(mouse_key_t button, action_t action, modifier_key_t mods, void *param);
 void handle_mouse_move(double x, double y, void *param);
 void world_loop(mlx_key_data_t keydata, void *param);
+
+// loop/world_loop.c
+bool	handle_object(t_rt *world, mlx_key_data_t keydata);
+
+// loop/key_action.c
+bool	key_action(t_rt *world, mlx_key_data_t keydata,
+	bool *moved, bool *changed);
+
+// loop/lop_utils.c
+void    print_mode(int mode_1, int mode_2);
+
+// loop/cam_action.c
+bool	handle_cam(t_rt *world, mlx_key_data_t keydata);
 
 #endif // MINIRT_H

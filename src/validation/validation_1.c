@@ -1,6 +1,36 @@
 #include "minirt.h"
 
-static bool	validate_cam_light(const char *id, const t_token *tokens, t_validation_state *v)
+/**
+ * @brief Check if the identifier token is valid (non-null and non-empty).
+ *
+ * Identifiers include "A", "C", "L", "sp", "pl", "cy", etc.
+ *
+ * @param id Pointer to the identifier string.
+ * @return true if the identifier is valid, false otherwise.
+ */
+static bool	is_identifier_valid(const char *id)
+{
+	if (!id || id[0] == '\0')
+	{
+		err("Empty identifier");
+		return (false);
+	}
+	return (true);
+}
+
+/**
+ * @brief Validate unique scene elements: ambient light, camera, and light.
+ *
+ * Each of these elements must appear only once in the .rt file. This function
+ * ensures the element is valid and updates the validation state.
+ *
+ * @param id Identifier string ("A", "C", or "L").
+ * @param tokens The parsed tokens for the line.
+ * @param v Pointer to the validation state.
+ * @return true if the element is valid and not duplicated, false otherwise.
+ */
+static bool	validate_cam_light(const char *id, const t_token *tokens,
+	t_validation_state *v)
 {
 	if (ft_strcmp(id, "A") == 0)
 		return (validate_ambient(tokens, v));
@@ -12,7 +42,16 @@ static bool	validate_cam_light(const char *id, const t_token *tokens, t_validati
 		return (false);
 }
 
-
+/**
+ * @brief Validate a primitive object in the scene: sphere, plane, or cylinder.
+ *
+ * Checks the identifier and calls the appropriate validation function.
+ * Prints an error and returns false if the identifier is unknown.
+ *
+ * @param id Identifier string ("sp", "pl", or "cy").
+ * @param tokens The parsed tokens for the line.
+ * @return true if the primitive is valid, false otherwise.
+ */
 static bool	validate_primitive(const char *id, const t_token *tokens)
 {
 	if (ft_strcmp(id, "sp") == 0)
@@ -27,19 +66,23 @@ static bool	validate_primitive(const char *id, const t_token *tokens)
 		return (false);
 	}
 }
+
 /**
- * is_line_valid - Validate a single line of the .rt scene file.
- * @tokens: Parsed token list from one line of input.
- * @vstate: Validation state for enforcing unique elements (A, C, L).
+ * @brief Validate a single line of the .rt scene file.
  *
- * Return: true if the line is syntactically and semantically valid, false otherwise.
+ * Ensures the identifier is valid, checks for duplicate A/C/L elements,
+ * and validates primitives like spheres, planes, and cylinders.
+ *
+ * @param tokens Parsed token list from one line of input.
+ * @param vstate Validation state used to track seen elements.
+ * @return true if the line is syntactically and semantically valid, 
+ * false otherwise.
  */
 bool	is_line_valid(const t_token *tokens, t_validation_state *vstate)
 {
-	char *id = tokens->token[0];
+	char	*id;
 
-	// if (has_too_many_tokens(tokens))
-	// 	return (false);
+	id = tokens->token[0];
 	if (!is_identifier_valid(id))
 		return (false);
 	if (validate_cam_light(id, tokens, vstate))
