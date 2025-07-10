@@ -33,9 +33,9 @@ SRCS	:=  test_main.c \
 			../src/matrix/matrix_transpose.c \
 			../src/matrix/matrix_utils.c \
 			../src/matrix/matrix.c \
-			../src/reflection/reflection_math.c \
-			../src/reflection/lighting.c \
-			../src/reflection/precompute_values.c \
+			../src/lighting/reflection_math.c \
+			../src/lighting/lighting.c \
+			../src/lighting/precompute_values.c \
 			../src/parsing/parsing.c \
 			../src/parsing/parse_primitives.c \
 			../src/parsing/init_world.c \
