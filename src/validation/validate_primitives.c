@@ -44,8 +44,7 @@ bool	is_validate_plane(t_token *token)
 	if (!is_vec3_unbounded(token->token[1]))
 		return (err("Error: Plane: Invalid position vector"), false);
 	if (!is_vec3_normalized(token->token[2]))
-		return (err("Error: Plane: Invalid normal vector \
-			(must be normalized in [-1,1])"), false);
+		return (err("Error: Plane: Invalid normal vector"), false);
 	if (!is_color_rgb(token->token[3]))
 		return (err("Error: Plane: Invalid RGB color"), false);
 	return (true);
@@ -72,8 +71,7 @@ bool	is_validate_cylinder(t_token *token)
 	if (!is_vec3_unbounded(token->token[1]))
 		return (err("Error: Cylinder: Invalid center position"), false);
 	if (!is_vec3_normalized(token->token[2]))
-		return (err("Error: Cylinder: Invalid axis vector \
-			(must be normalized in [-1,1])"), false);
+		return (err("Error: Cylinder: Invalid axis vector"), false);
 	if (!is_float_in_range(token->token[3], 0.0f, 10000.0f))
 		return (err("Error: Cylinder: Invalid diameter"), false);
 	if (!is_float_in_range(token->token[4], 0.0f, 10000.0f))

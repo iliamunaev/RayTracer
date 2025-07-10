@@ -51,5 +51,6 @@ void		mult_tuple(t_tuple *tuple, float scalar);
 
 // ft_strtof.c
 float		ft_strtof(const char *start);
+void		ft_strtof_valid(const char *start, bool *has_digits);
 
 #endif // MATH_UTILS_H

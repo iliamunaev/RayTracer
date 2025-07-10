@@ -77,7 +77,6 @@ static int	check_singletons(t_token *tokens)
 {
 	if (!tokens->vstate.seen_ambient)
 	{
-		printf("DEBUG: %i\n", tokens->vstate.seen_ambient);
 		return (err("Error: Missing ambient light (A)"), EXIT_FAILURE);
 	}
 	if (!tokens->vstate.seen_camera)

@@ -59,6 +59,7 @@ SRCS := \
 	$(SRC_DIR)/validation/validation_utils.c \
 	$(SRC_DIR)/validation/validate_primitives.c \
 	$(SRC_DIR)/validation/validate_cam_light.c \
+	$(SRC_DIR)/validation/ft_strtof_valid.c \
 	$(SRC_DIR)/loop/world_loop.c \
 	$(SRC_DIR)/loop/mouse_loop.c \
 	$(SRC_DIR)/loop/loop_utils.c \

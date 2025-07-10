@@ -1,12 +1,5 @@
 #include "minirt.h"
 
-/**
- * @brief Generates a unique ID for each primitive.
- *
- * Uses a static variable to incrementally assign IDs.
- *
- * @return uint8_t A new unique primitive ID.
- */
 static inline uint8_t	generate_id(void)
 {
 	static uint8_t	current_id;
@@ -15,15 +8,6 @@ static inline uint8_t	generate_id(void)
 	return (current_id++);
 }
 
-/**
- * @brief Parses bonus type token (e.g., glass, checker) into enum value.
- *
- * Defaults to DEFAULT if no match is found.
- *
- * @param i     Index of the bonus type token.
- * @param token Token array containing primitive data.
- * @param p     Pointer to the primitive to update.
- */
 void	parse_bonus_type(int i, t_token *token, t_primitive *p)
 {
 	if (!ft_strcmp(token->token[i], "gl"))
@@ -34,15 +18,6 @@ void	parse_bonus_type(int i, t_token *token, t_primitive *p)
 		p->bonus_type = DEFAULT;
 }
 
-/**
- * @brief Parses a sphere from tokens and fills the corresponding primitive.
- *
- * Sets up ID, type, position, color, transformation matrix, and inversion.
- *
- * @param rt    Pointer to the world scene structure.
- * @param token Tokens extracted from the scene line.
- * @param j     Index of the primitive in the list.
- */
 void	parse_sphere(t_rt *rt, t_token *token, int j)
 {
 	t_primitive	*p;
@@ -66,15 +41,6 @@ void	parse_sphere(t_rt *rt, t_token *token, int j)
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
 
-/**
- * @brief Parses a plane from tokens and fills the corresponding primitive.
- *
- * Sets position, normal vector, color, transformation matrix, etc.
- *
- * @param rt    Pointer to the world scene structure.
- * @param token Tokens extracted from the scene line.
- * @param j     Index of the primitive in the list.
- */
 void	parse_plane(t_rt *rt, t_token *token, int j)
 {
 	t_primitive	*p;
@@ -98,15 +64,6 @@ void	parse_plane(t_rt *rt, t_token *token, int j)
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
 
-/**
- * @brief Parses a cylinder from tokens and fills the corresponding primitive.
- *
- * Handles diameter, height, caps, transformation matrix, and bonus type.
- *
- * @param rt    Pointer to the world scene structure.
- * @param token Tokens extracted from the scene line.
- * @param j     Index of the primitive in the list.
- */
 void	parse_cylinder(t_rt *rt, t_token *token, int j)
 {
 	t_primitive	*p;
