@@ -2,18 +2,20 @@
 
 void scale_object(t_rt *world, float factor)
 {
-    int idx = world->selected_primitive_index;
-
+    t_tuple scale_vec;
+    float radius;
+    float new_diam;
+    t_transform transformer;
+    t_primitive *p;
+    int idx;
+    
+    idx = world->selected_primitive_index;
+    p = &world->primitives_list[idx];
     if (idx < 0 || idx >= world->obj_counted)
         return;
-
-    t_primitive *p = &world->primitives_list[idx];
-
     if (p->type == PLANE)
         return ;
-
-    /* new diameter with clamping */
-    float new_diam = p->diameter * factor;
+    new_diam = p->diameter * factor;
 
     if (new_diam < 0.10f)
         new_diam = 0.10f;
@@ -21,12 +23,8 @@ void scale_object(t_rt *world, float factor)
         new_diam = 5.00f;
 
     p->diameter = new_diam;
-    /* rebuild matrix: same recipe  (T * S) */
-    float radius = p->diameter / 2.0f;
-    t_tuple scale_vec = { radius, radius, radius, 0.0f };
-    t_matrix scale_m, trans_m, temp;
-
-    t_transform transformer;
+    radius = p->diameter / 2.0f;
+    create_vector(&scale_vec, radius, radius, radius);
     create_point(&transformer.rotate, p->norm_vector.x, p->norm_vector.y, p->norm_vector.z);
     create_point(&transformer.scale, radius, radius, radius);
     create_point(&transformer.translate, p->position.x, p->position.y, p->position.z);
@@ -70,13 +68,14 @@ void translate_object(t_rt *world, float factor_x, float factor_y, float factor_
 
 void rotate_object(t_rt *world, float factor_x, float factor_y, float factor_z)
 {
-    int idx = world->selected_primitive_index;
+    t_primitive *p;
+    int idx;
+    
+    idx = world->selected_primitive_index;
+    p = &world->primitives_list[idx];
 
     if (idx < 0 || idx >= world->obj_counted)
         return;
-        
-        t_primitive *p = &world->primitives_list[idx];
-        
         
     if (p->type == SPHERE)
             return ;

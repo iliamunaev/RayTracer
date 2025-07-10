@@ -16,6 +16,7 @@ typedef struct s_comps
     float       value;
     float       n1;
     float       n2;
+    float       shadow_factor;
     uint8_t     depth_counter;
     t_tuple     position;
     t_tuple     over_pos;
@@ -38,7 +39,7 @@ void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point)
 void    get_cylinder_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
 void    reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
 void    lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow);
-bool    check_shadow(t_rt *world, t_tuple point);
+bool    check_shadow(t_rt *world, t_tuple point, t_comps *comps);
 void    precompute_values(t_comps *comps, t_ray *ray);
 void    color_at(t_tuple *color, t_rt *world, t_ray *ray, uint8_t remaining_depth);
 // void    create_material(t_primitive *object, t_tuple color);

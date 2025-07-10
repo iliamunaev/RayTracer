@@ -2,7 +2,7 @@
 NAME    := test
 
 CC      := cc
-CFLAGS  := -O3 -flto -ffast-math -march=native -g #-Wextra -Wall -Werror
+CFLAGS  := -O3 -flto -ffast-math -march=native -g -Wextra -Wall -Werror
 
 LIBDIR  := ../lib
 # LIBDIR  := lib  // for production
@@ -62,7 +62,6 @@ SRCS	:=  test_main.c \
 			../src/camera/camera_utils_2.c \
 			../src/render/render.c
 
-SRC_DIR := src
 OBJ_DIR := obj
 OBJS    := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 
