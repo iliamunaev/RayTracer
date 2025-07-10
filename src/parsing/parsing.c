@@ -152,6 +152,6 @@ int	parse(const char *map_file, t_rt *world)
 	world->obj_counted = obj_count;
 	if (check_singletons(&tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	printf("Map validation success!");
+	printf("Map validation success!\n");
 	return (EXIT_SUCCESS);
 }
