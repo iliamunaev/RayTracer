@@ -37,10 +37,8 @@ void	render(t_rt *rt)
 	uint32_t	y;
 	t_tuple		color;
 	t_ray		ray;
-	uint8_t		*pixels;
 	size_t		idx;
 
-	pixels = rt->scene->pixels;
 	y = 0;
 	while (y < rt->scene->height)
 	{
@@ -52,7 +50,7 @@ void	render(t_rt *rt)
 			if (ray.is_hit == false)
 				create_color(&color, 0, 0, 0);
 			idx = (y * rt->scene->width + x) * BPP;
-			put_pixel(idx, pixels, color);
+			put_pixel(idx, rt->scene->pixels, color);
 			x++;
 		}
 		y++;

@@ -1,6 +1,5 @@
 #include "minirt.h"
 
-
 void	ray_transform(t_ray *ray, t_matrix matrix)
 {
 	mult_matrix_by_tuple(&ray->origin, matrix, ray->origin);
