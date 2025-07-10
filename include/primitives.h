@@ -80,8 +80,6 @@ typedef struct s_light
     t_matrix    matrix;
 }   t_light;
 
-
-void    create_sphere(t_primitive *sphere, t_tuple position);
 uint8_t generate_id();
 
 // primitive_utils.c

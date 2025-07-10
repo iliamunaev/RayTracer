@@ -42,6 +42,14 @@ void    lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow);
 bool    check_shadow(t_rt *world, t_tuple point, t_comps *comps);
 void    precompute_values(t_comps *comps, t_ray *ray);
 void    color_at(t_tuple *color, t_rt *world, t_ray *ray, uint8_t remaining_depth);
+
+// refraction containers
+bool	containers_includes(t_primitive **containers, int count,
+		t_primitive *obj);
+void	containers_remove(t_primitive **containers, int *count,
+		t_primitive *obj);
+void	containers_append(t_primitive **containers, int *count,
+		t_primitive *obj);
 // void    create_material(t_primitive *object, t_tuple color);
 //void    create_point_light(t_primitive *light, t_tuple position, float brighness, t_tuple color);
 
