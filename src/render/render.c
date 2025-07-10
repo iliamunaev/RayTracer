@@ -2,19 +2,13 @@
 
 void	ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
 {
-	float	xoffset;
-	float	yoffset;
 	t_tuple	pixel_point;
 	t_tuple	pixel;
 	t_tuple	origin;
 	t_tuple	direction;
 
-	xoffset = 0;
-	yoffset = 0;
-	xoffset = (px + 0.5f) * cam->pix_size;
-	yoffset = (py + 0.5f) * cam->pix_size;
-	pixel_point.x = cam->half_view - xoffset;
-	pixel_point.y = cam->half_height - yoffset;
+	pixel_point.x = cam->half_view - ((px + 0.5f) * cam->pix_size);
+	pixel_point.y = cam->half_height - ((py + 0.5f) * cam->pix_size);
 	pixel_point.z = -1.0f;
 	pixel_point.w = 1.0f;
 	mult_matrix_by_tuple(&pixel, cam->matrix, pixel_point);
