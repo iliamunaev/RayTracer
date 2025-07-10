@@ -1,5 +1,15 @@
 #include "minirt.h"
 
+/**
+ * @brief Splits a line into tokens, separated by whitespace.
+ * 
+ * Fills up to MAX_NUM_TOKENS tokens, truncating each token
+ * if it exceeds MAX_TOKEN_LENGTH - 1 characters.
+ * Remaining token slots are zeroed out.
+ *
+ * @param line   Input line from the scene file.
+ * @param tokens Token buffer to fill.
+ */
 static void	parse_line(char *line, t_token *tokens)
 {
 	char	*start;
@@ -25,6 +35,18 @@ static void	parse_line(char *line, t_token *tokens)
 		tokens->token[i++][0] = '\0';
 }
 
+/**
+ * @brief Validates and processes a single line from the scene file.
+ * 
+ * Parses the line into tokens, checks if it's valid, and fills the scene.
+ * Increments object count if a primitive is detected.
+ *
+ * @param line      Raw input line.
+ * @param tokens    Pointer to token structure.
+ * @param world     Main scene representation.
+ * @param obj_count Pointer to object count.
+ * @return int      EXIT_SUCCESS or EXIT_FAILURE.
+ */
 static int	process_line(char *line, t_token *tokens, t_rt *world,
 		int *obj_count)
 {
@@ -43,6 +65,14 @@ static int	process_line(char *line, t_token *tokens, t_rt *world,
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * @brief Verifies that single-instance scene components exist.
+ * 
+ * Ambient light (A), Camera (C), and Light (L) must each appear once.
+ *
+ * @param tokens Pointer to token structure (used for state flags).
+ * @return int   EXIT_SUCCESS or EXIT_FAILURE if any are missing.
+ */
 static int	check_singletons(t_token *tokens)
 {
 	if (!tokens->vstate.seen_ambient)
@@ -57,44 +87,17 @@ static int	check_singletons(t_token *tokens)
 	return (EXIT_SUCCESS);
 }
 
-void	set_base_material(t_rt *world, int i)
-{
-	world->primitives_list[i].material.ambient = world->amb.brightness;
-	world->primitives_list[i].material.diffuse = 0.9;
-	world->primitives_list[i].material.specular = 0.1;
-	world->primitives_list[i].material.shininess = 50;
-	world->primitives_list[i].material.reflection = 0.0;
-	world->primitives_list[i].material.transparency = 0;
-	world->primitives_list[i].material.refraction = 1;
-}
-
-void	set_glass_material(t_rt *world, int i)
-{
-	world->primitives_list[i].material.diffuse = 0.1;
-	world->primitives_list[i].material.ambient = 0.1;
-	world->primitives_list[i].material.specular = 3.0;
-	world->primitives_list[i].material.shininess = 250;
-	world->primitives_list[i].material.reflection = 0.95;
-	world->primitives_list[i].material.transparency = 0.8;
-	world->primitives_list[i].material.refraction = 1.52;
-}
-
-void	set_material(int *obj_count, t_rt *world)
-{
-	int	i;
-
-	i = 0;
-	while (i < *obj_count)
-	{
-		set_base_material(world, i);
-		if (world->primitives_list[i].bonus_type == GLASS)
-			set_glass_material(world, i);
-		if (world->primitives_list[i].bonus_type == CHECKER)
-			world->primitives_list[i].material.reflection = 0.4;
-		i++;
-	}
-}
-
+/**
+ * @brief Reads and processes all non-empty lines from a file.
+ * 
+ * Validates each line and updates the world structure. Sets material at the end.
+ *
+ * @param fd        File descriptor.
+ * @param world     Scene world structure.
+ * @param tokens    Token structure to store parsing info.
+ * @param obj_count Pointer to the current object count.
+ * @return int      EXIT_SUCCESS or EXIT_FAILURE.
+ */
 static int	process_file_lines(int fd, t_rt *world, t_token *tokens,
 		int *obj_count)
 {
@@ -120,6 +123,15 @@ static int	process_file_lines(int fd, t_rt *world, t_token *tokens,
 	return (EXIT_SUCCESS);
 }
 
+/**
+ * @brief Entry point for scene file parsing.
+ * 
+ * Initializes parser state, validates required objects, and populates the scene.
+ *
+ * @param map_file Path to the .rt scene file.
+ * @param world    Pointer to scene world struct.
+ * @return int     EXIT_SUCCESS on success, otherwise EXIT_FAILURE.
+ */
 int	parse(const char *map_file, t_rt *world)
 {
 	int		fd;

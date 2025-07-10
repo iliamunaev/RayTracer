@@ -42,6 +42,7 @@ SRCS := \
 	$(SRC_DIR)/parsing/fillup_world.c \
 	$(SRC_DIR)/parsing/parse_cam_light.c \
 	$(SRC_DIR)/parsing/setup_mlx.c \
+	$(SRC_DIR)/parsing/set_matereal.c \
 	$(SRC_DIR)/validation/validate_file.c \
 	$(SRC_DIR)/validation/validation_1.c \
 	$(SRC_DIR)/validation/validation_2.c \

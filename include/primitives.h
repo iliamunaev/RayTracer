@@ -82,7 +82,6 @@ typedef struct s_light
 
 
 void    create_sphere(t_primitive *sphere, t_tuple position);
-uint8_t generate_id();
 
 // primitive_utils.c
 t_primitive *find_primitive(t_rt *world, t_type type);
@@ -96,10 +95,6 @@ void rebuild_camera(t_rt *rt);
 float get_half_view(t_rt *rt);
 float get_half_height(t_rt *rt);
 float get_half_width(t_rt *rt);
-// float calculate_aspect(void);
-// float calculate_half_width(float aspect, float half_view);
-// float calculate_half_height(float aspect, float half_view);
-// float calculate_pixel_size(float half_width);
 float get_pixel_size(t_rt *rt);
 
 
