@@ -22,6 +22,7 @@ SRCS := \
 	$(SRC_DIR)/primitives/scale_object.c \
 	$(SRC_DIR)/primitives/primitive_intersections.c \
 	$(SRC_DIR)/ray/ray.c \
+	$(SRC_DIR)/ray/ray_math.c \
 	$(SRC_DIR)/utils/utils.c \
 	$(SRC_DIR)/colors/colors.c \
 	$(SRC_DIR)/math/color_ops.c \
@@ -37,9 +38,11 @@ SRCS := \
 	$(SRC_DIR)/matrix/matrix_transpose.c \
 	$(SRC_DIR)/matrix/matrix_utils.c \
 	$(SRC_DIR)/matrix/matrix.c \
-	$(SRC_DIR)/reflection/reflection_math.c \
-	$(SRC_DIR)/reflection/lighting.c \
-	$(SRC_DIR)/reflection/precompute_values.c \
+	$(SRC_DIR)/lighting/reflection_math.c \
+	$(SRC_DIR)/lighting/lighting.c \
+	$(SRC_DIR)/lighting/precompute_values.c \
+	$(SRC_DIR)/lighting/refraction_containers.c \
+	$(SRC_DIR)/lighting/reflection_refraction_shadow_checker.c \
 	$(SRC_DIR)/parsing/parsing.c \
 	$(SRC_DIR)/parsing/parse_primitives.c \
 	$(SRC_DIR)/parsing/init_world.c \

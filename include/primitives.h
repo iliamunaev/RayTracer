@@ -81,8 +81,6 @@ typedef struct s_light
 }   t_light;
 
 
-void    create_sphere(t_primitive *sphere, t_tuple position);
-
 // primitive_utils.c
 t_primitive *find_primitive(t_rt *world, t_type type);
 

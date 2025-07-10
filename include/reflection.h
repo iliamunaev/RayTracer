@@ -29,19 +29,45 @@ typedef struct s_comps
 
 typedef struct s_refrac_terms
 {
-    	float	cos_t;
+    float	cos_t;
 	float	n_ratio;
 	float	cos_i;
 	float	sin2_t;
 }   t_refrac_terms;
 
+typedef struct s_shading
+{
+    t_tuple	eff_col;
+	t_tuple	ambient;
+	t_tuple	diffuse;
+	t_tuple	specular;
+} t_shading;
+
 void    get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
 void    get_cylinder_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point);
 void    reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
 void    lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow);
-bool    check_shadow(t_rt *world, t_tuple point, t_comps *comps);
 void    precompute_values(t_comps *comps, t_ray *ray);
 void    color_at(t_tuple *color, t_rt *world, t_ray *ray, uint8_t remaining_depth);
+
+// refraction containers
+bool	containers_includes(t_primitive **containers, int count,
+		t_primitive *obj);
+void	containers_remove(t_primitive **containers, int *count,
+		t_primitive *obj);
+void	containers_append(t_primitive **containers, int *count,
+		t_primitive *obj);
+
+// reflection_refraction_shadow_checker
+
+void	create_checkerboard(t_tuple *effective_color, t_comps *comps,
+		t_light light);
+bool	check_shadow(t_rt *world, t_tuple point, t_comps *comps);
+void	refracted_color(t_tuple *refract_col, t_rt *world, t_comps *comps,
+		uint8_t remaining_depth);
+void	schlick(float *reflectance, t_comps *comps);
+void	reflection(t_tuple *reflect_col, t_rt *world, t_comps *comps,
+		uint8_t remaining_depth);
 // void    create_material(t_primitive *object, t_tuple color);
 //void    create_point_light(t_primitive *light, t_tuple position, float brighness, t_tuple color);
 
