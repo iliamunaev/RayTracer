@@ -4,7 +4,7 @@ int	main(int argc, char **argv)
 {
 	t_rt	world;
 
-	if(!validate_input_args(argc, argv))
+	if (!validate_input_args(argc, argv))
 		return (EXIT_FAILURE);
 	init_world(&world);
 	setup_mlx(&world);
