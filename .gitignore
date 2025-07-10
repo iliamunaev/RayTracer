@@ -1,13 +1,19 @@
-/obj
-/lib
-/tests/src
-/tests/obj
+# Object files
+*.o
+obj/
 
+# Executables
 miniRT
+test
 
+# Libraries (submodules or external code)
+lib/
+
+# Test files and artifacts
+tests/
+
+# VSCode project settings
 .vscode/
 
-a.out
-*.o
-test
-/lib
+# Core dumps (optional, if you're debugging with gdb or similar)
+core
