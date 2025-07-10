@@ -100,34 +100,3 @@ bool	is_vec3_normalized(char *s)
 	free_split(parts);
 	return (true);
 }
-
-/**
- * is_color_rgb - Validate if a string represents an RGB color in range [0,255].
- * @s: String in the format "R,G,B".
- *
- * Return: true if valid RGB color, false otherwise.
- */
-bool	is_color_rgb(char *s)
-{
-	char	**parts;
-	int		count;
-	int		i;
-	int		val;
-
-	parts = ft_split(s, ',');
-	count = 0;
-	while (parts && parts[count])
-		count++;
-	if (count != 3)
-		return (free_split(parts), (false));
-	i = 0;
-	while (i < 3)
-	{
-		val = ft_atoi(parts[i]);
-		if (val < 0 || val > 255)
-			return (free_split(parts), (false));
-		i++;
-	}
-	free_split(parts);
-	return (true);
-}

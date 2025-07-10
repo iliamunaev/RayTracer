@@ -56,7 +56,8 @@ SRCS := \
 	$(SRC_DIR)/validation/validate_file.c \
 	$(SRC_DIR)/validation/validation_1.c \
 	$(SRC_DIR)/validation/validation_2.c \
-	$(SRC_DIR)/validation/validation_utils.c \
+	$(SRC_DIR)/validation/validation_utils_1.c \
+	$(SRC_DIR)/validation/validation_utils_2.c \
 	$(SRC_DIR)/validation/validate_primitives.c \
 	$(SRC_DIR)/validation/validate_cam_light.c \
 	$(SRC_DIR)/validation/ft_strtof_valid.c \
