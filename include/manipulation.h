@@ -7,12 +7,12 @@
 # define FACTOR_01 0.1f
 
 /*------FORWARD DECLARATIONS-----------------------------------------*/
-typedef struct s_rt t_rt;
+typedef struct s_rt	t_rt;
 
-void scale_object(t_rt *world, float factor);
-void translate_object(t_rt *world, float factor_x, float factor_y, float factor_z );
-void rotate_object(t_rt *world, float factor_x, float factor_y, float factor_z );
+void	scale_object(t_rt *world, float factor);
+void	translate_object(t_rt *world, float factor_x,
+			float factor_y, float factor_z );
+void	rotate_object(t_rt *world, float factor_x,
+			float factor_y, float factor_z );
 
-
-
-# endif // MANIPULATION_H
+#endif// MANIPULATION_H
