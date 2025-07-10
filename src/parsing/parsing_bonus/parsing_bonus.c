@@ -75,7 +75,7 @@ void	set_glass_material(t_rt *world, int i)
 	world->primitives_list[i].material.specular = 3.0;
 	world->primitives_list[i].material.shininess = 250;
 	world->primitives_list[i].material.reflection = 0.95;
-	world->primitives_list[i].material.transparency = 0.95;
+	world->primitives_list[i].material.transparency = 0.8;
 	world->primitives_list[i].material.refraction = 1.52;
 }
 
@@ -90,7 +90,7 @@ void	set_material(int *obj_count, t_rt *world)
 		if (world->primitives_list[i].bonus_type == GLASS)
 			set_glass_material(world, i);
 		if (world->primitives_list[i].bonus_type == CHECKER)
-			world->primitives_list[i].material.reflection = 0.95;
+			world->primitives_list[i].material.reflection = 0.4;
 		i++;
 	}
 }

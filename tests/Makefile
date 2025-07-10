@@ -62,7 +62,6 @@ SRCS	:=  test_main.c \
 			../src/camera/camera_utils_2.c \
 			../src/render/render.c
 
-SRC_DIR := src
 OBJ_DIR := obj
 OBJS    := $(SRCS:%.c=$(OBJ_DIR)/%.o)
 

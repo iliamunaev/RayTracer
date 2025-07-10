@@ -33,9 +33,7 @@ void	rebuild_camera(t_rt *rt)
 
 	create_vector(&up, 0, 1, 0);
 	if (is_zero_vector(rt->cam.norm_vector))
-	{
-		rt->cam.norm_vector = (t_tuple){0, 0, 1, 0};
-	}
+		create_vector(&rt->cam.norm_vector, 0, 0, 1);
 	from = rt->cam.position;
 	to.x = rt->cam.position.x + rt->cam.norm_vector.x;
 	to.y = rt->cam.position.y + rt->cam.norm_vector.y;

@@ -116,6 +116,7 @@ void	precompute_values(t_comps *comps, t_ray *ray)
 
 	comps->value = ray->hit.value;
 	comps->object = ray->hit.object;
+	comps->shadow_factor = 1.0f;
 	get_position(&comps->position, ray, comps->value);
 	create_vector(&comps->v_eye, ray->direction.x, ray->direction.y,
 		ray->direction.z);

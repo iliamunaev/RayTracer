@@ -41,7 +41,7 @@ static bool	is_allowed_key_in_mode(t_rt *world, int key)
  * @param mode The mode to toggle.
  * @return true always (to indicate the key was handled).
  */
-static bool	toggle_mode_if(t_rt *world, int key, int mode)
+static bool	toggle_mode_if(t_rt *world, t_mode mode)
 {
 	if (world->mode == mode)
 	{
@@ -98,11 +98,11 @@ static bool	toggle_mode(t_rt *world, mlx_key_data_t keydata)
 	if (keydata.key == MLX_KEY_C)
 		return (toggle_cam_mode(world));
 	else if (keydata.key == MLX_KEY_S && i > -1)
-		return (toggle_mode_if(world, keydata.key, MODE_SCALE));
+		return (toggle_mode_if(world, MODE_SCALE));
 	else if (keydata.key == MLX_KEY_R && i > -1)
-		return (toggle_mode_if(world, keydata.key, MODE_ROTATE));
+		return (toggle_mode_if(world, MODE_ROTATE));
 	else if (keydata.key == MLX_KEY_T && i > -1)
-		return (toggle_mode_if(world, keydata.key, MODE_TRANSLATE));
+		return (toggle_mode_if(world, MODE_TRANSLATE));
 	return (false);
 }
 

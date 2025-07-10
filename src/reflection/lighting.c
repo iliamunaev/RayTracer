@@ -69,17 +69,18 @@ void	lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow)
 		mult_colors(&effective_color, comps->object->color,
 			world->light.color_component);
 	mult_colors(&ambient, effective_color, world->amb.amb_component);
-	// glass comps->objects less shadow?
-	if (in_shadow == true)
+	if (in_shadow == true && comps->shadow_factor < 0.04)
 		return (create_color(color, ambient.r, ambient.g, ambient.b));
 	create_color(&diffuse, 0, 0, 0);
 	create_color(&specular, 0, 0, 0);
 	find_diffuse_secular(&diffuse, &specular, comps, &effective_color, world);
 	add_tuples(color, ambient, diffuse);
 	add_tuples(color, *color, specular);
+	if (in_shadow == true && comps->shadow_factor > 0.04)
+		mult_color_scal(color, comps->shadow_factor);
 }
 
-bool	check_shadow(t_rt *world, t_tuple point)
+bool	check_shadow(t_rt *world, t_tuple point, t_comps *comps)
 {
 	t_tuple	v_shadow;
 	t_ray	r_shadow;
@@ -94,7 +95,11 @@ bool	check_shadow(t_rt *world, t_tuple point)
 	get_ray_intersections(&r_shadow, world);
 	get_hit(&r_shadow);
 	if (r_shadow.is_hit == true && r_shadow.hit.value < distance)
+	{
+		if (r_shadow.hit.object->material.transparency < 0.97)
+			comps->shadow_factor = r_shadow.hit.object->material.transparency;
 		return (true);
+	}
 	else
 		return (false);
 }
@@ -181,7 +186,7 @@ void	shade_hit(t_tuple *color, t_rt *world, t_comps *comps,
 
 	create_color(&reflect_col, 0, 0, 0);
 	create_color(&refract_col, 0, 0, 0);
-	is_shaded = check_shadow(world, comps->over_pos);
+	is_shaded = check_shadow(world, comps->over_pos, comps);
 	lighting(color, comps, world, is_shaded);
 	reflection(&reflect_col, world, comps, remaining_depth);
 	refracted_color(&refract_col, world, comps, remaining_depth);
