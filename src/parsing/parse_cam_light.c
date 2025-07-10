@@ -1,5 +1,16 @@
 #include "minirt.h"
 
+/**
+ * @brief Parses the ambient light settings from the token 
+ * array and stores them in the scene.
+ *
+ * Sets the ambient light brightness, color, calculates 
+ * the ambient component color,
+ * and initializes its transformation matrix to identity.
+ *
+ * @param rt Pointer to the scene structure.
+ * @param token Token array containing the ambient light data.
+ */
 void	parse_ambient(t_rt *rt, t_token *token)
 {
 	rt->amb.brightness = ft_strtof(token->token[1]);
@@ -10,6 +21,16 @@ void	parse_ambient(t_rt *rt, t_token *token)
 	create_identity_matrix_4x4(&rt->amb.matrix);
 }
 
+/**
+ * @brief Parses camera data from tokens and initializes the camera in the scene.
+ *
+ * Sets the position, normalized direction, and field of view (FOV).
+ * Calculates camera pixel size, screen half dimensions, and view.
+ * Initializes the camera transformation matrix based on its view direction.
+ *
+ * @param rt Pointer to the scene structure.
+ * @param token Token array containing the camera data.
+ */
 void	parse_camera(t_rt *rt, t_token *token)
 {
 	t_tuple	up;
@@ -28,6 +49,16 @@ void	parse_camera(t_rt *rt, t_token *token)
 	transform_cam_view(rt, rt->cam.position, to, up);
 }
 
+/**
+ * @brief Parses the light source information from tokens and 
+ * sets it in the scene.
+ *
+ * Sets the light's position, brightness, and color. Computes the final color
+ * component based on brightness and initializes the transformation matrix.
+ *
+ * @param rt Pointer to the scene structure.
+ * @param token Token array containing the light data.
+ */
 void	parse_light(t_rt *rt, t_token *token)
 {
 	parse_coordinates(&rt->light.position, token->token[1]);

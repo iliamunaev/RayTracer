@@ -1,6 +1,12 @@
 #include "minirt.h"
 
-static inline void assign_values(t_tuple *color, int rgb[])
+/**
+ * @brief Assigns normalized RGB values (0.0–1.0) and alpha = 1.0 to the tuple.
+ *
+ * @param color Pointer to the t_tuple where color values will be stored.
+ * @param rgb Integer array of RGB values in the range 0–255.
+ */
+static inline void	assign_values(t_tuple *color, int rgb[])
 {
 	float	inv_255;
 
@@ -11,6 +17,13 @@ static inline void assign_values(t_tuple *color, int rgb[])
 	color->a = 1.0f;
 }
 
+/**
+ * @brief Parses a string of RGB values (e.g., "255,128,0") 
+ * into a normalized t_tuple.
+ *
+ * @param color Pointer to the t_tuple to store the parsed RGB values.
+ * @param str The input string containing the RGB values.
+ */
 void	parse_rgb(t_tuple *color, const char *str)
 {
 	int		rgb[3];
@@ -39,6 +52,13 @@ void	parse_rgb(t_tuple *color, const char *str)
 	assign_values(color, rgb);
 }
 
+/**
+ * @brief Parses a string of 3D coordinates (e.g., "1.0,2.5,-3.2")
+ * into a t_tuple.
+ *
+ * @param position Pointer to the t_tuple to store the parsed coordinates.
+ * @param str The input string containing the coordinates.
+ */
 void	parse_coordinates(t_tuple *position, const char *str)
 {
 	int			i;
@@ -64,6 +84,12 @@ void	parse_coordinates(t_tuple *position, const char *str)
 	position->w = 1.0f;
 }
 
+/**
+ * @brief Checks if a given line is empty or contains only whitespace/newline.
+ *
+ * @param line The input string to check.
+ * @return true if the line is empty or only whitespace; false otherwise.
+ */
 bool	is_line_empty(const char *line)
 {
 	while (*line)
@@ -75,6 +101,11 @@ bool	is_line_empty(const char *line)
 	return (true);
 }
 
+/**
+ * @brief Advances the string pointer past all leading whitespace characters.
+ *
+ * @param line Pointer to the string pointer to update.
+ */
 void	skip_spaces(char **line)
 {
 	while (ft_isspace(**line))

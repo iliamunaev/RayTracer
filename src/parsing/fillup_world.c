@@ -1,5 +1,18 @@
 #include "minirt.h"
 
+/**
+ * @brief Populates the world scene structure based on the current token.
+ *
+ * Determines the type of scene element by its identifier 
+ * and dispatches
+ * parsing to the appropriate function (ambient light, camera, 
+ * light, or primitives).
+ *
+ * @param rt     Pointer to the main scene structure.
+ * @param token  Tokenized line from the scene file.
+ * @param j      Index for storing objects in the primitive list 
+ * (used for sp, pl, cy).
+ */
 void	fillup_world(t_rt *rt, t_token *token, int j)
 {
 	char	*id;

@@ -2,6 +2,12 @@ NAME    := miniRT
 
 CC      := cc
 CFLAGS  := -O3 -flto -ffast-math -march=native -g -Wextra -Wall -Werror
+
+# Enable BONUS if target is 'bonus'
+ifeq ($(MAKECMDGOALS),bonus)
+	CFLAGS += -DBONUS
+endif
+
 LIBDIR  := lib
 LIBMLX  := $(LIBDIR)/MLX42
 LIBFT   := $(LIBDIR)/libft
@@ -45,6 +51,7 @@ SRCS := \
 	$(SRC_DIR)/parsing/fillup_world.c \
 	$(SRC_DIR)/parsing/parse_cam_light.c \
 	$(SRC_DIR)/parsing/setup_mlx.c \
+	$(SRC_DIR)/parsing/set_matereal.c \
 	$(SRC_DIR)/validation/validate_file.c \
 	$(SRC_DIR)/validation/validation_1.c \
 	$(SRC_DIR)/validation/validation_2.c \
@@ -83,7 +90,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(dir $@)
 	@echo "$(BLUE)Compiling: $(notdir $<)...$(RESET)"
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
-
 
 # ----------------------------- External Libraries --------------------------- #
 
@@ -126,4 +132,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+bonus: all
+
+.PHONY: all clean fclean re bonus

@@ -84,6 +84,11 @@ bool	is_line_valid(t_token *tokens)
 	id = tokens->token[0];
 	if (!is_identifier_valid(id))
 		return (false);
+	if (!is_max_num_tokens_valid(id, tokens))
+	{
+		err("Error: Map has too mush parameters");
+		return (false);
+	}
 	if (validate_cam_light(id, tokens))
 		return (true);
 	return (validate_primitive(id, tokens));
