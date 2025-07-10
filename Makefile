@@ -29,6 +29,7 @@ SRCS := \
 	$(SRC_DIR)/math/tuple_ops.c \
 	$(SRC_DIR)/math/vector_math.c \
 	$(SRC_DIR)/math/ft_strtof.c \
+	$(SRC_DIR)/math/math_utils.c \
 	$(SRC_DIR)/matrix/matrix_determinant.c \
 	$(SRC_DIR)/matrix/matrix_div.c \
 	$(SRC_DIR)/matrix/matrix_inverse.c \
