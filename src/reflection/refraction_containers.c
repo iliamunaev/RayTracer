@@ -46,8 +46,5 @@ void	containers_append(t_primitive **containers, int *count,
 		++(*count);
 	}
 	else
-	{
-		// NEEDS TO BE DEALT WITH
-		printf("max containers\n");
-	}
+		err("maximum containers reached");
 }

@@ -124,8 +124,7 @@ void	refracted_color(t_tuple *refract_col, t_rt *world, t_comps *comps,
 	refrac.cos_t = sqrtf(1.0 - refrac.sin2_t);
 	create_vector(&dir_t1, comps->v_normal.x, comps->v_normal.y,
 		comps->v_normal.z);
-	mult_color_scal(&dir_t1, (refrac.n_ratio * refrac.cos_i
-			- refrac.cos_t));
+	mult_color_scal(&dir_t1, (refrac.n_ratio * refrac.cos_i - refrac.cos_t));
 	create_vector(&dir_t2, comps->v_eye.x, comps->v_eye.y,
 		comps->v_eye.z);
 	mult_color_scal(&dir_t2, refrac.n_ratio);
