@@ -2,6 +2,12 @@ NAME    := miniRT
 
 CC      := cc
 CFLAGS  := -O3 -flto -ffast-math -march=native -g -Wextra -Wall -Werror
+
+# Enable BONUS if target is 'bonus'
+ifeq ($(MAKECMDGOALS),bonus)
+	CFLAGS += -DBONUS
+endif
+
 LIBDIR  := lib
 LIBMLX  := $(LIBDIR)/MLX42
 LIBFT   := $(LIBDIR)/libft
@@ -82,7 +88,6 @@ $(OBJ_DIR)/%.o: $(SRC_DIR)/%.c
 	@echo "$(BLUE)Compiling: $(notdir $<)...$(RESET)"
 	$(CC) $(CFLAGS) $(HEADERS) -c $< -o $@
 
-
 # ----------------------------- External Libraries --------------------------- #
 
 $(LIBMLX)/build/libmlx42.a:
@@ -124,4 +129,6 @@ fclean: clean
 
 re: fclean all
 
-.PHONY: all clean fclean re
+bonus: all
+
+.PHONY: all clean fclean re bonus

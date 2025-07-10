@@ -1,6 +1,50 @@
 #include "minirt.h"
 
 /**
+ * @brief Count how many valid tokens are present in the token array.
+ *
+ * @param tokens A pointer to the t_token structure.
+ * @return Number of non-empty tokens found (max MAX_NUM_TOKENS).
+ */
+static inline int	count_tokens(t_token *tokens)
+{
+	int	count;
+
+	count = 0;
+	while (count < MAX_NUM_TOKENS && tokens->token[count][0] != '\0')
+		count++;
+	return (count);
+}
+
+/**
+ * @brief Validate if the number of tokens is within the expected maximum
+ *        for a given identifier (A, C, L, sp, pl, cy).
+ *
+ * @param id     The identifier string (e.g., "A", "C", "sp").
+ * @param tokens A pointer to the token array to validate.
+ * @return true if the token count is within valid limits; false otherwise.
+ */
+bool	is_max_num_tokens_valid(char *id, t_token *tokens)
+{
+	int	num_tokens;
+
+	num_tokens = count_tokens(tokens);
+	if (ft_strcmp(id, "A") == 0)
+		return (num_tokens <= MAX_NUM_TOKENS_A);
+	else if (ft_strcmp(id, "C") == 0)
+		return (num_tokens <= MAX_NUM_TOKENS_C);
+	else if (ft_strcmp(id, "L") == 0)
+		return (num_tokens <= MAX_NUM_TOKENS_L);
+	else if (ft_strcmp(id, "sp") == 0)
+		return (num_tokens <= MAX_NUM_TOKENS_SP);
+	else if (ft_strcmp(id, "pl") == 0)
+		return (num_tokens <= MAX_NUM_TOKENS_PL);
+	else if (ft_strcmp(id, "cy") == 0)
+		return (num_tokens <= MAX_NUM_TOKENS_CY);
+	return (false);
+}
+
+/**
  * @brief Validate the ambient light definition in the scene.
  *
  * Checks for duplicates using the validation state and validates the format

@@ -1,6 +1,20 @@
 #ifndef VALIDATION_H
 # define VALIDATION_H
 
+# ifdef BONUS
+#  define MAX_NUM_TOKENS_SP 5
+#  define MAX_NUM_TOKENS_PL 5
+#  define MAX_NUM_TOKENS_CY 7
+# else
+#  define MAX_NUM_TOKENS_SP 4
+#  define MAX_NUM_TOKENS_PL 4
+#  define MAX_NUM_TOKENS_CY 6
+# endif
+
+# define MAX_NUM_TOKENS_C 4
+# define MAX_NUM_TOKENS_L 4
+# define MAX_NUM_TOKENS_A 3
+
 // validation_1.c
 bool	is_line_valid(t_token *tokens);
 
@@ -8,7 +22,7 @@ bool	is_line_valid(t_token *tokens);
 bool	validate_ambient(t_token *tokens);
 bool	validate_camera(t_token *tokens);
 bool	validate_light(t_token *tokens);
-
+bool	is_max_num_tokens_valid(char *id, t_token *tokens);
 
 // validate_file.c
 bool	validate_input_args(int argc, char **argv);
