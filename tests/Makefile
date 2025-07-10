@@ -36,9 +36,8 @@ SRCS	:=  test_main.c \
 			../src/reflection/reflection_math.c \
 			../src/reflection/lighting.c \
 			../src/reflection/precompute_values.c \
-			../src/parsing/parsing_bonus/parsing_bonus.c \
-			../src/parsing/parsing_bonus/parse_primitives_bonus.c \
-			../src/parsing/create_matireal.c \
+			../src/parsing/parsing.c \
+			../src/parsing/parse_primitives.c \
 			../src/parsing/init_world.c \
 			../src/parsing/parsing_utils_1.c \
 			../src/parsing/parsing_utils_2.c \

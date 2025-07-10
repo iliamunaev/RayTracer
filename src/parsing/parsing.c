@@ -25,10 +25,10 @@ static void	parse_line(char *line, t_token *tokens)
 		tokens->token[i++][0] = '\0';
 }
 
-static int	process_line(char *line, t_token *tokens, t_rt *world, int *obj_count)
+static int	process_line(char *line, t_token *tokens, t_rt *world,
+		int *obj_count)
 {
 	parse_line(line, tokens);
-	printf("VALIDATING LINE: \"%s\"\n", line); // DEBUG
 	if (!is_line_valid(tokens))
 	{
 		err("Error: Invalid line in scene file");
@@ -43,29 +43,70 @@ static int	process_line(char *line, t_token *tokens, t_rt *world, int *obj_count
 	return (EXIT_SUCCESS);
 }
 
-static int	check_singletons(t_validation_state *vstate)
+static int	check_singletons(t_token *tokens)
 {
-	if (!vstate->seen_ambient)
+	if (!tokens->vstate.seen_ambient)
+	{
+		printf("DEBUG: %i\n", tokens->vstate.seen_ambient);
 		return (err("Error: Missing ambient light (A)"), EXIT_FAILURE);
-	if (!vstate->seen_camera)
+	}
+	if (!tokens->vstate.seen_camera)
 		return (err("Error: Missing camera (C)"), EXIT_FAILURE);
-	if (!vstate->seen_light)
+	if (!tokens->vstate.seen_light)
 		return (err("Error: Missing light (L)"), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
-static int	process_file_lines(int fd, t_rt *world, t_validation_state *vstate,
+void	set_base_material(t_rt *world, int i)
+{
+	world->primitives_list[i].material.ambient = world->amb.brightness;
+	world->primitives_list[i].material.diffuse = 0.9;
+	world->primitives_list[i].material.specular = 0.1;
+	world->primitives_list[i].material.shininess = 50;
+	world->primitives_list[i].material.reflection = 0.0;
+	world->primitives_list[i].material.transparency = 0;
+	world->primitives_list[i].material.refraction = 1;
+}
+
+void	set_glass_material(t_rt *world, int i)
+{
+	world->primitives_list[i].material.diffuse = 0.1;
+	world->primitives_list[i].material.ambient = 0.1;
+	world->primitives_list[i].material.specular = 3.0;
+	world->primitives_list[i].material.shininess = 250;
+	world->primitives_list[i].material.reflection = 0.95;
+	world->primitives_list[i].material.transparency = 0.8;
+	world->primitives_list[i].material.refraction = 1.52;
+}
+
+void	set_material(int *obj_count, t_rt *world)
+{
+	int	i;
+
+	i = 0;
+	while (i < *obj_count)
+	{
+		set_base_material(world, i);
+		if (world->primitives_list[i].bonus_type == GLASS)
+			set_glass_material(world, i);
+		if (world->primitives_list[i].bonus_type == CHECKER)
+			world->primitives_list[i].material.reflection = 0.4;
+		i++;
+	}
+}
+
+static int	process_file_lines(int fd, t_rt *world, t_token *tokens,
 		int *obj_count)
 {
 	char	*line;
-	// t_token	tokens;
 	int		line_num;
-	float	amb_light;
-	int		i;
 
 	line_num = 0;
-	while ((line = get_next_line(fd)))
+	while (1)
 	{
+		line = get_next_line(fd);
+		if (!line)
+			break ;
 		if (is_line_empty(line))
 		{
 			free(line);
@@ -75,48 +116,15 @@ static int	process_file_lines(int fd, t_rt *world, t_validation_state *vstate,
 			return (EXIT_FAILURE);
 		line_num++;
 	}
+	set_material(obj_count, world);
 	return (EXIT_SUCCESS);
-	amb_light = world->amb.brightness;
-	i = 0;
-	while (i < world->obj_counted)
-	{
-		world->primitives_list[i].material.ambient = amb_light;
-		world->primitives_list[i].material.diffuse = 0.9;
-		world->primitives_list[i].material.specular = 0.1;
-		world->primitives_list[i].material.shininess = 50;
-		if (world->primitives_list[i].type == PLANE)
-		{
-			world->primitives_list[i].material.reflection = 0.6;
-			world->primitives_list[i].material.transparency = 0.0;
-			world->primitives_list[i].material.refraction = 1;
-		}
-		else if (world->primitives_list[i].type == SPHERE)
-		{
-			world->primitives_list[i].material.diffuse = 0.1;
-			world->primitives_list[i].material.ambient = 0.1;
-			world->primitives_list[i].material.specular = 1.0;
-			world->primitives_list[i].material.shininess = 250;
-			world->primitives_list[i].material.reflection = 0.95;
-			world->primitives_list[i].material.transparency = 0.95;
-			world->primitives_list[i].material.refraction = 1.52;
-		}
-		else
-		{
-			world->primitives_list[i].material.reflection = 0.0;
-			world->primitives_list[i].material.transparency = 0;
-			world->primitives_list[i].material.refraction = 1;
-		}
-		i++;
-	}
 }
 
 int	parse(const char *map_file, t_rt *world)
 {
-	int					fd;
-	// t_validation_state	vstate;
-	int					obj_count;
+	int		fd;
+	int		obj_count;
 	t_token	tokens;
-
 
 	obj_count = 0;
 	ft_memset(&tokens, 0, sizeof(t_token));
@@ -130,9 +138,8 @@ int	parse(const char *map_file, t_rt *world)
 	}
 	close(fd);
 	world->obj_counted = obj_count;
-	create_material(world);
-	if (check_singletons(&vstate) == EXIT_FAILURE)
+	if (check_singletons(&tokens) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	printf("Success: map validation\n");
+	printf("SUCCESS: map validation\n");
 	return (EXIT_SUCCESS);
 }
