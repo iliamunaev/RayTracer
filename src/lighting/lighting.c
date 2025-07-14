@@ -38,7 +38,7 @@ void	find_diffuse_specular(t_shading *shading, t_comps *comps ,t_light light)
 	}
 }
 
-void	lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow, t_light light)
+void	lighting(t_tuple *color, t_comps *comps, bool in_shadow, t_light light)
 {
 	t_shading	shading;
 
@@ -47,41 +47,50 @@ void	lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow, t_lig
 	else
 		mult_colors(&shading.eff_col, comps->object->color,
 			light.color_component);
-	mult_colors(&shading.ambient, shading.eff_col, world->amb.amb_component);
+	//mult_colors(&shading.ambient, shading.eff_col, world->amb.amb_component);
 	if (in_shadow == true && comps->shadow_factor < 0.04)
-		return (create_color(color, shading.ambient.r, shading.ambient.g,
-				shading.ambient.b));
+		return (create_color(color, 0, 0, 0));
 	create_color(&shading.diffuse, 0, 0, 0);
 	create_color(&shading.specular, 0, 0, 0);
 	find_diffuse_specular(&shading, comps, light);
-	add_tuples(color, shading.ambient, shading.diffuse);
-	add_tuples(color, *color, shading.specular);
-	if (in_shadow == true && comps->shadow_factor > 0.04)
-		mult_color_scal(color, comps->shadow_factor);
+	//add_tuples(color, shading.ambient, shading.diffuse);
+	add_tuples(color, shading.diffuse, shading.specular);
+	 if (in_shadow == true && comps->shadow_factor > 0.04)
+		mult_color_scal(color, comps->shadow_factor); 
+}
+
+void	phong_model(t_tuple *color, t_rt *world, t_comps *comps)
+{
+	t_tuple light_contrib;
+	bool	is_shaded;
+	int		i;
+
+	i = 0;
+	create_color(&light_contrib, 0, 0, 0);
+
+	while (i < world->lightcount)
+	{
+		is_shaded = check_shadow(world, comps->over_pos, comps, world->lights[i]);
+		lighting(&light_contrib, comps, is_shaded, world->lights[i]);
+		add_tuples(color, *color, light_contrib);
+		i++;
+	}
 }
 
 void	shade_hit(t_tuple *color, t_rt *world, t_comps *comps,
 		uint8_t remaining_depth)
 {
-	bool	is_shaded;
 	t_tuple	reflect_col;
 	t_tuple	refract_col;
-	t_tuple light_contrib;
+	t_tuple	ambient;
 	float	reflectance;
-	int		i;
 
-	i = 0;
+	create_color(color, 0, 0, 0);
 	create_color(&reflect_col, 0, 0, 0);
-	//create_color(color, 0, 0, 0);
-	create_color(&light_contrib, 0, 0, 0);
 	create_color(&refract_col, 0, 0, 0);
-	while (i < world->lightcount)
-	{
-		is_shaded = check_shadow(world, comps->over_pos, comps, world->lights[i]);
-		lighting(color, comps, world, is_shaded, world->lights[i]);
-		//add_tuples(color, *color, light_contrib);
-		i++;
-	}
+	mult_colors(&ambient, comps->object->color, world->amb.amb_component);
+	add_tuples(color, *color, ambient);
+	phong_model(color, world, comps);
 	reflection(&reflect_col, world, comps, remaining_depth);
 	refracted_color(&refract_col, world, comps, remaining_depth);
 	if (comps->object->material.reflection > 0
@@ -91,8 +100,8 @@ void	shade_hit(t_tuple *color, t_rt *world, t_comps *comps,
 		mult_color_scal(&reflect_col, reflectance);
 		mult_color_scal(&refract_col, 1.0 - reflectance);
 	}
-	add_colors(color, *color, reflect_col);
-	add_colors(color, *color, refract_col);
+	add_tuples(color, *color, reflect_col);
+	add_tuples(color, *color, refract_col);
 }
 
 void	color_at(t_tuple *color, t_rt *world, t_ray *ray,

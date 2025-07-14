@@ -47,7 +47,7 @@ void	get_normal_at(t_tuple *normal, t_primitive *object,
 void	get_cylinder_normal_at(t_tuple *normal, t_primitive *object,
 			t_tuple world_point);
 void	reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
-void	lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow, t_light light);
+void	lighting(t_tuple *color, t_comps *comps, bool in_shadow, t_light light);
 void	precompute_values(t_comps *comps, t_ray *ray);
 void	color_at(t_tuple *color, t_rt *world, t_ray *ray,
 			uint8_t remaining_depth);

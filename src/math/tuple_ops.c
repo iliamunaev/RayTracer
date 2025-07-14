@@ -63,18 +63,3 @@ void	mult_tuple(t_tuple *tuple, float scalar)
 	tuple->y *= scalar;
 	tuple->z *= scalar;
 }
-
-/**
- * @brief Divide a tuple by a scalar.
- *
- * Divides the x, y, and z components by the given scalar.
- *
- * @param tuple Tuple to divide.
- * @param scalar Divisor.
- */
-void	dev_tuple(t_tuple *tuple, float scalar)
-{
-	tuple->x /= scalar;
-	tuple->y /= scalar;
-	tuple->z /= scalar;
-}

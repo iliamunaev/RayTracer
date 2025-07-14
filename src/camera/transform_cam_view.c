@@ -52,7 +52,7 @@ void	transform_cam_view(t_rt *rt, t_tuple from, t_tuple to, t_tuple up)
 
 	build_camera_orientation(&orientation, from, to, up);
 	create_identity_matrix_4x4(&translation);
-	create_vector(&neg_from, -from.x, from.y, -from.z);
+	create_vector(&neg_from, -from.x, -from.y, -from.z);
 	translate(&translation, neg_from);
 	mult_matrices(&rt->cam.matrix, orientation, translation);
 }

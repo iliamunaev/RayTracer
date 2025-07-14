@@ -15,33 +15,6 @@ void	mult_color_scal(t_tuple *tuple, float scalar)
 	tuple->b *= scalar;
 }
 
-/**
- * @brief Add two colors component-wise.
- *
- * @param c Output color (result of a + b).
- * @param a First input color.
- * @param b Second input color.
- */
-void	add_colors(t_tuple *c, const t_tuple a, const t_tuple b)
-{
-	c->r = a.r + b.r;
-	c->g = a.g + b.g;
-	c->b = a.b + b.b;
-}
-
-/**
- * @brief Subtract one color from another component-wise.
- *
- * @param c Output color (result of a - b).
- * @param a First input color.
- * @param b Second input color to subtract.
- */
-void	sub_colors(t_tuple *c, const t_tuple a, const t_tuple b)
-{
-	c->r = a.r - b.r;
-	c->g = a.g - b.g;
-	c->b = a.b - b.b;
-}
 
 /**
  * @brief Multiply two colors component-wise.

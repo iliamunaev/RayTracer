@@ -39,7 +39,7 @@ void	parse_camera(t_rt *rt, t_token *token)
 	create_vector(&up, 0, 1, 0);
 	parse_coordinates(&rt->cam.position, token->token[1]);
 	parse_coordinates(&rt->cam.norm_vector, token->token[2]);
-	normalize_vector(&rt->cam.norm_vector);
+	//normalize_vector(&rt->cam.norm_vector);
 	add_tuples(&to, rt->cam.position, rt->cam.norm_vector);
 	rt->cam.fov = ft_strtof(token->token[3]);
 	rt->cam.pix_size = get_pixel_size(rt);
