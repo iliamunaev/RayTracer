@@ -97,11 +97,11 @@ bool	validate_camera(t_token *tokens)
  */
 bool	validate_light(t_token *tokens)
 {
-	if (tokens->vstate.seen_light || !is_validate_light(tokens))
+	if (!is_validate_light(tokens))
 	{
 		err("Error: light");
 		return (false);
 	}
-	tokens->vstate.seen_light = true;
+	//tokens->vstate.seen_light = true;
 	return (true);
 }

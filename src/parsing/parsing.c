@@ -81,8 +81,8 @@ static int	check_singletons(t_token *tokens)
 	}
 	if (!tokens->vstate.seen_camera)
 		return (err("Error: Missing camera (C)"), EXIT_FAILURE);
-	if (!tokens->vstate.seen_light)
-		return (err("Error: Missing light (L)"), EXIT_FAILURE);
+	/* if (!tokens->vstate.seen_light)
+		return (err("Error: Missing light (L)"), EXIT_FAILURE); */
 	return (EXIT_SUCCESS);
 }
 

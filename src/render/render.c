@@ -40,6 +40,7 @@ void	render(t_rt *rt)
 	size_t		idx;
 
 	y = 0;
+	printf("lightcount = %i\n", rt->lightcount);
 	while (y < rt->scene->height)
 	{
 		x = 0;
