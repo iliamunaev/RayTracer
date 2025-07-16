@@ -33,14 +33,13 @@ void	rebuild_camera(t_rt *rt)
 
 	create_vector(&up, 0, 1, 0);
 	if (is_zero_vector(rt->cam.norm_vector))
-		create_vector(&rt->cam.norm_vector, 0, 0, 1);
+		create_vector(&rt->cam.norm_vector, 0, 1, 0);
 	from = rt->cam.position;
-	to.x = rt->cam.position.x + rt->cam.norm_vector.x;
-	to.y = rt->cam.position.y + rt->cam.norm_vector.y;
-	to.z = rt->cam.position.z + rt->cam.norm_vector.z;
+	to.x = from.x + rt->cam.norm_vector.x;
+	to.y = from.y + rt->cam.norm_vector.y;
+	to.z = from.z + rt->cam.norm_vector.z;
 	to.w = 1.0f;
 	transform_cam_view(rt, from, to, up);
-	invert_matrix(&rt->cam.inv_matrix, rt->cam.matrix);
 	if (rt->cam.fov == ZERO_CAM_FOV)
 		rt->cam.fov = DEFAILT_CAM_FOV;
 	rt->cam.half_view = get_half_view(rt);

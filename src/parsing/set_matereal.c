@@ -13,8 +13,8 @@ static inline void	set_base_material(t_rt *world, int i)
 {
 	world->primitives_list[i].material.ambient = world->amb.brightness;
 	world->primitives_list[i].material.diffuse = 0.9;
-	world->primitives_list[i].material.specular = 0.1;
-	world->primitives_list[i].material.shininess = 50;
+	world->primitives_list[i].material.specular = 0.9;
+	world->primitives_list[i].material.shininess = 200;
 	world->primitives_list[i].material.reflection = 0.0;
 	world->primitives_list[i].material.transparency = 0;
 	world->primitives_list[i].material.refraction = 1;

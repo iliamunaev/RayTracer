@@ -88,7 +88,6 @@ void	parse_cylinder(t_rt *rt, t_token *token, int j)
 		p->norm_vector.z);
 	create_point(&tr.scale, radius, radius, radius);
 	transform(&p->matrix, tr);
-	// p->position.x = 0.0f;
 	invert_matrix(&p->inv_matrix, p->matrix);
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }

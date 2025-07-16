@@ -9,9 +9,9 @@
  * @param half_width Half of the view width in world space.
  * @return Size of a single pixel in world units.
  */
-static inline float	calculate_pixel_size(float half_width)
+static inline float	calculate_pixel_size(float half_width, t_rt *rt)
 {
-	return ((half_width * 2.0f) / SCREEN_WIDTH);
+	return ((half_width * 2.0f) / rt->scene->width);
 }
 
 /**
@@ -27,7 +27,7 @@ float	get_pixel_size(t_rt *rt)
 	float	half_width;
 
 	half_width = get_half_width(rt);
-	return (calculate_pixel_size(half_width));
+	return (calculate_pixel_size(half_width, rt));
 }
 
 /**

@@ -22,7 +22,6 @@
 
 # define BPP 4UL
 # define MAX_PRIMITIVES 64
-# define MAX_LIGHTS 5
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 # define BLUE   0
@@ -49,12 +48,14 @@ typedef struct s_rt
 	t_primitive	primitives_list[MAX_PRIMITIVES];
 	t_amb		amb;
 	t_cam		cam;
-	t_light		lights[MAX_LIGHTS];
+	t_light		lights[MAX_LIGHTS + 1];
 	uint8_t		lightcount;
 	int			selected_primitive_index;
 	t_mode		mode;
 	double		mouse_x;
 	double		mouse_y;
+	double		last_resize_time;
+	int			needs_resize_render;
 }	t_rt;
 
 typedef struct s_transform
@@ -83,5 +84,9 @@ void	print_mode(int mode_1, int mode_2);
 
 // loop/cam_action.c
 bool	handle_cam(t_rt *world, mlx_key_data_t keydata);
+
+//loop/resize_loop.c
+void	check_redraw(void *param);
+void	resize_screen(int32_t width, int32_t height, void *param);
 
 #endif // MINIRT_H

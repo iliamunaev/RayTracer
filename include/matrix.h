@@ -58,5 +58,4 @@ bool	are_matrices_equal(const t_matrix a, const t_matrix b);
 void	swap_values(float *a, float *b);
 bool	is_invertible(const float det);
 
-
 #endif // MATRIX_H

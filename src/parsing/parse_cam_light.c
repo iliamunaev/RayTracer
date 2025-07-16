@@ -39,7 +39,7 @@ void	parse_camera(t_rt *rt, t_token *token)
 	create_vector(&up, 0, 1, 0);
 	parse_coordinates(&rt->cam.position, token->token[1]);
 	parse_coordinates(&rt->cam.norm_vector, token->token[2]);
-	//normalize_vector(&rt->cam.norm_vector);
+	normalize_vector(&rt->cam.norm_vector);
 	add_tuples(&to, rt->cam.position, rt->cam.norm_vector);
 	rt->cam.fov = ft_strtof(token->token[3]);
 	rt->cam.pix_size = get_pixel_size(rt);
@@ -64,9 +64,11 @@ void	parse_light(t_rt *rt, t_token *token)
 	parse_coordinates(&rt->lights[rt->lightcount].position, token->token[1]);
 	rt->lights[rt->lightcount].brightness = ft_strtof(token->token[2]);
 	parse_rgb(&rt->lights[rt->lightcount].color, token->token[3]);
-	create_color(&rt->lights[rt->lightcount].color_component, rt->lights[rt->lightcount].color.r,
-		rt->lights[rt->lightcount].color.g, rt->lights[rt->lightcount].color.b);
-	mult_tuple(&rt->lights[rt->lightcount].color_component, rt->lights[rt->lightcount].brightness);
+	create_color(&rt->lights[rt->lightcount].color_component,
+		rt->lights[rt->lightcount].color.r, rt->lights[rt->lightcount].color.g,
+		rt->lights[rt->lightcount].color.b);
+	mult_tuple(&rt->lights[rt->lightcount].color_component,
+		rt->lights[rt->lightcount].brightness);
 	create_identity_matrix_4x4(&rt->lights[rt->lightcount].matrix);
 	rt->lightcount++;
 }

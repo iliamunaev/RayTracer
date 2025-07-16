@@ -71,4 +71,10 @@ void	schlick(float *reflectance, t_comps *comps);
 void	reflection(t_tuple *reflect_col, t_rt *world, t_comps *comps,
 			uint8_t remaining_depth);
 
+//specular_diffuse.c
+void	fill_specular(t_shading *shading, t_comps *comps, t_light light,
+			float reflect_dot_eye);
+void	find_diffuse_specular(t_shading *shading, t_comps *comps,
+			t_light light);
+
 #endif

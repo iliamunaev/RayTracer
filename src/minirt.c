@@ -14,9 +14,11 @@ int	main(int argc, char **argv)
 		return (EXIT_FAILURE);
 	}
 	render(&world);
+	mlx_resize_hook(world.mlx, resize_screen, &world);
 	mlx_key_hook(world.mlx, world_loop, &world);
 	mlx_mouse_hook(world.mlx, handle_mouse_click, &world);
 	mlx_cursor_hook(world.mlx, handle_mouse_move, &world);
+	mlx_loop_hook(world.mlx, check_redraw, &world);
 	mlx_loop(world.mlx);
 	mlx_terminate(world.mlx);
 	return (EXIT_SUCCESS);

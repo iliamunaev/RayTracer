@@ -15,7 +15,6 @@ void	mult_color_scal(t_tuple *tuple, float scalar)
 	tuple->b *= scalar;
 }
 
-
 /**
  * @brief Multiply two colors component-wise.
  *

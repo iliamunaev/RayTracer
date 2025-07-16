@@ -1,7 +1,7 @@
 NAME    := miniRT
 
 CC      := cc
-CFLAGS  := -O3 -flto -ffast-math -march=native -g -Wextra -Wall -Werror
+CFLAGS  := -O3 -flto -ffast-math -march=native -Wextra -Wall -Werror
 
 # Enable BONUS if target is 'bonus'
 ifeq ($(MAKECMDGOALS),bonus)
@@ -24,7 +24,6 @@ SRCS := \
 	$(SRC_DIR)/ray/ray.c \
 	$(SRC_DIR)/ray/ray_math.c \
 	$(SRC_DIR)/utils/utils.c \
-	$(SRC_DIR)/colors/colors.c \
 	$(SRC_DIR)/math/color_ops.c \
 	$(SRC_DIR)/math/tuple_ops.c \
 	$(SRC_DIR)/math/vector_math.c \
@@ -44,6 +43,7 @@ SRCS := \
 	$(SRC_DIR)/lighting/precompute_values.c \
 	$(SRC_DIR)/lighting/refraction_containers.c \
 	$(SRC_DIR)/lighting/reflection_refraction_shadow_checker.c \
+	$(SRC_DIR)/lighting/specular_diffuse.c \
 	$(SRC_DIR)/parsing/parsing.c \
 	$(SRC_DIR)/parsing/parse_primitives.c \
 	$(SRC_DIR)/parsing/init_world.c \
@@ -66,6 +66,7 @@ SRCS := \
 	$(SRC_DIR)/loop/loop_utils.c \
 	$(SRC_DIR)/loop/key_action.c \
 	$(SRC_DIR)/loop/cam_action.c \
+	$(SRC_DIR)/loop/resize_loop.c \
 	$(SRC_DIR)/camera/transform_cam_view.c \
 	$(SRC_DIR)/camera/camera.c \
 	$(SRC_DIR)/camera/camera_utils_1.c \

@@ -11,9 +11,9 @@ void	ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
 	pixel_point.y = cam->half_height - ((py + 0.5f) * cam->pix_size);
 	pixel_point.z = -1.0f;
 	pixel_point.w = 1.0f;
-	mult_matrix_by_tuple(&pixel, cam->matrix, pixel_point);
+	mult_matrix_by_tuple(&pixel, cam->inv_matrix, pixel_point);
 	create_point(&origin, 0, 0, 0);
-	mult_matrix_by_tuple(&origin, cam->matrix, origin);
+	mult_matrix_by_tuple(&origin, cam->inv_matrix, origin);
 	sub_tuples(&direction, pixel, origin);
 	normalize_vector(&direction);
 	ray->origin = origin;

@@ -12,7 +12,12 @@
 bool	is_float_in_range(char *s, float min, float max)
 {
 	float	val;
+	bool	has_digits;
 
+	has_digits = false;
+	ft_strtof_valid(s, &has_digits);
+	if (!has_digits)
+		return(false);
 	val = ft_strtof(s);
 	return (val >= min && val <= max);
 }
@@ -44,7 +49,7 @@ bool	is_vec3_unbounded(char *s)
 		has_digits = false;
 		ft_strtof_valid(parts[i], &has_digits);
 		if (!has_digits)
-			return (false);
+			return free_split(parts),(false);
 		i++;
 	}
 	free_split(parts);
