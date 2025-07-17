@@ -1,5 +1,14 @@
 #include "minirt.h"
 
+/**
+ * @brief Computes the normal vector on a cylinder at a given point 
+ * in world space. Handles side surface and end caps separately based 
+ * on the point's position.
+ *
+ * @param normal pointer to the resulting normal vector (output)
+ * @param object pointer to the cylinder primitive
+ * @param world_point point of intersection in world coordinates
+ */
 void	get_cylinder_normal_at(t_tuple *normal, t_primitive *object,
 		t_tuple world_point)
 {
@@ -21,6 +30,15 @@ void	get_cylinder_normal_at(t_tuple *normal, t_primitive *object,
 	normalize_vector(normal);
 }
 
+/**
+ * @brief Computes the normal vector on a sphere at a given point 
+ * in world space. Converts the world point to object space, then 
+ * computes the normal.
+ *
+ * @param normal pointer to the resulting normal vector (output)
+ * @param object pointer to the sphere primitive
+ * @param world_point point of intersection in world coordinates
+ */
 void	get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point)
 {
 	t_tuple	object_point;
@@ -35,6 +53,14 @@ void	get_normal_at(t_tuple *normal, t_primitive *object, t_tuple world_point)
 	normalize_vector(normal);
 }
 
+/**
+ * @brief Calculates the reflected vector given an incoming
+ * vector and surface normal.
+ *
+ * @param reflected pointer to the resulting reflected vector (output)
+ * @param vector_in incoming vector (e.g. ray direction)
+ * @param normal normal vector at the point of reflection
+ */
 void	reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal)
 {
 	t_tuple	scaled_normal;

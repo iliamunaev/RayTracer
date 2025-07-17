@@ -1,5 +1,11 @@
 #include "minirt.h"
 
+/**
+ * @brief Generates a unique object ID for a primitive.
+ * Starts from 0 and increments on each call.
+ *
+ * @return uint8_t the next available ID
+ */
 static inline uint8_t	generate_id(void)
 {
 	static uint8_t	current_id;
@@ -8,6 +14,14 @@ static inline uint8_t	generate_id(void)
 	return (current_id++);
 }
 
+/**
+ * @brief Parses an optional bonus type (e.g., "gl" for glass, "ch" for checker)
+ * from a token and assigns it to the given primitive.
+ *
+ * @param i index of the bonus token in the token list
+ * @param token pointer to tokenized input
+ * @param p pointer to the primitive being configured
+ */
 void	parse_bonus_type(int i, t_token *token, t_primitive *p)
 {
 	if (!ft_strcmp(token->token[i], "gl"))
@@ -18,6 +32,14 @@ void	parse_bonus_type(int i, t_token *token, t_primitive *p)
 		p->bonus_type = DEFAULT;
 }
 
+/**
+ * @brief Parses and initializes a sphere primitive, including its
+ * position, size, color, transformations, and optional bonus type.
+ *
+ * @param rt pointer to the main scene struct
+ * @param token parsed input tokens for the sphere
+ * @param j index in the primitives list to populate
+ */
 void	parse_sphere(t_rt *rt, t_token *token, int j)
 {
 	t_primitive	*p;
@@ -41,6 +63,14 @@ void	parse_sphere(t_rt *rt, t_token *token, int j)
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
 
+/**
+ * @brief Parses and initializes a plane primitive, including its
+ * position, normal vector, color, transformations, and optional bonus type.
+ *
+ * @param rt pointer to the main scene struct
+ * @param token parsed input tokens for the plane
+ * @param j index in the primitives list to populate
+ */
 void	parse_plane(t_rt *rt, t_token *token, int j)
 {
 	t_primitive	*p;
@@ -64,6 +94,15 @@ void	parse_plane(t_rt *rt, t_token *token, int j)
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
 
+/**
+ * @brief Parses and initializes a cylinder primitive, including its
+ * position, orientation, size (diameter & height), color, and 
+ * transformation matrices.
+ *
+ * @param rt pointer to the main scene struct
+ * @param token parsed input tokens for the cylinder
+ * @param j index in the primitives list to populate
+ */
 void	parse_cylinder(t_rt *rt, t_token *token, int j)
 {
 	t_primitive	*p;

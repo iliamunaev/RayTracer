@@ -1,5 +1,16 @@
 #include "minirt.h"
 
+/**
+ * @brief basic lighting consistent of albedo, reflection, specular + shadow
+ *
+ * @param color the final color of 1 pixel
+ * @param world the main struct
+ * @param comps precomputed relevant struct to compute color 
+ * (e.g intersection point and object, ray, materials, etc.)
+ * @param in_shadow checks if point is in shadow
+ * @param light the relevant light in the scene to check
+ * 
+ */
 void	lighting(t_tuple *color, t_comps *comps, bool in_shadow, t_light light)
 {
 	t_shading	shading;
@@ -19,6 +30,15 @@ void	lighting(t_tuple *color, t_comps *comps, bool in_shadow, t_light light)
 		mult_color_scal(color, comps->shadow_factor);
 }
 
+/**
+ * @brief initializes the phong reflection model to calculate surface color
+ *
+ * @param color the final color of 1 pixel
+ * @param world the main struct
+ * @param comps precomputed relevant struct to compute color 
+ * (e.g intersection point and object, ray, materials, etc.)
+ * 
+ */
 void	phong_model(t_tuple *color, t_rt *world, t_comps *comps)
 {
 	t_tuple	light_contrib;
@@ -37,6 +57,16 @@ void	phong_model(t_tuple *color, t_rt *world, t_comps *comps)
 	}
 }
 
+/**
+ * @brief finds the color at an object point intersected by the ray
+ *
+ * @param color the final color of 1 pixel
+ * @param world the main struct
+ * @param comps precomputed relevant struct to compute color 
+ * (e.g intersection point and object, ray, materials, etc.)
+ * @param remaining_depth recursion depth for refraction and refraction
+ * 
+ */
 void	shade_hit(t_tuple *color, t_rt *world, t_comps *comps,
 		uint8_t remaining_depth)
 {
@@ -64,6 +94,16 @@ void	shade_hit(t_tuple *color, t_rt *world, t_comps *comps,
 	add_tuples(color, *color, refract_col);
 }
 
+/**
+ * @brief initiates the intersection with 1 ray and the scene objects
+ * to find the value of 1 pixel
+ *
+ * @param color the final color of 1 pixel
+ * @param world the main struct
+ * @param ray the ray from the camera to spefified pixel on screen
+ * @param remaining_depth recursion depth for refraction and refraction
+ * 
+ */
 void	color_at(t_tuple *color, t_rt *world, t_ray *ray,
 		uint8_t remaining_depth)
 {

@@ -1,5 +1,13 @@
 #include "minirt.h"
 
+/**
+ * @brief Sets the first refraction index (n1) for the current intersection,
+ * based on the object containers the ray is inside at that point.
+ *
+ * @param container_count number of active containers (objects ray is inside)
+ * @param comps pointer to precomputed values struct
+ * @param containers array of object pointers representing the current containers
+ */
 void	set_first_refraction_index(int container_count, t_comps *comps,
 		t_primitive **containers)
 {
@@ -9,6 +17,15 @@ void	set_first_refraction_index(int container_count, t_comps *comps,
 		comps->n1 = containers[container_count - 1]->material.refraction;
 }
 
+/**
+ * @brief Determines the refractive indices n1 and n2 for the point 
+ * of intersection.
+ *
+ * @param comps pointer to precomputed values struct
+ * @param ray pointer to the ray being processed
+ * @param i current index in the ray's intersection list
+ * @param container_count current number of active containers
+ */
 void	find_refractive_indeces(t_comps *comps, t_ray *ray, uint8_t i,
 		int container_count)
 {
@@ -38,6 +55,12 @@ void	find_refractive_indeces(t_comps *comps, t_ray *ray, uint8_t i,
 	}
 }
 
+/**
+ * @brief Calculates the normal vector at the point of intersection and
+ * checks if the intersection occurs from inside the object.
+ *
+ * @param comps pointer to precomputed values struct
+ */
 void	precompute_normals_check_if_inside(t_comps *comps)
 {
 	if (comps->object->type == PLANE)
@@ -57,6 +80,13 @@ void	precompute_normals_check_if_inside(t_comps *comps)
 		comps->inside = false;
 }
 
+/**
+ * @brief Precomputes intersection-related data for shading, such as
+ * position, normal, eye vector, reflection vector, and refraction indices.
+ *
+ * @param comps pointer to precomputed values struct
+ * @param ray pointer to the intersecting ray
+ */
 void	precompute_values(t_comps *comps, t_ray *ray)
 {
 	t_tuple	temp;

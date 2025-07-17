@@ -1,5 +1,13 @@
 #include "minirt.h"
 
+/**
+ * @brief Applies checkerboard pattern to compute the effective color
+ * of a surface based on its position in space.
+ *
+ * @param effective_color output resulting color after applying checker pattern
+ * @param comps pointer to precomputed values struct
+ * @param light the current light source used for shading
+ */
 void	create_checkerboard(t_tuple *effective_color, t_comps *comps,
 		t_light light)
 {
@@ -24,6 +32,16 @@ void	create_checkerboard(t_tuple *effective_color, t_comps *comps,
 	}
 }
 
+/**
+ * @brief Checks whether a point is in shadow by casting a ray toward the light.
+ * Accounts for transparent objects in the shadow path.
+ *
+ * @param world pointer to the scene
+ * @param point the world-space point being shaded
+ * @param comps pointer to precomputed values struct
+ * @param light the current light source
+ * @return true if the point is in shadow, false otherwise
+ */
 bool	check_shadow(t_rt *world, t_tuple point, t_comps *comps, t_light light)
 {
 	t_tuple	v_shadow;
@@ -48,6 +66,15 @@ bool	check_shadow(t_rt *world, t_tuple point, t_comps *comps, t_light light)
 		return (false);
 }
 
+/**
+ * @brief Computes the color contribution from refraction at a point,
+ * based on Snell's law and recursive tracing through transparent objects.
+ *
+ * @param refract_col output color due to refraction
+ * @param world pointer to the scene
+ * @param comps pointer to precomputed values struct
+ * @param remaining_depth how many recursive refraction/reflection steps remain
+ */
 void	refracted_color(t_tuple *refract_col, t_rt *world, t_comps *comps,
 		uint8_t remaining_depth)
 {
@@ -77,6 +104,13 @@ void	refracted_color(t_tuple *refract_col, t_rt *world, t_comps *comps,
 	mult_color_scal(refract_col, comps->object->material.transparency);
 }
 
+/**
+ * @brief Estimates the reflectance at an intersection using 
+ * Schlick’s approximation, which depends on the angle and refractive indices.
+ *
+ * @param reflectance output reflectance coefficient (0–1)
+ * @param comps pointer to precomputed values struct
+ */
 void	schlick(float *reflectance, t_comps *comps)
 {
 	float	cos;
@@ -103,6 +137,15 @@ void	schlick(float *reflectance, t_comps *comps)
 	*reflectance = powf(r0 + (1 - r0) * (1 - cos), 5);
 }
 
+/**
+ * @brief Computes the color contribution from reflection at a point,
+ * recursively tracing the reflected ray and attenuating based on reflectivity.
+ *
+ * @param reflect_col output color due to reflection
+ * @param world pointer to the scene
+ * @param comps pointer to precomputed values struct
+ * @param remaining_depth how many recursive reflection steps remain
+ */
 void	reflection(t_tuple *reflect_col, t_rt *world, t_comps *comps,
 		uint8_t remaining_depth)
 {

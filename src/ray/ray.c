@@ -1,5 +1,12 @@
 #include "minirt.h"
 
+/**
+ * @brief Sorts an array of intersection points in ascending order by distance.
+ * Uses insertion sort algorithm.
+ *
+ * @param intersec_list Pointer to the array of intersection points.
+ * @param count Number of intersections to sort.
+ */
 void	sort_intersec_list(t_intersec_point *intersec_list, int count)
 {
 	uint8_t				i;
@@ -21,6 +28,13 @@ void	sort_intersec_list(t_intersec_point *intersec_list, int count)
 	}
 }
 
+/**
+ * @brief Computes all intersections of a ray with all objects in the scene.
+ * Fills the ray's intersection list and sorts it by distance.
+ *
+ * @param ray Pointer to the ray to test.
+ * @param minirt Pointer to the world (scene) containing the object list.
+ */
 void	get_ray_intersections(t_ray *ray, t_rt *minirt)
 {
 	uint8_t	i;
@@ -44,6 +58,15 @@ void	get_ray_intersections(t_ray *ray, t_rt *minirt)
 		ray->intersections.counter);
 }
 
+/**
+ * @brief Calculates the intersections between a ray and a sphere.
+ * Solves the quadratic equation for the sphere in object space.
+ *
+ * @param ray Pointer to the ray to test.
+ * @param obj Pointer to the sphere object (assumes it's a sphere).
+ * @param a parsed at 0 to reduce amount of variable declarations.
+ * @param b parsed at 0 to reduce amount of variable declarations.
+ */
 void	get_obj_intersec(t_ray *ray, t_primitive *obj, float a, float b)
 {
 	float	c;
@@ -72,6 +95,12 @@ void	get_obj_intersec(t_ray *ray, t_primitive *obj, float a, float b)
 	ray->intersections.counter++;
 }
 
+/**
+ * @brief Determines the closest positive intersection (the "hit") for the ray.
+ * Updates the ray's `is_hit` flag and `hit` record if a valid hit is found.
+ *
+ * @param ray Pointer to the ray with a filled intersection list.
+ */
 void	get_hit(t_ray *ray)
 {
 	uint8_t	i;

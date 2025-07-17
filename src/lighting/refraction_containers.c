@@ -1,5 +1,13 @@
 #include "minirt.h"
 
+/**
+ * @brief Checks if a given object is present in the container list.
+ *
+ * @param containers array of primitive pointers currently in the container
+ * @param count number of objects in the container
+ * @param obj the object to check for presence
+ * @return true if the object is in the container, false otherwise
+ */
 bool	containers_includes(t_primitive **containers, int count,
 		t_primitive *obj)
 {
@@ -15,6 +23,14 @@ bool	containers_includes(t_primitive **containers, int count,
 	return (false);
 }
 
+/**
+ * @brief Removes a specified object from the container list, 
+ * shifting elements left.
+ *
+ * @param containers array of primitive pointers
+ * @param count pointer to the number of objects in the container
+ * @param obj the object to be removed
+ */
 void	containers_remove(t_primitive **containers, int *count,
 		t_primitive *obj)
 {
@@ -37,6 +53,14 @@ void	containers_remove(t_primitive **containers, int *count,
 	--(*count);
 }
 
+/**
+ * @brief Appends a new object to the container list if capacity allows.
+ * Errors out if MAX_CONTAINERS is exceeded.
+ *
+ * @param containers array of primitive pointers
+ * @param count pointer to the number of objects in the containe
+ * @param obj the object to add
+ */
 void	containers_append(t_primitive **containers, int *count,
 		t_primitive *obj)
 {

@@ -1,5 +1,12 @@
 #include "minirt.h"
 
+/**
+ * @brief Calculates the intersection of a ray with an infinite plane.
+ * Adds the intersection point to the ray's intersection list if valid.
+ *
+ * @param ray pointer to the ray being traced
+ * @param plane pointer to the plane primitive
+ */
 void	intersect_plane(t_ray *ray, t_primitive *plane)
 {
 	t_ray	inv_ray;
@@ -17,12 +24,28 @@ void	intersect_plane(t_ray *ray, t_primitive *plane)
 	ray->intersections.counter++;
 }
 
+/**
+ * @brief Helper function to check if a ray intersection point lies within
+ * the cylindrical cap radius.
+ *
+ * @param inv_ray ray transformed into object space
+ * @param t the intersection distance along the ray
+ * @return float squared distance from the y-axis at the intersection point
+ */
 static float	check_caps(t_ray inv_ray, float t)
 {
 	return (pow((inv_ray.origin.x + t * inv_ray.direction.x), 2)
 		+ pow((inv_ray.origin.z + t * inv_ray.direction.z), 2));
 }
 
+/**
+ * @brief Computes intersections between a ray and the end caps 
+ * of a closed cylinder.
+ * Valid intersections are added to the ray’s intersection list.
+ *
+ * @param ray pointer to the ray being traced
+ * @param c pointer to the cylinder primitive
+ */
 void	intersect_caps(t_ray *ray, t_primitive *c)
 {
 	t_ray	inv_ray;
@@ -49,6 +72,15 @@ void	intersect_caps(t_ray *ray, t_primitive *c)
 	}
 }
 
+/**
+ * @brief Assigns valid intersection hits for a cylinder's side surface based on
+ * calculated roots and height limits.
+ *
+ * @param ab_dis a tuple storing the quadratic terms (a, b, discriminant)
+ * @param c pointer to the cylinder primitive
+ * @param ray pointer to the original ray
+ * @param inv_ray ray transformed into the cylinder's object space
+ */
 void	assign_cylinder_hits(t_tuple ab_dis, t_primitive *c, t_ray *ray,
 		t_ray inv_ray)
 {
@@ -75,6 +107,14 @@ void	assign_cylinder_hits(t_tuple ab_dis, t_primitive *c, t_ray *ray,
 	}
 }
 
+/**
+ * @brief Calculates the intersection of a ray with the curved surface of 
+ * a finite cylinder. If the intersection is valid (within height bounds), 
+ * it's added to the ray's intersection list.
+ *
+ * @param ray pointer to the ray being traced
+ * @param cylinder pointer to the cylinder primitive
+ */
 void	intersect_cylinder(t_ray *ray, t_primitive *cylinder)
 {
 	float	a;

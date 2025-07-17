@@ -1,5 +1,13 @@
 #include "minirt.h"
 
+/**
+ * @brief Scales the currently selected object in the scene by a given factor.
+ * Only applies to non-plane objects. Updates all related 
+ * transformation matrices.
+ *
+ * @param world pointer to the main scene context
+ * @param factor scaling multiplier (e.g. 1.1 to enlarge, 0.9 to shrink)
+ */
 void	scale_object(t_rt *world, float factor)
 {
 	t_tuple		scale_vec;
@@ -27,6 +35,16 @@ void	scale_object(t_rt *world, float factor)
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
 
+/**
+ * @brief Translates (moves) the currently selected object in the scene
+ * by the specified offset along each axis.
+ * Updates the object's transformation matrices accordingly.
+ *
+ * @param world pointer to the main scene context
+ * @param factor_x translation along the X axis
+ * @param factor_y translation along the Y axis
+ * @param factor_z translation along the Z axis
+ */
 void	translate_object(t_rt *world, float factor_x, float factor_y,
 		float factor_z)
 {
@@ -53,6 +71,15 @@ void	translate_object(t_rt *world, float factor_x, float factor_y,
 	transpose_return_new_matrix(&p->tran_matrix, p->inv_matrix);
 }
 
+/**
+ * @brief Rotates the currently selected object by modifying its normal vector.
+ * Skips rotation for spheres. Updates transformation matrices after rotation.
+ *
+ * @param world pointer to the main scene context
+ * @param factor_x rotation offset along the X axis
+ * @param factor_y rotation offset along the Y axis
+ * @param factor_z rotation offset along the Z axis
+ */
 void	rotate_object(t_rt *world, float factor_x, float factor_y,
 		float factor_z)
 {

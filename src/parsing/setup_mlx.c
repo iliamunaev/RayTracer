@@ -1,5 +1,12 @@
 #include "minirt.h"
 
+/**
+ * @brief Initializes the MLX graphics context and creates the 
+ * rendering image buffer. Exits the program if initialization 
+ * or image creation fails.
+ *
+ * @param world pointer to the main rendering context (t_rt struct)
+ */
 void	setup_mlx(t_rt *world)
 {
 	world->mlx = mlx_init(SCREEN_WIDTH, SCREEN_HEIGHT, "miniRT", true);

@@ -1,5 +1,17 @@
 #include "minirt.h"
 
+/**
+ * @brief Constructs a ray that originates from the camera and 
+ * passes through a pixel.
+ *
+ * Transforms the pixel coordinates into world space and calculates
+ * the direction vector from the camera origin to the pixel location.
+ *
+ * @param ray Pointer to the resulting ray.
+ * @param cam Pointer to the camera.
+ * @param px X coordinate of the pixel.
+ * @param py Y coordinate of the pixel.
+ */
 void	ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
 {
 	t_tuple	pixel_point;
@@ -20,6 +32,18 @@ void	ray_for_pixel(t_ray *ray, t_cam *cam, float px, float py)
 	ray->direction = direction;
 }
 
+/**
+ * @brief Converts a color to 32-bit packed format and stores it in 
+ * the pixel buffer.
+ *
+ * Assumes the color is in float format (0.0–1.0) and converts it to 
+ * 8-bit per channel. Writes the color at the specified index in the buffer
+ * using the order: BGRA.
+ *
+ * @param idx Index in the buffer where the pixel starts.
+ * @param pixels Pointer to the pixel buffer.
+ * @param color The color to store.
+ */
 void	put_pixel(size_t idx, uint8_t *pixels, t_tuple color)
 {
 	uint32_t	packed_color;
@@ -31,6 +55,16 @@ void	put_pixel(size_t idx, uint8_t *pixels, t_tuple color)
 	pixels[idx + ALPHA] = packed_color & 0xFF;
 }
 
+/**
+ * @brief Renders the scene from the camera’s perspective by tracing 
+ * rays per pixel.
+ *
+ * For each pixel on the screen, generates a ray through the scene, 
+ * computes the color, and stores it in the image buffer. Then displays the 
+ * final image in the window.
+ *
+ * @param rt Pointer to the main rendering context (scene, camera, objects).
+ */
 void	render(t_rt *rt)
 {
 	uint32_t	x;

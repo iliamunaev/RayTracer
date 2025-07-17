@@ -1,5 +1,14 @@
 #include "minirt.h"
 
+/**
+ * @brief Calculates the specular highlight component based on light angle,
+ * material specular coefficient, and shininess factor.
+ *
+ * @param shading pointer to shading struct where specular color is stored
+ * @param comps pointer to precomputed intersection data
+ * @param light the light source contributing to the highlight
+ * @param reflect_dot_eye cosine of the angle between reflection v and eye v
+ */
 void	fill_specular(t_shading *shading, t_comps *comps, t_light light,
 		float reflect_dot_eye)
 {
@@ -10,6 +19,15 @@ void	fill_specular(t_shading *shading, t_comps *comps, t_light light,
 				comps->object->material.shininess)));
 }
 
+/**
+ * @brief Computes the diffuse and specular lighting contributions
+ * based on the light direction, surface normal, and material properties. 
+ * Updates the shading struct.
+ *
+ * @param shading pointer to shading struct to store lighting contributions
+ * @param comps pointer to precomputed intersection data
+ * @param light the light source affecting the surface
+ */
 void	find_diffuse_specular(t_shading *shading, t_comps *comps, t_light light)
 {
 	float	l_dot;
