@@ -45,12 +45,12 @@ static bool	is_valid_filename(char *filename)
 {
 	if (!filename || filename[0] == '\0')
 	{
-		err("Error: Filename is empty or null");
+		err("Error\nFilename is empty or null");
 		return (false);
 	}
 	if (!has_rt_extension(filename))
 	{
-		err("Error: File must have a .rt extension");
+		err("Error\nFile must have a .rt extension");
 		return (false);
 	}
 	return (true);
@@ -72,7 +72,7 @@ static bool	is_file_readable(char *filename)
 	fd = open(filename, O_RDONLY);
 	if (fd < 0)
 	{
-		err("Error: Cannot open the file");
+		err("Error\nCannot open the file");
 		return (false);
 	}
 	close(fd);

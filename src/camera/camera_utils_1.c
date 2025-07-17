@@ -5,9 +5,9 @@
  *
  * @return The screen aspect ratio as a float.
  */
-static inline float	calculate_aspect(void)
+static inline float	calculate_aspect(t_rt *rt)
 {
-	return ((float)SCREEN_WIDTH / (float)SCREEN_HEIGHT);
+	return ((float)rt->scene->width / (float)rt->scene->height);
 }
 
 /**
@@ -59,7 +59,7 @@ float	get_half_height(t_rt *rt)
 	float	aspect;
 	float	half_view;
 
-	aspect = calculate_aspect();
+	aspect = calculate_aspect(rt);
 	half_view = get_half_view(rt);
 	return (calculate_half_height(aspect, half_view));
 }
@@ -77,7 +77,7 @@ float	get_half_width(t_rt *rt)
 	float	aspect;
 	float	half_view;
 
-	aspect = calculate_aspect();
+	aspect = calculate_aspect(rt);
 	half_view = get_half_view(rt);
 	return (calculate_half_width(aspect, half_view));
 }

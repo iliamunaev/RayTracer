@@ -58,7 +58,7 @@ bool	validate_ambient(t_token *tokens)
 {
 	if (tokens->vstate.seen_ambient || !is_validate_ambient(tokens))
 	{
-		err("Error: ambient");
+		err("Error\nambient");
 		return (false);
 	}
 	tokens->vstate.seen_ambient = true;
@@ -78,7 +78,7 @@ bool	validate_camera(t_token *tokens)
 {
 	if (tokens->vstate.seen_camera || !is_validate_camera(tokens))
 	{
-		err("Error: camera");
+		err("Error\ncamera");
 		return (false);
 	}
 	tokens->vstate.seen_camera = true;
@@ -97,11 +97,10 @@ bool	validate_camera(t_token *tokens)
  */
 bool	validate_light(t_token *tokens)
 {
-	if (tokens->vstate.seen_light || !is_validate_light(tokens))
+	if (!is_validate_light(tokens))
 	{
-		err("Error: light");
+		err("Error\nlight");
 		return (false);
 	}
-	tokens->vstate.seen_light = true;
 	return (true);
 }

@@ -47,7 +47,7 @@ void	get_normal_at(t_tuple *normal, t_primitive *object,
 void	get_cylinder_normal_at(t_tuple *normal, t_primitive *object,
 			t_tuple world_point);
 void	reflect_vec(t_tuple *reflected, t_tuple vector_in, t_tuple normal);
-void	lighting(t_tuple *color, t_comps *comps, t_rt *world, bool in_shadow);
+void	lighting(t_tuple *color, t_comps *comps, bool in_shadow, t_light light);
 void	precompute_values(t_comps *comps, t_ray *ray);
 void	color_at(t_tuple *color, t_rt *world, t_ray *ray,
 			uint8_t remaining_depth);
@@ -64,11 +64,17 @@ void	containers_append(t_primitive **containers, int *count,
 
 void	create_checkerboard(t_tuple *effective_color, t_comps *comps,
 			t_light light);
-bool	check_shadow(t_rt *world, t_tuple point, t_comps *comps);
+bool	check_shadow(t_rt *world, t_tuple point, t_comps *comps, t_light light);
 void	refracted_color(t_tuple *refract_col, t_rt *world, t_comps *comps,
 			uint8_t remaining_depth);
 void	schlick(float *reflectance, t_comps *comps);
 void	reflection(t_tuple *reflect_col, t_rt *world, t_comps *comps,
 			uint8_t remaining_depth);
+
+//specular_diffuse.c
+void	fill_specular(t_shading *shading, t_comps *comps, t_light light,
+			float reflect_dot_eye);
+void	find_diffuse_specular(t_shading *shading, t_comps *comps,
+			t_light light);
 
 #endif

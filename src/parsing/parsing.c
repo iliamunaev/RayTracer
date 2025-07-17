@@ -53,7 +53,7 @@ static int	process_line(char *line, t_token *tokens, t_rt *world,
 	parse_line(line, tokens);
 	if (!is_line_valid(tokens))
 	{
-		err("Error: Invalid line in scene file");
+		err("Error\nInvalid line in scene file");
 		free(line);
 		return (EXIT_FAILURE);
 	}
@@ -73,16 +73,16 @@ static int	process_line(char *line, t_token *tokens, t_rt *world,
  * @param tokens Pointer to token structure (used for state flags).
  * @return int   EXIT_SUCCESS or EXIT_FAILURE if any are missing.
  */
-static int	check_singletons(t_token *tokens)
+static int	check_singletons(t_token *tokens, t_rt *world)
 {
 	if (!tokens->vstate.seen_ambient)
 	{
-		return (err("Error: Missing ambient light (A)"), EXIT_FAILURE);
+		return (err("Error\nMissing ambient light (A)"), EXIT_FAILURE);
 	}
 	if (!tokens->vstate.seen_camera)
-		return (err("Error: Missing camera (C)"), EXIT_FAILURE);
-	if (!tokens->vstate.seen_light)
-		return (err("Error: Missing light (L)"), EXIT_FAILURE);
+		return (err("Error\nMissing camera (C)"), EXIT_FAILURE);
+	if (world->lightcount <= 0 || world->lightcount > MAX_LIGHTS)
+		return (err("Error\nNot correct ammount of lights (L)"), EXIT_FAILURE);
 	return (EXIT_SUCCESS);
 }
 
@@ -149,8 +149,7 @@ int	parse(const char *map_file, t_rt *world)
 	}
 	close(fd);
 	world->obj_counted = obj_count;
-	if (check_singletons(&tokens) == EXIT_FAILURE)
+	if (check_singletons(&tokens, world) == EXIT_FAILURE)
 		return (EXIT_FAILURE);
-	printf("Map validation success!\n");
 	return (EXIT_SUCCESS);
 }

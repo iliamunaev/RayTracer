@@ -45,7 +45,7 @@ static inline bool	check_invertibility_or_return(const t_matrix matrix,
 	*det = get_matrix_determinant(matrix);
 	if (!is_invertible(*det))
 	{
-		err("Error: matrix not invertible");
+		err("Error\nmatrix not invertible");
 		return (false);
 	}
 	return (true);

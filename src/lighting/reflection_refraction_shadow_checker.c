@@ -24,14 +24,14 @@ void	create_checkerboard(t_tuple *effective_color, t_comps *comps,
 	}
 }
 
-bool	check_shadow(t_rt *world, t_tuple point, t_comps *comps)
+bool	check_shadow(t_rt *world, t_tuple point, t_comps *comps, t_light light)
 {
 	t_tuple	v_shadow;
 	t_ray	r_shadow;
 	float	distance;
 	t_tuple	direction;
 
-	sub_tuples(&v_shadow, world->light.position, point);
+	sub_tuples(&v_shadow, light.position, point);
 	distance = magnitude_vector(v_shadow);
 	create_vector(&direction, v_shadow.x, v_shadow.y, v_shadow.z);
 	normalize_vector(&direction);

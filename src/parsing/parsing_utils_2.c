@@ -12,7 +12,7 @@ int	read_file(const char *map_file)
 
 	fd = open(map_file, O_RDONLY);
 	if (fd < 0)
-		err("Error: open fd");
+		err("Error\nopen fd");
 	return (fd);
 }
 

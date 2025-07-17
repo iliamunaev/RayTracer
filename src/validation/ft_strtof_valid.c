@@ -107,7 +107,7 @@ void	ft_strtof_valid(const char *s, bool *has_digits)
 	fraction = 0.0f;
 	sign = 1;
 	if (!s || !has_digits)
-		err("Error: null input");
+		err("Error\nnull input");
 	*has_digits = false;
 	s = skip_whitespace(s);
 	s = parse_sign(s, &sign);
@@ -116,5 +116,8 @@ void	ft_strtof_valid(const char *s, bool *has_digits)
 		s = parse_fractional_part(s + 1, &fraction, has_digits);
 	s = skip_whitespace(s);
 	if (!(*has_digits) || *s != '\0')
-		err("Error: invalid format");
+	{
+		*has_digits = false;
+		err("Error\ninvalid format");
+	}
 }

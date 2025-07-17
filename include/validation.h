@@ -5,10 +5,12 @@
 #  define MAX_NUM_TOKENS_SP 5
 #  define MAX_NUM_TOKENS_PL 5
 #  define MAX_NUM_TOKENS_CY 7
+#  define MAX_LIGHTS 10
 # else
 #  define MAX_NUM_TOKENS_SP 4
 #  define MAX_NUM_TOKENS_PL 4
 #  define MAX_NUM_TOKENS_CY 6
+#  define MAX_LIGHTS 1
 # endif
 
 # define MAX_NUM_TOKENS_C 4

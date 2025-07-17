@@ -20,5 +20,11 @@ void	init_world(t_rt *world)
 		ft_memset(&world->primitives_list[i], 0, sizeof(t_primitive));
 		i++;
 	}
+	i = 0;
+	while (i < MAX_LIGHTS)
+	{
+		ft_memset(&world->lights[i], 0, sizeof(t_light));
+		i++;
+	}
 	world->selected_primitive_index = -1;
 }

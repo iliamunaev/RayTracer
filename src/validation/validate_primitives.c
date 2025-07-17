@@ -15,13 +15,13 @@
 bool	is_validate_sphere(t_token *token)
 {
 	if (!token->token[1] || !token->token[2] || !token->token[3])
-		return (err("Error: Sphere: Missing one or more arguments"), false);
+		return (err("Error\nSphere: Missing one or more arguments"), false);
 	if (!is_vec3_unbounded(token->token[1]))
-		return (err("Error: Sphere: Invalid center vector"), false);
+		return (err("Error\nSphere: Invalid center vector"), false);
 	if (!is_float_in_range(token->token[2], 0.0f, 10000.0f))
-		return (err("Error: Sphere: Invalid diameter"), false);
+		return (err("Error\nSphere: Invalid diameter"), false);
 	if (!is_color_rgb(token->token[3]))
-		return (err("Error: Sphere: Invalid color format"), false);
+		return (err("Error\nSphere: Invalid color format"), false);
 	return (true);
 }
 
@@ -40,13 +40,13 @@ bool	is_validate_sphere(t_token *token)
 bool	is_validate_plane(t_token *token)
 {
 	if (!token->token[1] || !token->token[2] || !token->token[3])
-		return (err("Error: Plane: Missing one or more arguments"), false);
+		return (err("Error\nPlane: Missing one or more arguments"), false);
 	if (!is_vec3_unbounded(token->token[1]))
-		return (err("Error: Plane: Invalid position vector"), false);
+		return (err("Error\nPlane: Invalid position vector"), false);
 	if (!is_vec3_normalized(token->token[2]))
-		return (err("Error: Plane: Invalid normal vector"), false);
+		return (err("Error\nPlane: Invalid normal vector"), false);
 	if (!is_color_rgb(token->token[3]))
-		return (err("Error: Plane: Invalid RGB color"), false);
+		return (err("Error\nPlane: Invalid RGB color"), false);
 	return (true);
 }
 
@@ -67,16 +67,16 @@ bool	is_validate_cylinder(t_token *token)
 {
 	if (!token->token[1] || !token->token[2] || !token->token[3]
 		|| !token->token[4] || !token->token[5])
-		return (err("Error: Cylinder: Missing one or more arguments"), false);
+		return (err("Error\nCylinder: Missing one or more arguments"), false);
 	if (!is_vec3_unbounded(token->token[1]))
-		return (err("Error: Cylinder: Invalid center position"), false);
+		return (err("Error\nCylinder: Invalid center position"), false);
 	if (!is_vec3_normalized(token->token[2]))
-		return (err("Error: Cylinder: Invalid axis vector"), false);
+		return (err("Error\nCylinder: Invalid axis vector"), false);
 	if (!is_float_in_range(token->token[3], 0.0f, 10000.0f))
-		return (err("Error: Cylinder: Invalid diameter"), false);
+		return (err("Error\nCylinder: Invalid diameter"), false);
 	if (!is_float_in_range(token->token[4], 0.0f, 10000.0f))
-		return (err("Error: Cylinder: Invalid height"), false);
+		return (err("Error\nCylinder: Invalid height"), false);
 	if (!is_color_rgb(token->token[5]))
-		return (err("Error: Cylinder: Invalid color format"), false);
+		return (err("Error\nCylinder: Invalid color format"), false);
 	return (true);
 }

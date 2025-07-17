@@ -12,7 +12,7 @@ static bool	is_identifier_valid(char *id)
 {
 	if (!id || id[0] == '\0')
 	{
-		err("Error: Empty identifier");
+		err("Error\nEmpty identifier");
 		return (false);
 	}
 	return (true);
@@ -61,7 +61,7 @@ static bool	validate_primitive(char *id, t_token *tokens)
 		return (is_validate_cylinder(tokens));
 	else
 	{
-		err("Error: Unknown identifier");
+		err("Error\nUnknown identifier");
 		return (false);
 	}
 }
@@ -86,7 +86,7 @@ bool	is_line_valid(t_token *tokens)
 		return (false);
 	if (!is_max_num_tokens_valid(id, tokens))
 	{
-		err("Error: Map has too mush parameters");
+		err("Error\nMap has too many parameters");
 		return (false);
 	}
 	if (validate_cam_light(id, tokens))
