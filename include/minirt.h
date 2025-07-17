@@ -21,7 +21,7 @@
 # include "manipulation.h"
 
 # define BPP 4UL
-# define MAX_PRIMITIVES 64
+# define MAX_PRIMITIVES 200
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 # define BLUE   0
