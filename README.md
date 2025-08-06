@@ -2,6 +2,14 @@
 
 MiniRT is a simple ray tracer developed as part of the 42/School Hive curriculum. It renders 3D scenes from a `.rt` configuration file using fundamental ray tracing algorithms written in C. This project includes support for various geometric primitives, camera setup, lighting, object transformations, and real-time interaction.
 
+# Example 1
+<img src="./imgs/pic1.png" width="1200" alt="pic1.png" />
+
+--- 
+
+# Example 2
+<img src="./imgs/pic2.png" width="1200" alt="pic2.png" />
+
 ## Features
 
 * Ray tracing engine written in C
